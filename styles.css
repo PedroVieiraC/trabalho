@@ -1,0 +1,99 @@
+html{
+  background-color: #e8eddf;
+}
+body {
+  padding-top: 56px;
+  background-color: #e8eddf;
+}
+
+.navbar{
+  background-color: #311847;
+  padding: 18px !important;
+  border: 2px solid black;
+}
+.navbar-nav .nav-link {
+    color: #e8eddf;
+  }
+
+  .container {
+    border: 2px solid black;
+    height: 100vh;
+    max-width: 100% !important;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #e8eddf;
+
+
+  }
+
+  .containercon {
+    border: 2px solid black;
+    height: 100vh;
+    max-width: 100% !important;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #466060;
+  }
+
+  .card {
+    border: 1px solid blue;
+    /* Adiciona uma borda azul sólida aos cards */
+  }
+
+  .telaentrada {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80');  
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.balao {
+
+  border: 2px solid black;
+  border-radius: 15px;
+  height: 50%;
+  width: 90%;
+  display: flex;
+
+  padding: 0%;
+  margin: 0%;
+
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+  color: white;
+}
+
+.balaotopo{
+  padding: 0;
+  margin: 0;
+  height: 33%;
+  width: 101%;
+}
+
+.balaomeio{
+  padding: 0;
+  margin: 0;
+  border: 2px solid black;
+  height: 34%;
+  width: 101%;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+}
+
+.balaobaixo{
+  padding: 0;
+  margin: 0;
+  height: 33%;
+  width: 101%;
+}
