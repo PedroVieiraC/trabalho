@@ -1,0 +1,6 @@
+  .navbar-nav .nav-link {
+    color: #000000 !important; /* Cor preta forte */
+  }
+  .navbar-brand {
+    color: #000000 !important; /* Garantir que o nome da marca também seja preto */
+  }
