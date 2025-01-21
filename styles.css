@@ -138,4 +138,11 @@ h2 {
   background-repeat: no-repeat;
   background-size: cover;
 }
-``
+
+.section-title {
+  font-size: 1.5rem; /* Diminui o tamanho do texto */
+  margin: 0 auto; /* Centraliza o título */
+  border: 2px solid black;
+  padding: 10px; /* Adiciona espaçamento interno */
+  width: fit-content; /* Ajusta a largura para caber no conteúdo */
+}
