@@ -21,27 +21,7 @@ body {
   background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
-.container {
-  border: 2px solid black;
-  height: 100vh;
-  max-width: 100% !important;
-  background-color: #e8eddf;
-}
-
-.containercon {
-  border: 2px solid black;
-  height: 100vh;
-  max-width: 100% !important;
-  padding-left: 0;
-  padding-right: 0;
-  background-color: #466060;
-}
-
-.card {
-  border: 1px solid blue;
-  /* Adiciona uma borda azul sólida aos cards */
-}
-.novat{
+.inicial{
   border: 2px solid black;
   height: 100vh;
   width: 100%; /* Garante que ocupe 100% da largura do container */
@@ -67,7 +47,6 @@ body {
 
   overflow:hidden;
 }
-
 
 .titulo{
   margin-top: 70px;
@@ -99,6 +78,56 @@ body {
   background-color: #311847;
   border-radius: 15px;
   border: 3px solid black;
+}
 
 
+.equipamentos {
+  border: 2px solid black;
+  height: 100vh;
+  max-width: 100% !important;
+
+  background-color: #e3eeeb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  overflow: scroll;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.card{
+  margin: 5px;
+  padding: 3px;
+
+}
+
+.containeraqua {
+  border: 2px solid black;
+  height: 100vh;
+  max-width: 100% !important;
+  background-color: #e3eeeb;
+}
+
+.containerlima {
+  border: 2px solid black;
+  height: 100vh;
+  max-width: 100% !important;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #ebf3dd;
+}
+
+.card-img-top{
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
