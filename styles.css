@@ -21,19 +21,22 @@ body {
   background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
-.inicial{
+.inicial {
   border: 2px solid black;
-  height: 100vh;
-  width: 100%; /* Garante que ocupe 100% da largura do container */
-  max-width: 100% !important;
+
+  min-width: 100vw;
+  min-height: 100vh;
 
   background-color: #e8eddf;
-  
+
   top: 0;
   left: 0;
-  margin: 0; /* Remove qualquer margem padrão */
-  padding: 0; /* Remove qualquer padding padrão */
-  box-sizing: border-box; /* Garante que largura/altura inclua bordas e padding */
+  margin: 0;
+  /* Remove qualquer margem padrão */
+  padding: 80px;
+  /* Remove qualquer padding padrão */
+  box-sizing: border-box;
+  /* Garante que largura/altura inclua bordas e padding */
 
   display: flex;
   align-items: center;
@@ -45,32 +48,42 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 
-  overflow:hidden;
+  overflow: hidden;
 }
 
-.titulo{
+.titulo {
+  line-height: 1.2;
+  text-align: center;
+  white-space: pre-line;
+
   margin-top: 70px;
-  padding: 15px;
+
   font-family: 'Playfair Display', serif;
   font-size: 70px;
-  color:white;
+  color: white;
 }
 
-.subtitulo{
-  margin-top: 70px;
+.subtitulo {
+  line-height: 1.2;
+  text-align: center;
+  white-space: pre-line;
+  
+  padding: 55px;
+
+  font-size: 23px;
   font-family: 'Playfair Display', serif;
-  font-size:25px;
-  color:white;
+  color: white;
+
 }
 
-.beq{
+.beq {
   margin: 130px;
-  color:white;
+  color: white;
   text-decoration: none;
 
   font-family: 'Playfair Display', serif;
-  font-size:25px;
-  
+  font-size: 25px;
+
   padding: 15px;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -83,16 +96,16 @@ body {
 
 .equipamentos {
   border: 2px solid black;
-  height: 100vh;
-  max-width: 100% !important;
+  min-width: 100vw;
+  min-height: 100vh;
+
 
   background-color: #e3eeeb;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  overflow: scroll;
+
 }
 
 h2 {
@@ -103,7 +116,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-.card{
+.card {
   margin: 5px;
   padding: 3px;
 
@@ -125,7 +138,7 @@ h2 {
   background-color: #ebf3dd;
 }
 
-.card-img-top{
+.card-img-top {
   background-color: #cccccc;
   background-position: center;
   background-repeat: no-repeat;
