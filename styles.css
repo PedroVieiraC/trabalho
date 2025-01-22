@@ -151,11 +151,20 @@ h2 {
   border: 2px solid black;
   width: 100%; /* Ajustado para evitar scroll */
   min-height: 100vh;
-  background-color: #e3eeeb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.alugueis{
+  border: 2px solid black;
+  width: 100%; /* Ajustado para evitar scroll */
+  min-height: 100vh;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: white;
+  background-color: #e3eeeb;
 }

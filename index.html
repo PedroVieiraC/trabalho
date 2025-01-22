@@ -253,10 +253,147 @@
 
 
 
-  <div class="containerlima border-black">
-    <div id="alugueis" class="alugueis">
+  <div id="alugueis" class="alugueis">
+    <!-- Rental History Section -->
+    <section class="py-5 mt-5">
+      <div class="container">
+        <div class="section-title-wrapper mb-5">
+          <h2 class="section-title text-center fw-bold">Meus Aluguéis</h2>
+        </div>
 
-    </div>
+        <!-- Filters -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <label class="form-label">Data</label>
+                <input type="date" class="form-control">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Status</label>
+                <select class="form-select">
+                  <option value="">Todos</option>
+                  <option value="active">Em andamento</option>
+                  <option value="completed">Finalizado</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Categoria</label>
+                <select class="form-select">
+                  <option value="">Todas</option>
+                  <option value="heavy">Máquinas Pesadas</option>
+                  <option value="tools">Ferramentas</option>
+                  <option value="vehicles">Veículos</option>
+                </select>
+              </div>
+              <div class="col-md-3 d-flex align-items-end">
+                <button class="btn btn-primary w-100">Filtrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rental Items -->
+        <div class="card shadow-sm">
+          <div class="card-body p-0">
+            <!-- Rental Item -->
+            <div class="p-4 border-bottom">
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <img
+                    src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=100&q=80"
+                    alt="Retroescavadeira" class="rounded" style="width: 100%; height: 80px; object-fit: cover;">
+                </div>
+                <div class="col-md-4">
+                  <h5 class="mb-1">Retroescavadeira CAT 416</h5>
+                  <p class="text-muted mb-0">Máquinas Pesadas</p>
+                </div>
+                <div class="col-md-2">
+                  <small class="text-muted d-block">Data do Aluguel</small>
+                  <span>15/03/2024</span>
+                </div>
+                <div class="col-md-2">
+                  <small class="text-muted d-block">Valor</small>
+                  <span>R$ 850,00</span>
+                </div>
+                <div class="col-md-2">
+                  <span class="badge bg-success">Em andamento</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rental Item -->
+            <div class="p-4 border-bottom">
+              <div class="row align-items-center">
+
+                <div class="col-md-2">
+                  <img
+                    src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=100&q=80"
+                    alt="Compressor" class="rounded" style="width: 100%; height: 80px; object-fit: cover;">
+                </div>
+                <div class="col-md-4">
+                  <h5 class="mb-1">Betoneira 400L</h5>
+                  <p class="text-muted mb-0">Ferramentas</p>
+                </div>
+                <div class="col-md-2">
+                  <small class="text-muted d-block">Data do Aluguel</small>
+                  <span>10/03/2024</span>
+                </div>
+                <div class="col-md-2">
+                  <small class="text-muted d-block">Valor</small>
+                  <span>R$ 240,00</span>
+                </div>
+                <div class="col-md-2">
+                  <span class="badge bg-secondary">Finalizado</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rental Item -->
+            <div class="p-4">
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <img
+                    src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=100&q=80"
+                    alt="Compressor" class="rounded" style="width: 100%; height: 80px; object-fit: cover;">
+                </div>
+                <div class="col-md-4">
+                  <h5 class="mb-1">Compressor de Ar 100L</h5>
+                  <p class="text-muted mb-0">Ferramentas</p>
+                </div>
+                <div class="col-md-2">
+                  <small class="text-muted d-block">Data do Aluguel</small>
+                  <span>05/03/2024</span>
+                </div>
+                <div class="col-md-2">
+                  <small class="text-muted d-block">Valor</small>
+                  <span>R$ 180,00</span>
+                </div>
+                <div class="col-md-2">
+                  <span class="badge bg-secondary">Finalizado</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <nav class="mt-4">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Anterior</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Próxima</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+
   </div>
 
 
