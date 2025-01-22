@@ -146,3 +146,14 @@ h2 {
   padding: 10px; /* Adiciona espaçamento interno */
   width: fit-content; /* Ajusta a largura para caber no conteúdo */
 }
+
+.carrinho{
+  border: 2px solid black;
+  width: 100%; /* Ajustado para evitar scroll */
+  min-height: 100vh;
+  background-color: #e3eeeb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
