@@ -4,15 +4,14 @@
   box-sizing: border-box;
 }
 
-html {
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* Remove o scroll horizontal */
   background-color: #e8eddf;
-  overflow-x: hidden; /* Remove scroll horizontal */
 }
 
 body {
   padding-top: 56px;
-  background-color: #e8eddf;
-  overflow-x: hidden; /* Garante que o body também não tenha scroll horizontal */
 }
 
 .navbar {
@@ -30,48 +29,39 @@ body {
 }
 
 .inicial {
-  border: 2px solid black;
-
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
-  width: 100%; /* Ajustado para evitar scroll */
-  min-height: calc(100vh - 56px); /* Subtraindo o padding-top do body */
-  padding: 40px;
+  width: 100%; /* Garante que ocupa toda a largura disponível */
+  min-height: calc(100vh - 56px);
+  padding: 50px;
   box-sizing: border-box;
 
   background-color: #e8eddf;
-
   background-image: linear-gradient(rgba(0, 0, 0, 0.79), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80');
-  background-color: #cccccc;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 
-  overflow: hidden;
+  text-align: center; /* Centraliza o texto */
 }
 
 .titulo {
-  line-height: 1.2;
-  text-align: center;
-
-  margin-top: 70px;
-
   font-family: 'Playfair Display', serif;
-  font-size: 70px;
+  font-size: 60px;
   color: white;
+  margin-top: 70px;
+  line-height: 1.2;
 }
 
 .subtitulo {
-  line-height: 1.2;
-  text-align: center;
-
-  margin-top: 25px;
-
-  font-size: 23px;
   font-family: 'Playfair Display', serif;
+  font-size: 19px;
   color: white;
+  margin-top: 25px;
+  line-height: 1.2;
 }
 
 .beq {
@@ -81,90 +71,7 @@ body {
   font-family: 'Playfair Display', serif;
   font-size: 25px;
 
-  padding: 15px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-
+  padding: 15px 30px;
   margin-top: 30px;
 
-  background-color: #311847;
-  border-radius: 15px;
-  border: 3px solid black;
-}
-
-.equipamentos {
-  border: 2px solid black;
-  width: 100%; /* Ajustado para evitar scroll */
-  min-height: 100vh;
-  background-color: #e3eeeb;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-h2 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #333;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.card {
-  margin: 5px;
-  padding: 3px;
-}
-
-.containeraqua {
-  border: 2px solid black;
-  height: 100vh;
-  width: 100%; /* Ajustado para evitar scroll */
-  background-color: #e3eeeb;
-}
-
-.containerlima {
-  border: 2px solid black;
-  height: 100vh;
-  width: 100%; /* Ajustado para evitar scroll */
-  padding-left: 0;
-  padding-right: 0;
-  background-color: #ebf3dd;
-}
-
-.card-img-top {
-  background-color: #cccccc;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.section-title {
-  font-size: 1.5rem; /* Diminui o tamanho do texto */
-  margin: 0 auto; /* Centraliza o título */
-  border: 2px solid black;
-  padding: 10px; /* Adiciona espaçamento interno */
-  width: fit-content; /* Ajusta a largura para caber no conteúdo */
-}
-
-.carrinho{
-  border: 2px solid black;
-  width: 100%; /* Ajustado para evitar scroll */
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-}
-
-.alugueis{
-  border: 2px solid black;
-  width: 100%; /* Ajustado para evitar scroll */
-  min-height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: #e3eeeb;
 }
