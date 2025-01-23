@@ -37,7 +37,6 @@ body {
   align-items: center;
 
   width: 100%; /* Ajustado para evitar scroll */
-  min-height: calc(100vh - 56px); /* Subtraindo o padding-top do body */
   padding: 40px;
   box-sizing: border-box;
 
