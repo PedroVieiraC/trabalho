@@ -105,14 +105,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-
-.card-img-top {
-  background-color: #cccccc;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .section-title {
   font-size: 1.5rem; /* Diminui o tamanho do texto */
   margin: 0 auto; /* Centraliza o título */
@@ -123,17 +115,14 @@ h1 {
 
 .carrinho{
   border: 2px solid black;
-  width: 100%; /* Ajustado para evitar scroll */
+  width: 100%;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: white;
 }
 
 .alugueis{
   border: 2px solid black;
-  width: 100%; /* Ajustado para evitar scroll */
+  width: 100%;
   min-height: 100vh;
 
   display: flex;
