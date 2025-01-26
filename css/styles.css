@@ -70,22 +70,6 @@ body {
   color: white;
 }
 
-/* Media Queries para telas menores */
-@media (max-width: 300px) {
-  .h1titulo {
-    font-size: 15px; /* Reduzir tamanho do título */
-  }
-
-  .subtitulo {
-    font-size: 18px; /* Reduzir tamanho do subtítulo */
-  }
-
-  .beq {
-    font-size: 20px; /* Reduzir tamanho do botão */
-    padding: 10px;
-  }
-}
-
 .beq {
   color: white;
   text-decoration: none;
@@ -204,8 +188,18 @@ h2 {
   }
 
   .beq {
-    font-size: 5vw; /* Tamanho do botão proporcional a telas menores */
-    padding: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5vw;
+  
+    padding: 8px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  
+    margin-top: 30px;
+  
+    background-color: #311847;
+    border-radius: 15px;
+    border: 3px solid black;
   }
 }
 
@@ -220,7 +214,17 @@ h2 {
   }
 
   .beq {
-    font-size: 5vw; /* Tamanho do botão proporcional a telas menores */
-    padding: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5vw;
+  
+    padding: 8px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  
+    margin-top: 30px;
+  
+    background-color: #311847;
+    border-radius: 15px;
+    border: 3px solid black;
   }
 }
