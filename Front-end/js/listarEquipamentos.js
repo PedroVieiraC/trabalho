@@ -1,29 +1,38 @@
-import {Client} from 'pg';
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 async function getEquipamentos() {
-
-  const client = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'trabalho',
-    password: '7384',
-    port: 5432,
-  });
-    
-  await client.connect();
-  
-  const eqp = await client.query('select * from equipamentos');
-  
-  console.log(eqp);
-  
-  await client.end();
+  try {
+    const response = await fetch('http://localhost:3000/teste');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const eqp = await response.json();
+    console.log(eqp);
+  } catch (error) {
+    console.error('Erro ao buscar os dados:', error);
+  }
 }
+
+
+/* function getEquipamentos() {
+  fetch("http://localhost:3000/teste")
+  .then(r =>  r.json().then(data ))
+  .then(obj => console.log(obj));
+}
+ */
 
 getEquipamentos();
 
 // Capturar elementos do DOM
 const searchForm = document.getElementById("searchForm");
 const searchInput = document.getElementById("searchInput");
+
+const myList = document.querySelector("ul");
+const myRequest = new Request("products.json");
 
