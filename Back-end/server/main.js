@@ -18,7 +18,7 @@ const con = new Client({
 
 con.connect().then(() => console.log("connected"));
 
-app.post('/postData', (req, res) => {
+/*app.post('/postData', (req, res) => {
 
   const { name, id } = req.body;
 
@@ -33,9 +33,9 @@ app.post('/postData', (req, res) => {
       res.send("INFORMACAO COLOCADA")
     }
   });
-});
+});*/
 
-app.get('/teste', (req, res) => {
+app.get('/equipamentos', (req, res) => {
   const insert_query = 'Select * from teste';
 
   con.query(insert_query, (err, result) => {
