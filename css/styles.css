@@ -4,25 +4,13 @@
   box-sizing: border-box;
 }
 
-html {
-  background-color: #e8eddf;
-  overflow-x: hidden; /* Remove scroll horizontal */
-}
-
 body {
-  padding-top: 56px;
-  background-color: #e8eddf;
-  overflow-x: hidden; /* Garante que o body também não tenha scroll horizontal */
+  padding-top: 56px; /*navbar size*/
 }
 
 .navbar {
   background-color: #311847;
-  padding: 18px !important;
   border: 2px solid black;
-}
-
-.navbar-nav .nav-link {
-  color: #e8eddf;
 }
 
 .navbar-toggler-icon {
