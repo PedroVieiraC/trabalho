@@ -13,4 +13,24 @@ insert into equipamentos values (3,082336665000180, 'Martelos', 'Martelho de unh
 insert into equipamentos values (4,08236665000180,'Aindaime 4 unidades','1,00 x 1,50m',20.00,'https://img.freepik.com/fotos-gratis/bela-foto-de-barras-de-aco-de-metal-no-predio_181624-26081.jpg?t=st=1737938576~exp=1737942176~hmac=483c79d75ad5ffb3077bea3cf0adf4881a812762046314e309a3d1f551eb944b&w=900');
 insert into equipamentos values (5,0826665000180,'Lixadeira','Esmerilhadeira 115mm 880w',10.00,'https://img.freepik.com/fotos-gratis/homem-trabalhando-com-um-moedor-angular-com-brilhos-dele_181624-29243.jpg?t=st=1737938682~exp=1737942282~hmac=8f06b0349796131fbc9975ad0190379dd9ae65aeaca5d2eb19b975beb6665c04&w=900');
 
+
 drop table equipamentos;
+
+
+SELECT * FROM equipamentos;
+
+DROP TABLE IF EXISTS alugueisativos;
+DROP TABLE IF EXISTS clientescadastrados;
+DROP TABLE IF EXISTS estoque;
+DROP TABLE IF EXISTS fornecedores;
+DROP TABLE IF EXISTS registrodealugueis;
+DROP TABLE IF EXISTS seguros;
+DROP TABLE IF EXISTS equipamentos;
+
+
+SELECT * FROM alugueisativos;
+SELECT * FROM clientescadastrados;
+SELECT * FROM estoque;
+SELECT * FROM fornecedores;
+SELECT * FROM registrodealugueis;
+SELECT * FROM seguros;
