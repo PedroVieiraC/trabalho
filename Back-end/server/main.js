@@ -50,4 +50,50 @@ app.get('/equipamentos', (req, res) => {
   });
 });
 
+app.get('/clientescadastrados', (req, res) => {
+  
+  const insert_query = 'Select * from clientescadastrados';
+
+  con.query(insert_query, (err, result) => {
+    if (err) {
+      res.send(err);
+
+    } else {
+      console.log(result);
+      res.send(result.rows);
+    }
+  });
+});
+
+app.get('/alugueisativos', (req, res) => {
+  
+  const insert_query = 'Select * from alugueisativos';
+
+  con.query(insert_query, (err, result) => {
+    if (err) {
+      res.send(err);
+
+    } else {
+      console.log(result);
+      res.send(result.rows);
+    }
+  });
+});
+
+app.get('/registrodealugueis', (req, res) => {
+  
+  const insert_query = 'Select * from registrodealugueis';
+
+  con.query(insert_query, (err, result) => {
+    if (err) {
+      res.send(err);
+
+    } else {
+      console.log(result);
+      res.send(result.rows);
+    }
+  });
+});
+
+
 app.listen(3000, () => { console.log("Server ligado") });
