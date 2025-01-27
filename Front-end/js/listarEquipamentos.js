@@ -41,5 +41,6 @@ function gerarCards(dados) {
   });
 }
 
+
 // Chama a função para buscar os equipamentos e gerar os cards
 getEquipamentos();

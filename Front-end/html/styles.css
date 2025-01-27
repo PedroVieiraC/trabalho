@@ -113,11 +113,13 @@ h1 {
   width: fit-content; /* Ajusta a largura para caber no conteúdo */
 }
 
-.carrinho{
+.carrinho {
   border: 2px solid black;
   width: 100%;
   min-height: 100vh;
   background-color: white;
+  box-sizing: border-box; /* Inclui bordas e padding no cálculo da largura */
+  padding: 0; /* Garantir que não há preenchimento extra */
 }
 
 .alugueis{
