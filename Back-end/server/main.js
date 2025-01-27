@@ -36,7 +36,8 @@ con.connect().then(() => console.log("connected"));
 });*/
 
 app.get('/equipamentos', (req, res) => {
-  const insert_query = 'Select * from teste';
+  
+  const insert_query = 'Select * from equipamentos';
 
   con.query(insert_query, (err, result) => {
     if (err) {
