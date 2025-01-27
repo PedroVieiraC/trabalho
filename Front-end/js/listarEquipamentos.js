@@ -17,7 +17,6 @@ async function getEquipamentos() {
 // Seleciona o container onde os cards serão inseridos
 const container = document.querySelector('.cardG');
 
-
 // Função para gerar os cards dinamicamente
 function gerarCards(dados) {
   dados.forEach(equipamento => {
@@ -33,14 +32,25 @@ function gerarCards(dados) {
           <p class="card-text">${equipamento.descricao}</p>
           <span class="badge bg-primary mb-2">Valor da diária</span>
           <h4 class="text-primary fw-bold">R$${parseFloat(equipamento.valordiaria).toFixed(2)}</h4>
-          <a href="#" class="btn btn-warning text-white fw-bold mt-auto btn-alugar">Alugar Agora</a>
+          <a href="#" class="btn btn-warning text-white fw-bold mt-auto btn-alugar" 
+             data-id="${equipamento.id}" 
+             data-nome="${equipamento.nome}" 
+             data-valordiaria="${equipamento.valordiaria}" 
+             data-imagem="${equipamento.url_imagem}">
+             Alugar Agora
+          </a>
         </div>
       </div>
     `;
     container.innerHTML += cardHTML; // Adiciona o card no container
   });
-}
 
+  // Adiciona evento de clique para cada botão "Alugar Agora"
+  const botoesAlugar = document.querySelectorAll('.btn-alugar');
+  botoesAlugar.forEach(botao => {
+    botao.addEventListener('click', adicionarAoCarrinho);
+  });
+}
 
 // Chama a função para buscar os equipamentos e gerar os cards
 getEquipamentos();
