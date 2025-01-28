@@ -1,8 +1,13 @@
 const express = require('express');
-const { getEquipamentos } = require('../controllers/equipamentosController');
 
 const router = express.Router();
 
-router.get('/', getEquipamentos);
+const eventoController = require('../controllers/equipamentosController');
+
+
+router.get('/', equipamentosController.getall);
+//router.post('/', addEquipamento);
+//router.put('/', updateEquipamento);
+//router.delete('/', deleteEquipamento);
 
 module.exports = router;
