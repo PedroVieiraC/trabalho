@@ -1,21 +1,19 @@
 CREATE TABLE equipamentos (
   id INT PRIMARY KEY,
-  cnpjfornecedor VARCHAR(14) NOT NULL,
   nome VARCHAR(100) NOT NULL,
+  cnpjfornecedor VARCHAR(14) NOT NULL,
   descricao TEXT NOT NULL,
   valordiaria DECIMAL(10, 2) NOT NULL,
-  url_imagem VARCHAR(255) -- Nova coluna para armazenar o URL da imagem
+  url_imagem VARCHAR(1000) -- Nova coluna para armazenar o URL da imagem
 );
 
-insert into equipamentos values (1,0823666000180, 'Betoneira','400 litros, 220v', 60.00, 'https://img.freepik.com/fotos-premium/maquinaria-industrial-do-misturador-de-cimento-no-canteiro-de-obras_56854-3133.jpg?w=900');
-insert into equipamentos values (2,08236660000180, 'Kit EPI','Capacete, luvas, botina 40, oculos protetor', 8.00,'https://img.freepik.com/fotos-gratis/luvas-de-seguranca-de-construcao-plana-e-mascara-medica_23-2148784095.jpg?t=st=1737938300~exp=1737941900~hmac=357eb96254e3720f4e3b49d82a104bf633ccacb9b20349cc74d38c3d208462cc&w=740'); 
-insert into equipamentos values (3,082336665000180, 'Martelos', 'Martelho de unha, martelo chapeador e martelo pena',7.00,'https://img.freepik.com/fotos-gratis/martelos-de-construcao-ainda-vida_23-2150563178.jpg?t=st=1737938350~exp=1737941950~hmac=67887079eccdd68d2d79bc20480771b11d7ce854da85dbd562805790b66bc617&w=740');
-insert into equipamentos values (4,08236665000180,'Aindaime 4 unidades','1,00 x 1,50m',20.00,'https://img.freepik.com/fotos-gratis/bela-foto-de-barras-de-aco-de-metal-no-predio_181624-26081.jpg?t=st=1737938576~exp=1737942176~hmac=483c79d75ad5ffb3077bea3cf0adf4881a812762046314e309a3d1f551eb944b&w=900');
-insert into equipamentos values (5,0826665000180,'Lixadeira','Esmerilhadeira 115mm 880w',10.00,'https://img.freepik.com/fotos-gratis/homem-trabalhando-com-um-moedor-angular-com-brilhos-dele_181624-29243.jpg?t=st=1737938682~exp=1737942282~hmac=8f06b0349796131fbc9975ad0190379dd9ae65aeaca5d2eb19b975beb6665c04&w=900');
-
+INSERT INTO equipamentos VALUES(1, 'Betoneira', '0823666000180', '400 litros, 220v', 60.00, 'https://img.freepik.com/fotos-premium/maquinaria-industrial-do-misturador-de-cimento-no-canteiro-de-obras_56854-3133.jpg?w=900');
+INSERT INTO equipamentos VALUES(2, 'Kit EPI', '08236660000180', 'Capacete, luvas, botina 40, oculos protetor', 8.00, 'https://img.freepik.com/fotos-gratis/luvas-de-seguranca-de-construcao-plana-e-mascara-medica_23-2148784095.jpg?t=st=1737938300~exp=1737941900~hmac=357eb96254e3720f4e3b49d82a104bf633ccacb9b20349cc74d38c3d208462cc&w=740');
+INSERT INTO equipamentos VALUES(3, 'Martelos', '08233665000180', 'Martelo de unha, martelo chapeador e martelo pena', 7.00, 'https://img.freepik.com/fotos-gratis/martelos-de-construcao-ainda-vida_23-2150563178.jpg?t=st=1737938350~exp=1737941950~hmac=67887079eccdd68d2d79bc20480771b11d7ce854da85dbd562805790b66bc617&w=740');
+INSERT INTO equipamentos VALUES(4, 'Aindaime 4 unidades', '08236665000180', '1,00 x 1,50m', 20.00, 'https://img.freepik.com/fotos-gratis/bela-foto-de-barras-de-aco-de-metal-no-predio_181624-26081.jpg?t=st=1737938576~exp=1737942176~hmac=483c79d75ad5ffb3077bea3cf0adf4881a812762046314e309a3d1f551eb944b&w=900');
+INSERT INTO equipamentos VALUES (5, 'Lixadeira', '0826665000180', 'Esmerilhadeira 115mm 880w', 10.00, 'https://img.freepik.com/fotos-gratis/homem-trabalhando-com-um-moedor-angular-com-brilhos-dele_181624-29243.jpg?t=st=1737938682~exp=1737942282~hmac=8f06b0349796131fbc9975ad0190379dd9ae65aeaca5d2eb19b975beb6665c04&w=900');
 
 drop table equipamentos;
-
 
 SELECT * FROM equipamentos;
 
