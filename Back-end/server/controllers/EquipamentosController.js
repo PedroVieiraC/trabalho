@@ -1,15 +1,18 @@
-const equipamentoService = require('../services/EquipamentosService.js');
+const equipamentoService = require('../services/EquipamentosService');
 
-class equipamentosController {
-  getAll(req, res) {
-    equipamentoService.getAll((error, result) => {
-      if (error) {
-        res.status(500).send(error);
-      }
-      else { res.send(results) }
-    });
-  }
+class EquipamentosController {
+    getAll(req, res) {
+        equipamentoService.getAll((error, results) => {
+            if (error) {
+                res.status(500).send(error);
+            } else {
+                res.send(results);
+            }
+        });
+    }
 }
+// Exporta uma instância da classe
+module.exports = new EquipamentosController();
 
 /*const con = require('../config/db');
 

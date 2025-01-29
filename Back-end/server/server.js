@@ -1,19 +1,22 @@
 const express = require('express');
 const cors = require('cors');
 
+
 const app = express();
 
-const indexRoutes = require('./routes/index'); // Caminho correto para o arquivo de rotas
+// Configuração do CORS
+app.use(cors()); // Permite todas as origens
 
-// Middleware para interpretar requisições com body JSON
+// Middleware para interpretar JSON
 app.use(express.json());
 
-// Usar as rotas gerais
-app.use('/', indexRoutes);
+// Importa e usa as rotas
+const routes = require('./routes');
+app.use('/', routes);
 
-
-// Iniciar o servidor
+// Inicia o servidor
 const port = 3000;
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
