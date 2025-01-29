@@ -18,13 +18,22 @@
                     <span class="fw-bold">RitterConstruct</span>
                 </a>
             </div>
+            <div class="navbar d-flex">
+                <div class="d-flex">
+                    <button class="btn btn-light border-black border-2 me-2" type="button"
+                        onclick="window.location.href='../index.html'">Voltar</button>
+                </div>
+            </div>
         </nav>
+
     </header>
 
-    <!-- Registration Form -->
-    <div class="container py-5 mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-7">
+
+
+    <div class="container mt-5">
+        <div class="row g-4">
+            <!-- Formulário de criação -->
+            <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body p-4 p-md-5">
                         <div class="text-center mb-4">
@@ -65,7 +74,8 @@
                             <!-- Valor da diária -->
                             <div class="mb-4">
                                 <label for="valorDiariaEquipamento" class="form-label">Valor da diária (R$)</label>
-                                <input type="number" step="0.01" class="form-control" id="valorDiariaEquipamento" required>
+                                <input type="number" step="0.01" class="form-control" id="valorDiariaEquipamento"
+                                    required>
                             </div>
 
                             <!-- URL da Imagem -->
@@ -75,12 +85,77 @@
                             </div>
 
                             <!-- Botões de ação -->
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary w-50 me-2">
                                     Salvar
                                 </button>
-                                <button type="button" class="btn btn-secondary w-50" onclick="window.location.href='index.html'">
-                                    Voltar
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário de atualização -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold mb-1">Atualizar equipamento</h2>
+                            <p class="text-muted">Preencha os dados do equipamento</p>
+                        </div>
+
+                        <!-- Formulário de atualização -->
+                        <form id="updateEquipamentoForm" class="needs-validation" novalidate>
+                            <!-- ID Equipamento -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="updateIdEquipamento" class="form-label">ID Equipamento</label>
+                                    <input type="text" class="form-control" id="updateIdEquipamento" required>
+                                </div>
+                                <!-- CNPJ Fornecedor -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="updateCnpjFornecedor" class="form-label">CNPJ do Fornecedor</label>
+                                    <input type="text" class="form-control" id="updateCnpjFornecedor" required>
+                                </div>
+                            </div>
+
+                            <!-- Nome do equipamento -->
+                            <div class="mb-4">
+                                <label for="updateNomeEquipamento" class="form-label">Nome do Equipamento</label>
+                                <input type="text" class="form-control" id="updateNomeEquipamento" required
+                                    minlength="3">
+                                <div class="invalid-feedback">
+                                    Por favor, insira o nome do equipamento.
+                                </div>
+                            </div>
+
+                            <!-- Descrição -->
+                            <div class="mb-4">
+                                <label for="updateDescricaoEquipamento" class="form-label">Descrição</label>
+                                <textarea class="form-control mb-3" id="updateDescricaoEquipamento" rows="2"></textarea>
+                            </div>
+
+                            <!-- Valor da diária -->
+                            <div class="mb-4">
+                                <label for="updateValorDiariaEquipamento" class="form-label">Valor da diária
+                                    (R$)</label>
+                                <input type="number" step="0.01" class="form-control" id="updateValorDiariaEquipamento"
+                                    required>
+                            </div>
+
+                            <!-- URL da Imagem -->
+                            <div class="mb-4">
+                                <label for="updateUrlImagemEquipamento" class="form-label">URL da Imagem</label>
+                                <textarea class="form-control mb-3" id="updateUrlImagemEquipamento" rows="2"></textarea>
+                            </div>
+
+                            <!-- Botões de ação -->
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary w-50 me-2">
+                                    Atualizar
+                                </button>
+                                <button type="button" class="btn btn-secondary w-50" onclick="">
+                                    deletar
                                 </button>
                             </div>
                         </form>
