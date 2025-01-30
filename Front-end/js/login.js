@@ -7,7 +7,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     // Verifica se o login é admin
     if (email === "admin" && password === "admin") {
-        window.location.href = "../html/admin.html"; // Redireciona para a tela de admin
+        window.location.href = "../html/Admin.html"; // Redireciona para a tela de admin
     }
 
 });
