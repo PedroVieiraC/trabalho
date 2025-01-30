@@ -1,8 +1,8 @@
 const db = require('../config/db');
 
-class EquipamentosRepository {
+class EquipamentoRepository {
     getAll(callback) {
-        const sql = 'SELECT * FROM equipamentos';
+        const sql = 'SELECT * FROM EQUIPAMENTO';
         db.query(sql, (error, result) => {
             if (error) {
                 callback(error, null);
@@ -13,7 +13,7 @@ class EquipamentosRepository {
     }
 
     get(id, callback) {
-        const sql = 'SELECT * FROM equipamentos WHERE id = $1';
+        const sql = 'SELECT * FROM EQUIPAMENTO WHERE id = $1';
         db.query(sql, [id], (error, result) => {
             if (error) {
                 callback(error, null);
@@ -25,4 +25,4 @@ class EquipamentosRepository {
 }
 
 // Exporta uma instância da classe
-module.exports = new EquipamentosRepository();
+module.exports = new EquipamentoRepository();

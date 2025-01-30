@@ -1,6 +1,6 @@
-const equipamentoRepository = require('../repositories/EquipamentosRepository');
+const equipamentoRepository = require('../repositories/EquipamentoRepository');
 
-class EquipamentosService {
+class EquipamentoService {
     getAll(callback) {
         equipamentoRepository.getAll(callback);
     }
@@ -11,4 +11,4 @@ class EquipamentosService {
 }
 
 // Exporta uma instância da classe
-module.exports = new EquipamentosService();
+module.exports = new EquipamentoService();

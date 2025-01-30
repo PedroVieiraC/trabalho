@@ -1,6 +1,6 @@
-const equipamentoService = require('../services/EquipamentosService.js');
+const equipamentoService = require('../services/EquipamentoService.js');
 
-class EquipamentosController {
+class EquipamentoController {
   getAll(req, res) {
     equipamentoService.getAll((error, results) => {
       if (error) {
@@ -24,4 +24,4 @@ class EquipamentosController {
 }
 
 // Exportar uma instância da classe
-module.exports = new EquipamentosController();
+module.exports = new EquipamentoController();

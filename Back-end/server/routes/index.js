@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const equipamentosRouter = require('./equipamentosRoute');
+const equipamentosRouter = require('./EquipamentoRoute');
 
-router.use('/equipamentos', equipamentosRouter);
+router.use('/equipamento', equipamentosRouter);
 
 module.exports = router;
