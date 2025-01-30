@@ -35,21 +35,16 @@
                             <h2 class="fw-bold mb-1">Bem-vindo de volta</h2>
                             <p class="text-muted">Entre com suas credenciais para continuar</p>
                         </div>
-
                         <form id="loginForm" class="needs-validation" novalidate target="_blank">
                             <!-- Email -->
                             <div class="mb-4">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
-                                <div class="invalid-feedback">
-                                    Por favor, insira um email válido.
-                                </div>
+                                <input type="email" class="form-control" id="email" >
                             </div>
-
                             <!-- Password -->
                             <div class="mb-4">
                                 <label for="password" class="form-label">Senha</label>
-                                <input type="password" class="form-control" id="password" required minlength="6">
+                                <input type="password" class="form-control" id="password" required minlength="4">
                                 <div class="invalid-feedback">
                                     A senha deve ter pelo menos 6 caracteres.
                                 </div>
@@ -90,15 +85,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Form validation
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            if (!this.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            this.classList.add('was-validated');
-        });
-    </script>
+    <script src="../js/login.js"></script>
+
 </body>
 </html>

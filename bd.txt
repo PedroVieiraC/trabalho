@@ -13,27 +13,18 @@ INSERT INTO equipamentos VALUES(3, 'Martelos', '08233665000180', 'Martelo de unh
 INSERT INTO equipamentos VALUES(4, 'Aindaime 4 unidades', '08236665000180', '1,00 x 1,50m', 20.00, 'https://img.freepik.com/fotos-gratis/bela-foto-de-barras-de-aco-de-metal-no-predio_181624-26081.jpg?t=st=1737938576~exp=1737942176~hmac=483c79d75ad5ffb3077bea3cf0adf4881a812762046314e309a3d1f551eb944b&w=900');
 INSERT INTO equipamentos VALUES (5, 'Lixadeira', '0826665000180', 'Esmerilhadeira 115mm 880w', 10.00, 'https://img.freepik.com/fotos-gratis/homem-trabalhando-com-um-moedor-angular-com-brilhos-dele_181624-29243.jpg?t=st=1737938682~exp=1737942282~hmac=8f06b0349796131fbc9975ad0190379dd9ae65aeaca5d2eb19b975beb6665c04&w=900');
 
-drop table equipamentos;
-
-SELECT * FROM equipamentos;
-
-DROP TABLE IF EXISTS alugueisativos;
-DROP TABLE IF EXISTS clientescadastrados;
-DROP TABLE IF EXISTS estoque;
-DROP TABLE IF EXISTS fornecedores;
-DROP TABLE IF EXISTS registrodealugueis;
-DROP TABLE IF EXISTS seguros;
-DROP TABLE IF EXISTS equipamentos;
-
-
-SELECT * FROM alugueisativos;
-SELECT * FROM clientescadastrados;
-SELECT * FROM estoque;
-SELECT * FROM fornecedores;
-SELECT * FROM registrodealugueis;
-SELECT * FROM seguros;
-
 -- TABELAS DE ENTIDADE
+
+DROP TABLE IF EXISTS 
+    ALUGUEISATIVOS, 
+    REGISTRODEALUGUEIS, 
+    SEGURO, 
+    ALUGUEL, 
+    EQUIPAMENTO, 
+    FORNECEDOR, 
+    CLIENTE 
+CASCADE;
+
 
 CREATE TABLE CLIENTE(
     CPF VARCHAR(11) PRIMARY KEY,
@@ -200,13 +191,13 @@ INSERT INTO FORNECEDOR VALUES
 ('11122233301000', 'Savassi Equipamentos'),
 ('44455566601000', 'FreeGlut LTDA.');
 
--- Equipamento
 INSERT INTO EQUIPAMENTO (ID, NOME, CNPJ_FORNECEDOR, QUANTIDADE, DESCRICAO, VALOR_DIARIA, URL_IMAGEM) VALUES
-(1001, 'Betoneira', '12312312301000', 300, 'Betoneiras Incríveis', 650, NULL),
-(1002, 'Kit EPI', '45645645601000', 550, 'Kit de Proteção Individual Completo', 15.50, NULL),
-(1003, 'Britadeira', '78978979801000', 120, 'Britadeiras de alta performance', 350, NULL),
-(1004, 'Trator', '44455566601000', 80, 'Tratores para uso geral', 4500, NULL),
-(1005, 'Ferramentas Gerais', '11122233301000', 800, 'Ferramentas de uso geral', 80, NULL);
+(1001, 'Betoneira', '12312312301000', 300, '400 litros, 220v', 60.00, 'https://img.freepik.com/fotos-premium/maquinaria-industrial-do-misturador-de-cimento-no-canteiro-de-obras_56854-3133.jpg?w=900'),
+(1002, 'Kit EPI', '45645645601000', 550,'Capacete, luvas, botina 40, oculos protetor', 8.00, 'https://img.freepik.com/fotos-gratis/luvas-de-seguranca-de-construcao-plana-e-mascara-medica_23-2148784095.jpg?t=st=1737938300~exp=1737941900~hmac=357eb96254e3720f4e3b49d82a104bf633ccacb9b20349cc74d38c3d208462cc&w=740'),
+(1003, 'Martelos', '78978979801000', 120,'Martelo de unha, martelo chapeador e martelo pena', 7.00, 'https://img.freepik.com/fotos-gratis/martelos-de-construcao-ainda-vida_23-2150563178.jpg?t=st=1737938350~exp=1737941950~hmac=67887079eccdd68d2d79bc20480771b11d7ce854da85dbd562805790b66bc617&w=740'),
+(1004, 'Aindaime 4 unidades','44455566601000',80, '1,00 x 1,50m', 20.00, 'https://img.freepik.com/fotos-gratis/bela-foto-de-barras-de-aco-de-metal-no-predio_181624-26081.jpg?t=st=1737938576~exp=1737942176~hmac=483c79d75ad5ffb3077bea3cf0adf4881a812762046314e309a3d1f551eb944b&w=900'),
+(1005, 'Lixadeira', '11122233301000', 800, 'Esmerilhadeira 115mm 880w', 10.00, 'https://img.freepik.com/fotos-gratis/homem-trabalhando-com-um-moedor-angular-com-brilhos-dele_181624-29243.jpg?t=st=1737938682~exp=1737942282~hmac=8f06b0349796131fbc9975ad0190379dd9ae65aeaca5d2eb19b975beb6665c04&w=900');
+
 
 -- Aluguel
 INSERT INTO ALUGUEL (ID, CPF_CLIENTE, DATA_INICIO, DATA_FIM) VALUES
@@ -299,4 +290,4 @@ WHERE EXISTS (
     SELECT 1
     FROM (SELECT * FROM REGISTRODEALUGUEIS ALUG JOIN ALUGUEL A ON ALUG.ID_ALUGUEL = A.ID) AL
     WHERE AL.CPF_CLIENTE = C.CPF
-); 
+);

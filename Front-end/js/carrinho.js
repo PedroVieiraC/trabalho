@@ -82,6 +82,9 @@ function atualizarCarrinho() {
     carrinhoContainer.innerHTML += itemHTML;
   });
 
+  if (carrinho.length === 0) {
+    document.querySelector('#subtotal').textContent = `R$ 0.00`;
+  }
   atualizarTotal();
 }
 
@@ -89,13 +92,6 @@ function atualizarCarrinho() {
 
 // Função para atualizar o total do carrinho
 function atualizarTotal() {
-
-  if (carrinho.length === 0) {
-    document.querySelector('#subtotal').textContent = `R$ 0.00`;
-    console.log(1);
-  }else{
-    console.log(carrinho);
-  }
 
   // Subtotal: considerando valor da diária, quantidade e número de diárias
   const subtotal = carrinho.reduce((total, item) => total + item.valor_diaria * item.diarias * item.quantidade, 0);
