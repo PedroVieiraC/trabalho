@@ -3,8 +3,7 @@ const aluguelController = require('../controllers/AluguelController');
 
 const router = express.Router();
 
-//router.post('/aluguel', aluguelController.criarAluguel);
-router.get('/aluguel/:cpfCliente', aluguelController.get);
-
+// Definição da rota correta
+router.get('/:cpfCliente', aluguelController.get); 
 
 module.exports = router;

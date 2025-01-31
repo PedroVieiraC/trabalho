@@ -1,10 +1,9 @@
 const aluguelRepository = require('../repositories/AluguelRepository');
 
 class AluguelService {
-  get(id,callback){
-    aluguelRepository.get(id,callback);
+  get(cpfCliente, callback) {
+    aluguelRepository.get(cpfCliente, callback);
   }
 }
 
-// Exporta uma instância da classe
 module.exports = new AluguelService();

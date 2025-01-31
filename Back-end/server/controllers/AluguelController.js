@@ -12,8 +12,8 @@ class AluguelController {
   }
 
   get(req, res) {
-    const id = req.params.id; // Pega o ID da URL
-    aluguelService.get(id, (error, result) => {
+    const cpfCliente = req.params.cpfCliente; // Certo: deve corresponder à rota
+    aluguelService.get(cpfCliente, (error, result) => {
       if (error) {
         res.status(500).send(error);
       } else {
@@ -22,17 +22,6 @@ class AluguelController {
     });
   }
 }
-
-
-const criarAluguel = async (req, res) => {
-  try {
-    const { cpfCliente, equipamentos, valorSeguro } = req.body;
-    const aluguel = await aluguelService.criarAluguel(cpfCliente, equipamentos, valorSeguro);
-    res.status(201).json(aluguel);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
 
 module.exports = new AluguelController();
