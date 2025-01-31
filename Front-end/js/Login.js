@@ -22,7 +22,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
             // Salva os dados do cliente no localStorage
             localStorage.setItem('cliente', JSON.stringify(data));
             // Redireciona para a página inicial
-            window.location.href = '../Index.html';
+            window.location.href = '../index.html';
         } else {
             alert(data.message || 'Erro ao fazer login.');
         }
