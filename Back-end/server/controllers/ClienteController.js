@@ -24,6 +24,7 @@ class ClienteController {
     async login(req, res) {
         const { cpf, senha } = req.body;
         try {
+            console.log(1);
             const cliente = await clienteService.login(cpf, senha);
             res.status(200).json(cliente);
         } catch (error) {
