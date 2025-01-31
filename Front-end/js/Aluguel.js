@@ -3,7 +3,6 @@ const rentalItemsContainer = document.querySelector('.card-body.p-0');
 // Função para buscar aluguéis ativos
 async function listarAlugueisAtivos(cpfCliente) {
   try {
-    console.log(cpfCliente);
     const response = await fetch(`http://localhost:3000/api/alugueisAtivos/${cpfCliente}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -50,6 +49,7 @@ function exibirAlugueisAtivos(alugueisAtivos) {
     rentalItemsContainer.innerHTML += rentalItemHTML; // Adiciona o item ao container
   });
 }
+
 
 function getCpfClienteLogado() {
   let clienteString = localStorage.getItem("cliente");
