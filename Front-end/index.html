@@ -58,11 +58,11 @@
         <!-- Botões no Canto Direito -->
         <div class="d-flex">
           <button id="cadastroButton" class="btn btn-light border-black border-2 me-2" type="button"
-              onclick="window.location.href='./html/Cadastro.html'">Cadastro</button>
+            onclick="window.location.href='./html/Cadastro.html'">Cadastro</button>
           <button id="loginButton" class="btn btn-light border-black border-2" type="button"
-              onclick="window.location.href='./html/Login.html'">Login</button>
-      </div>
-      
+            onclick="window.location.href='./html/Login.html'">Login</button>
+        </div>
+
         <div class="d-flex align-items-center">
           <!-- Dropdown do cliente logado -->
           <div id="clienteDropdown" class="dropdown d-none">
@@ -188,26 +188,13 @@
         <!-- Filters -->
         <div class="card shadow-sm mb-4">
           <div class="card-body">
-            <div class="row g-3">
+            <div class="row g-3 d-flex justify-content-between">
               <div class="col-md-3">
-                <label class="form-label">Data</label>
-                <input type="date" class="form-control">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label">Status</label>
+                <label class="form-label">STATUS</label>
                 <select class="form-select">
                   <option value="">Todos</option>
-                  <option value="active">Em andamento</option>
-                  <option value="completed">Finalizado</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                <label class="form-label">Categoria</label>
-                <select class="form-select">
-                  <option value="">Todas</option>
-                  <option value="heavy">Máquinas Pesadas</option>
-                  <option value="tools">Ferramentas</option>
-                  <option value="vehicles">Veículos</option>
+                  <option value="current">Em andamento</option>
+                  <option value="end">Finalizados</option>
                 </select>
               </div>
               <div class="col-md-3 d-flex align-items-end">
@@ -216,6 +203,7 @@
             </div>
           </div>
         </div>
+
 
         <!-- Rental Items -->
         <div class="card shadow-sm">

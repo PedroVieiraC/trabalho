@@ -13,4 +13,4 @@ async function listarAlugueis(cpfCliente) {
   }
   
   // Chame a função para listar os aluguéis do cliente logado
-  listarAlugueis('12345678901'); // Substitua pelo CPF do cliente logado
+  listarAlugueis('22222222222'); // Substitua pelo CPF do cliente logado

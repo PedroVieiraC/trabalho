@@ -1,5 +1,29 @@
 const aluguelService = require('../services/AluguelService');
 
+class AluguelController {
+  getAll(req, res) {
+    equipamentoService.getAll((error, results) => {
+      if (error) {
+        res.status(500).send(error);
+      } else {
+        res.send(results);
+      }
+    });
+  }
+
+  get(req, res) {
+    const id = req.params.id; // Pega o ID da URL
+    aluguelService.get(id, (error, result) => {
+      if (error) {
+        res.status(500).send(error);
+      } else {
+        res.send(result);
+      }
+    });
+  }
+}
+
+
 const criarAluguel = async (req, res) => {
   try {
     const { cpfCliente, equipamentos, valorSeguro } = req.body;
@@ -10,17 +34,5 @@ const criarAluguel = async (req, res) => {
   }
 };
 
-const listarAlugueis = async (req, res) => {
-  try {
-    const { cpfCliente } = req.params;
-    const alugueis = await aluguelService.listarAlugueis(cpfCliente);
-    res.status(200).json(alugueis);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
-module.exports = {
-  criarAluguel,
-  listarAlugueis,
-};
+module.exports = new AluguelController();

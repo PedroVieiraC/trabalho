@@ -55,7 +55,18 @@ const listarAlugueis = async (cpfCliente) => {
   return result.rows;
 };
 
-module.exports = {
-  criarAluguel,
-  listarAlugueis,
-};
+class AluguelRepository {
+  get(id, callback) {
+      const sql = 'SELECT * FROM ALUGUEL WHERE id = $1';
+      db.query(sql, [id], (error, result) => {
+          if (error) {
+              callback(error, null);
+          } else {
+              callback(null, result.rows[0]); // Retorna apenas a primeira linha (dado único)
+          }
+      });
+  }
+}
+
+// Exporta uma instância da classe
+module.exports = new AluguelRepository();
