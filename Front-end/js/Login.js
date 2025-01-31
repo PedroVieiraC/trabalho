@@ -6,6 +6,11 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     const cpf = document.getElementById('CPF').value.replace(/\D/g, ''); // Remove caracteres não numéricos
     const senha = document.getElementById('password').value.trim();
 
+        // Verifica se o login é admin
+        if (email === "admin" && password === "admin") {
+            window.location.href = "../html/Admin.html"; // Redireciona para a tela de admin
+        }
+
     try {
         // Envia os dados de login para o backend
         const response = await fetch('http://localhost:3000/api/cliente/login', {
