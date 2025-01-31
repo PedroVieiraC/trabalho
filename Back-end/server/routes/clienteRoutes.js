@@ -9,4 +9,7 @@ router.get('/',clienteController.getAll);
 // Rota para cadastrar um novo cliente
 router.post('/cadastrar', clienteController.cadastrarCliente);
 
+// Rota para fazer login
+router.post('/login', clienteController.login);
+
 module.exports = router;

@@ -25,11 +25,9 @@ function adicionarAoCarrinho(event) {
       diarias: 1  // Inicializa diarias com o valor padrão
     });
   }
-
   // Atualiza o carrinho
   atualizarCarrinho();
 }
-
 
 function atualizarCarrinho() {
   console.log("Carrinho Atualizado:", carrinho);  // Verifica o carrinho antes de atualizar a interface
@@ -87,8 +85,6 @@ function atualizarCarrinho() {
   }
   atualizarTotal();
 }
-
-
 
 // Função para atualizar o total do carrinho
 function atualizarTotal() {

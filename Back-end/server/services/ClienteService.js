@@ -18,6 +18,23 @@ class ClienteService {
         // Cadastrar o cliente
         await clienteRepository.cadastrarCliente({ cpf, nome, cep, numero, complemento, telefone, senha });
     }
+
+    async login(cpf, senha) {
+        const cliente = await clienteRepository.buscarClientePorCpf(cpf);
+
+        if (!cliente) {
+            throw new Error('CPF não cadastrado.');
+        }
+
+        if (cliente.senha !== senha) {
+            throw new Error('Senha incorreta.');
+        }
+
+        return cliente;
+    }
+
 }
+
+
 
 module.exports = new ClienteService();

@@ -57,7 +57,6 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         return;
     }
 
-
     try {
 
         console.log("Enviando para o servidor:", JSON.stringify(cliente, null, 2));

@@ -30,13 +30,28 @@ class ClienteRepository {
 
     async verificarCpfExistente(cpf) {
         const query = 'SELECT CPF FROM CLIENTE WHERE CPF = $1';
+        const values = [cpf];
+
         try {
-            const { rows } = await db.query(query, [cpf]);
-            return rows.length > 0;
+            const result = await db.query(query, values);
+            return result.rows.length > 0;
         } catch (error) {
             throw new Error('Erro ao verificar CPF: ' + error.message);
         }
     }
+
+    async buscarClientePorCpf(cpf) {
+        const query = 'SELECT * FROM CLIENTE WHERE CPF = $1';
+        const values = [cpf];
+
+        try {
+            const result = await db.query(query, values);
+            return result.rows[0];
+        } catch (error) {
+            throw new Error('Erro ao buscar cliente: ' + error.message);
+        }
+    }
+
 }
 
 module.exports = new ClienteRepository();
