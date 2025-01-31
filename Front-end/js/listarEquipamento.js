@@ -8,7 +8,6 @@ async function getEquipamentos() {
     const eqp = await response.json();
     // Após obter os dados, chama a função para gerar os cards
     gerarCards(eqp);
-    console.log(eqp);
   } catch (error) {
     console.error('Erro ao buscar os dados:', error);
   }
@@ -20,9 +19,6 @@ const container = document.querySelector('.cardG');
 // Função para gerar os cards dinamicamente
 function gerarCards(dados) {
   dados.forEach(equipamento => {
-    // Verifique a URL da imagem no console
-    console.log(equipamento.url_imagem);
-
     const cardHTML = `
     <div class="card p-1" style="width: 18rem; height: 26rem; overflow: hidden; border: 3px solid black;">
       <img src="${equipamento.url_imagem}" 
