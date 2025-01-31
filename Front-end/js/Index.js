@@ -1,34 +1,42 @@
-    document.addEventListener('DOMContentLoaded', function () {
-        const clienteSection = document.getElementById('clienteSection');
-        const clienteNome = document.getElementById('clienteNome');
-        const clienteCpf = document.getElementById('clienteCpf');
-        const clienteTelefone = document.getElementById('clienteTelefone');
-        const logoutButtonNav = document.getElementById('logoutButtonNav');
-        const cadastroButton = document.getElementById('cadastroButton');
-        const loginButton = document.getElementById('loginButton');
+document.addEventListener('DOMContentLoaded', function () {
+    const clienteDropdown = document.getElementById('clienteDropdown');
+    const dropdownNome = document.getElementById('dropdownNome');
+    const dropdownCpf = document.getElementById('dropdownCpf');
+    const dropdownTelefone = document.getElementById('dropdownTelefone');
+    const logoutButton = document.getElementById('logoutButton'); // Corrigido: use logoutButton
+    const cadastroButton = document.getElementById('cadastroButton');
+    const loginButton = document.getElementById('loginButton');
+    const cadastroLoginButtons = document.getElementById('cadastroLoginButtons');
 
-        // Verifica se o cliente está logado
-        const cliente = JSON.parse(localStorage.getItem('cliente'));
+    // Verifica se o cliente está logado
+    const cliente = JSON.parse(localStorage.getItem('cliente'));
 
-        if (cliente) {
-            // Exibe a seção do cliente e os dados
-            clienteSection.classList.remove('d-none');
-            clienteNome.textContent = cliente.nome;
-            clienteCpf.textContent = cliente.cpf;
-            clienteTelefone.textContent = cliente.telefone;
+    if (cliente) {
+        // Exibe o dropdown do cliente e preenche os dados
+        clienteDropdown.classList.remove('d-none');
+        dropdownNome.textContent = cliente.nome;
+        dropdownCpf.textContent = cliente.cpf;
+        dropdownTelefone.textContent = cliente.telefone;
 
-            // Exibe o botão de deslogar e esconde os botões de cadastro/login
-            logoutButtonNav.classList.remove('d-none');
-            if (cadastroButton) cadastroButton.classList.add('d-none');
-            if (loginButton) loginButton.classList.add('d-none');
-        }
+        // Esconde os botões de cadastro/login
+        if (cadastroButton) cadastroButton.classList.add('d-none');
+        if (loginButton) loginButton.classList.add('d-none');
+    }
 
-        // Adiciona evento de logout
-        const logoutButtons = document.querySelectorAll('#logoutButton, #logoutButtonNav');
-        logoutButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                localStorage.removeItem('cliente');
-                window.location.href = '../index.html';
-            });
+    // Adiciona evento de logout
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function () {
+            // Remove os dados do cliente do localStorage
+            localStorage.removeItem('cliente');
+
+            // Esconde o dropdown do cliente
+            if (clienteDropdown) clienteDropdown.classList.add('d-none');
+
+            // Exibe os botões de cadastro/login
+            if (cadastroLoginButtons) cadastroLoginButtons.classList.remove('d-none');
+
+            // Redireciona para a página inicial
+            window.location.href = '../Front-end/index.html';
         });
-    });
+    }
+});
