@@ -145,5 +145,41 @@ function inicializarCarrinho() {
   });
 }
 
+async function finalizarAluguel() {
+  const cpfCliente = '12345678901'; // Substitua pelo CPF do cliente logado
+  const equipamentos = carrinho.map(item => ({
+    id: item.id,
+    quantidade: item.quantidade,
+    valor_diaria: item.valor_diaria,
+    diarias: item.diarias,
+  }));
+  const valorSeguro = 100.00; // Valor fixo do seguro
+
+  try {
+    const response = await fetch('http://localhost:3000/api/aluguel', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cpfCliente, equipamentos, valorSeguro }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    alert('Aluguel finalizado com sucesso!');
+    carrinho = []; // Limpa o carrinho
+    atualizarCarrinho();
+  } catch (error) {
+    console.error('Erro ao finalizar o aluguel:', error);
+    alert('Erro ao finalizar o aluguel. Tente novamente.');
+  }
+}
+
+// Adicionar evento de clique ao botão "Finalizar Aluguel"
+document.querySelector('.btn-primary').addEventListener('click', finalizarAluguel);
+
 // Chama a função para inicializar o carrinho
 inicializarCarrinho();
