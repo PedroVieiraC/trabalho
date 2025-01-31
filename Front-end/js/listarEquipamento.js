@@ -1,7 +1,7 @@
 // Função para buscar os equipamentos da API
 async function getEquipamentos() {
   try {
-    const response = await fetch('http://localhost:3000/equipamento');
+    const response = await fetch('http://localhost:3000/api/equipamento');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

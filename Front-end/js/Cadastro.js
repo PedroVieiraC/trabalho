@@ -27,9 +27,9 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         cpf: document.getElementById('cpf').value.replace(/\D/g, ''), // Garante apenas números
         nome: document.getElementById('fullName').value,
         cep: document.getElementById('cep').value.replace(/\D/g, ''), // Garante apenas números
-        numero: document.getElementById('number').value,
+        numero: parseInt(document.getElementById('number').value),
         complemento: document.getElementById('complemento').value,
-        telefone: document.getElementById('email').value, // Corrija para o campo correto
+        telefone: document.getElementById('telefone').value, // Corrija para o campo correto
         senha: document.getElementById('password').value
     };
 
@@ -45,9 +45,28 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         return;
     }
 
+        // Validação do CEP (8 dígitos)
+        if (cliente.numero.length === 0) {
+            alert('Numero não preenchido.');
+            return;
+        }
+
+    // Validação do CEP (8 dígitos)
+    if (cliente.telefone.length !== 11) {
+        alert('CEP deve conter exatamente 11 dígitos.');
+        return;
+    }
+
+
     try {
+
+        console.log("Enviando para o servidor:", JSON.stringify(cliente, null, 2));
+
+
+        console.log(cliente);
+
         // Enviar dados para a API
-        const response = await fetch('http://localhost:3000/api/clientes/cadastrar', {
+        const response = await fetch('http://localhost:3000/api/cliente/cadastrar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

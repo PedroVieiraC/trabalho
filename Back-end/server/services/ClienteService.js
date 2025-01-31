@@ -1,8 +1,11 @@
 // services/clienteService.js
-const clienteRepository = require('../repositories/clienteRepository');
+const clienteRepository = require('../repositories/ClienteRepository');
 
 class ClienteService {
-    // Cadastrar um novo cliente
+    getAll(callback){
+        clienteRepository.getAll(callback);
+    }
+
     async cadastrarCliente(cliente) {
         const { cpf, nome, cep, numero, complemento, telefone, senha } = cliente;
 
@@ -13,8 +16,7 @@ class ClienteService {
         }
 
         // Cadastrar o cliente
-        const resultado = await clienteRepository.cadastrarCliente({ cpf, nome, cep, numero, complemento, telefone, senha });
-        return resultado;
+        await clienteRepository.cadastrarCliente({ cpf, nome, cep, numero, complemento, telefone, senha });
     }
 }
 
