@@ -322,3 +322,4 @@ Consulta 4: Filtra clientes com valor total de aluguéis ativos acima da média.
 Consulta 5: Lista clientes com aluguéis encerrados no histórico.
 
 Essas consultas são úteis para análises e relatórios sobre os aluguéis dos clientes.
+
