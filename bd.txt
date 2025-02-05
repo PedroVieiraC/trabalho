@@ -291,3 +291,34 @@ WHERE EXISTS (
     FROM (SELECT * FROM REGISTRODEALUGUEIS ALUG JOIN ALUGUEL A ON ALUG.ID_ALUGUEL = A.ID) AL
     WHERE AL.CPF_CLIENTE = C.CPF
 );
+
+Subconsulta:
+
+A subconsulta (SELECT * FROM REGISTRODEALUGUEIS ALUG JOIN ALUGUEL A ON ALUG.ID_ALUGUEL = A.ID) faz uma junção interna entre as tabelas REGISTRODEALUGUEIS e ALUGUEL usando o campo ID_ALUGUEL.
+
+O resultado dessa subconsulta é uma lista de aluguéis encerrados com seus detalhes.
+
+Filtro com EXISTS:
+
+A cláusula EXISTS verifica se há pelo menos um registro na subconsulta onde o CPF_CLIENTE corresponde ao CPF do cliente na tabela CLIENTE.
+
+Resultado:
+
+A consulta principal retorna os nomes dos clientes que possuem aluguéis encerrados.
+
+Saída Esperada:
+NOME
+Alexander Neves Barbosa Júnior
+Pedro Vieira Conceição
+Resumo
+Consulta 1: Lista clientes com aluguéis ativos e detalhes dos aluguéis.
+
+Consulta 2: Lista todos os clientes, incluindo aqueles sem aluguéis ativos.
+
+Consulta 3: Calcula o valor total dos aluguéis ativos por cliente.
+
+Consulta 4: Filtra clientes com valor total de aluguéis ativos acima da média.
+
+Consulta 5: Lista clientes com aluguéis encerrados no histórico.
+
+Essas consultas são úteis para análises e relatórios sobre os aluguéis dos clientes.
