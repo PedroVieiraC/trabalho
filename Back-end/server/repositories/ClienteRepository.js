@@ -51,6 +51,40 @@ class ClienteRepository {
             throw new Error('Erro ao buscar cliente: ' + error.message);
         }
     }
+    async update(cpf, cliente) {
+        const {nome, cep, numero, complemento, telefone, senha} = cliente;
+        const query = `
+            UPDATE CLIENTE 
+            SET cpf = $1, nome = $2, numero = $3, complemento = $4, telefone = $5, senha = $6 
+            WHERE id = $1 RETURNING *;
+        `;
+        const values = [cpf, nome, cep, numero, complemento, telefone, senha];
+    
+        try {
+            const { rows } = await db.query(query, values);
+            if (rows.length === 0) {
+                throw new Error("Cliente não encontrado.");
+            }
+            return rows[0]; // Retorna o cliente atualizado
+        } catch (error) {
+            throw new Error("Erro ao atualizar cliente: " + error.message);
+        }
+    }
+
+    async delete(cpf) {
+        const query = "DELETE FROM equipamento WHERE cpf = $1 RETURNING *;";
+        const values = [cpf];
+        try {
+          const { rows } = await db.query(query, values);
+          if (rows.length === 0) {
+            throw new Error("Cliente não encontrado.");
+          }
+          return rows[0]; // Retorna o cliente deletado (opcional)
+        } catch (error) {
+          throw new Error("Erro ao deletar cliente: " + error.message);
+        }
+      }
+
 
 }
 

@@ -6,10 +6,13 @@ const router = express.Router();
 
 router.get('/',clienteController.getAll);
 
-// Rota para cadastrar um novo cliente
 router.post('/cadastrar', clienteController.cadastrarCliente);
 
-// Rota para fazer login
 router.post('/login', clienteController.login);
+
+router.put('/:id', clienteController.update);
+
+router.delete('/:id', clienteController.delete);
+
 
 module.exports = router;
