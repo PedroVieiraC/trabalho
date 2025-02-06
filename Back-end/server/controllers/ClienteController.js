@@ -1,18 +1,28 @@
 const clienteService = require('../services/ClienteService');
 
 class ClienteController {
-    getAll(req, res){
-        clienteService.getAll((error, result) => {
-            if (error) {
-                res.status(500).send(error);
-            } else {
-                res.send(result);
-            }
-        });
+    async getAll(req, res) {
+        try {
+            const clientes = await clienteService.getAll();
+            res.json(clientes);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
     }
 
+        get(req, res) {
+          const cpf = req.params.cpf; 
+          clienteService.get(cpf, (error, result) => {
+            if (error) {
+              res.status(500).send(error);
+            } else {
+              res.send(result);
+            }
+          });
+        }
+
     async cadastrarCliente(req, res) {
-        const {cpf, nome, cep, numero, complemento, telefone, senha } = req.body;        
+        const { cpf, nome, cep, numero, complemento, telefone, senha } = req.body;        
         try {
             await clienteService.cadastrarCliente({ cpf, nome, cep, numero, complemento, telefone, senha });
             res.status(201).json({ message: 'Cliente cadastrado com sucesso!' });
@@ -31,30 +41,30 @@ class ClienteController {
         }
     }
 
-      async update(req, res) {
+    async update(req, res) {
         const cpf = req.params.cpf;
-        const {nome, cep, numero, complemento, telefone, senha } = req.body;
-    
-        if (!nome || !cep || !numero || !complemento || !telefone || !senha) {
+        const { nome, cep, numero, complemento, telefone, senha } = req.body;
+
+        if (!nome || !cep || !numero || !telefone || !senha) {
             return res.status(400).json({ message: "Todos os campos são obrigatórios." });
         }
-    
+
         try {
-            const clienteAtualizado = await clienteService.update(cpf, {nome, cep, numero, complemento, telefone, senha});
+            const clienteAtualizado = await clienteService.update(cpf, { nome, cep, numero, complemento, telefone, senha });
             res.json({ message: "Cliente atualizado com sucesso!", cliente: clienteAtualizado });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     }
-    
+
     async delete(req, res) {
-        const id = req.params.id;
+        const cpf = req.params.cpf;
         try {
-        await clienteService.delete(cpf);
-        res.json({ message: "Cliente deletado com sucesso!" });
-      } catch (error) {
-        res.status(400).json({ message: error.message });
-      }
+            const clienteDeletado = await clienteService.delete(cpf);
+            res.json({ message: "Cliente deletado com sucesso!", cliente: clienteDeletado });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
     }
 }
 

@@ -50,13 +50,13 @@
                         <div class="d-flex justify-content-center mt-3">
                             <ul class="botaoEscolha d-flex justify-content-center">
                                 <li>
-                                    <a href="#" onclick="mudarEstado('adicionar')">Criar</a>
+                                    <a href="javascript:void(0)" onclick="mudarEstado('adicionar')">Criar</a>
                                 </li>
                                 <li>
-                                    <a class="center" href="#" onclick="mudarEstado('atualizar')">Atualizar</a>
+                                    <a class="center" href="javascript:void(0)" onclick="mudarEstado('atualizar')">Atualizar</a>
                                 </li>
                                 <li>
-                                    <a href="#" onclick="mudarEstado('deletar')">Deletar</a>
+                                    <a href="javascript:void(0)" onclick="mudarEstado('remover')">Remover</a>
                                 </li>
                             </ul>
                         </div>
@@ -79,12 +79,12 @@
 
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="quantidade" class="form-label">Quantidade</label>
+                                        <label for="Quantidade" class="form-label">Quantidade</label>
                                         <input type="text" class="form-control" id="Quantidade" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="cnpjFornecedor" class="form-label">CNPJ do Fornecedor</label>
-                                        <input type="text" class="form-control" id="cnpjFornecedor" required>
+                                        <label for="cnpjFornecedorc" class="form-label">CNPJ do Fornecedor</label>
+                                        <input type="text" class="form-control" id="cnpjFornecedorc" required>
                                     </div>
                                 </div>
                                 <div class="mb-4">
@@ -119,36 +119,58 @@
                         <div class="d-flex justify-content-center mt-3">
                             <ul class="botaoEscolha d-flex justify-content-center">
                                 <li>
-                                    <a href="#" onclick="mudarEstadoCliente('atualizar'); return false;">Atualizar</a>
+                                    <a href="javascript:void(0)" onclick="mudarEstadoCliente('atualizar'); return false;">Atualizar</a>
                                 </li>
                                 <li>
-                                    <a href="#" onclick="mudarEstadoCliente('remover'); return false;">Remover</a>
+                                    <a href="javascript:void(0)" onclick="mudarEstadoCliente('remover'); return false;">Remover</a>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="text-center mb-4">
                             <h2 id="tituloPrincipalCliente" class="fw-bold">Atualizar Cliente</h2>
-                            <p id="descricaoPrincipalCliente" class="text-muted">Preencha os dados do cliente</p>
+                            <p id="descricaoPrincipalCliente" class="text-muted">Selecione o cliente e modifique os
+                                dados</p>
                         </div>
                         <div class="card-body p-4">
-                            <form id="clienteForm" class="needs-validation" novalidate>
-                                <div class="mb-4">
-                                    <label for="cpfCliente" class="form-label">CPF do Cliente</label>
-                                    <input type="text" class="form-control" id="cpfCliente" required>
+                            <div class="mb-4" id="clienteDropdownContainer">
+                                <label for="clienteSelect" class="form-label">Selecione um cliente</label>
+                                <select id="clienteSelect" class="form-select">
+                                  <option value="">Selecione um cliente...</option>
+                                </select>
+                              </div>
+                              
+                                <!-- Linha com CPF, CEP e Número -->
+                                <div class="row">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="cpfCliente" class="form-label">CPF</label>
+                                        <input type="text" class="form-control" id="cpfCliente" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="cepCliente" class="form-label">CEP</label>
+                                        <input type="text" class="form-control" id="cepCliente" required>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="numeroCliente" class="form-label">Número</label>
+                                        <input type="number" class="form-control" id="numeroCliente" required>
+                                    </div>
                                 </div>
+
                                 <div class="mb-4">
                                     <label for="nomeCliente" class="form-label">Nome do Cliente</label>
                                     <input type="text" class="form-control" id="nomeCliente" required minlength="3">
-                                    <div class="invalid-feedback">Por favor, insira o nome do cliente.</div>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="emailCliente" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control" id="emailCliente" required>
+                                    <label for="complementoCliente" class="form-label">Complemento</label>
+                                    <input type="text" class="form-control" id="complementoCliente">
                                 </div>
                                 <div class="mb-4">
                                     <label for="telefoneCliente" class="form-label">Telefone</label>
                                     <input type="text" class="form-control" id="telefoneCliente" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="senhaCliente" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="senhaCliente" required>
                                 </div>
                                 <button type="submit" id="btnAcaoCliente"
                                     class="btn btn-primary w-100">Atualizar</button>
@@ -165,14 +187,14 @@
                         <div class="d-flex justify-content-center mt-3">
                             <ul class="botaoEscolha d-flex justify-content-center">
                                 <li>
-                                    <a href="#" onclick="mudarEstadoFornecedor('adicionar'); return false;">Criar</a>
+                                    <a href="javascript:void(0)" onclick="mudarEstadoFornecedor('adicionar'); return false;">Criar</a>
                                 </li>
                                 <li>
-                                    <a class="center" href="#"
+                                    <a class="center" href="javascript:void(0)"
                                         onclick="mudarEstadoFornecedor('atualizar'); return false;">Atualizar</a>
                                 </li>
                                 <li>
-                                    <a href="#" onclick="mudarEstadoFornecedor('deletar'); return false;">Deletar</a>
+                                    <a href="javascript:void(0)" onclick="mudarEstadoFornecedor('remover'); return false;">Remover</a>
                                 </li>
                             </ul>
                         </div>
@@ -220,10 +242,10 @@
                         <div class="d-flex justify-content-center mt-3">
                             <ul class="botaoEscolha d-flex justify-content-center">
                                 <li>
-                                    <a href="#" onclick="mudarEstadoAluguel('atualizar'); return false;">Atualizar</a>
+                                    <a href="javascript:void(0)" onclick="mudarEstadoAluguel('atualizar'); return false;">Atualizar</a>
                                 </li>
                                 <li>
-                                    <a href="#" onclick="mudarEstadoAluguel('deletar'); return false;">Deletar</a>
+                                    <a href="javascript:void(0)" onclick="mudarEstadoAluguel('remover'); return false;">Remover</a>
                                 </li>
                             </ul>
                         </div>
