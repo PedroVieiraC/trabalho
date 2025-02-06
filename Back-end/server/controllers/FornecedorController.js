@@ -1,4 +1,4 @@
-const FornecedorService = require("../service/FornecedorService");
+const FornecedorService = require("../services/FornecedorService");
 
 const FornecedorController = {
   async adicionarFornecedor(req, res) {

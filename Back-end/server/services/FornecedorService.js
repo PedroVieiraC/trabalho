@@ -1,4 +1,4 @@
-const FornecedorRepository = require("../repository/FornecedorRepository");
+const FornecedorRepository = require("../repositories/FornecedorRepository");
 
 const FornecedorService = {
   async adicionarFornecedor(fornecedor) {

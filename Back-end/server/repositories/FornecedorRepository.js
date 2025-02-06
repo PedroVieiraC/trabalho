@@ -1,4 +1,4 @@
-const db = require("../config/database"); // Conexão com o banco de dados
+const db = require("../config/db"); // Conexão com o banco de dados
 
 const FornecedorRepository = {
   async adicionarFornecedor(fornecedor) {
