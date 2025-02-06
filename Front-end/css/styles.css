@@ -92,7 +92,7 @@ body {
   border: 2px solid black;
   width: 100%; 
   min-height: 100vh;
-  background-color: #e3eeeb;
+  background-color: #FCFCFC;
 
 }
 
@@ -117,7 +117,7 @@ h1 {
   border: 2px solid black;
   width: 100%;
   min-height: 100vh;
-  background-color: white;
+  background-color: #7F7F7F;
   box-sizing: border-box; /* Inclui bordas e padding no cálculo da largura */
   padding: 0; /* Garantir que não há preenchimento extra */
 }
@@ -126,7 +126,7 @@ h1 {
   border: 2px solid black;
   width: 100%;
   min-height: 100vh;
-  background-color: #e3eeeb;
+  background-color: #FCFCFC;
 }
 
 /* Media Queries para telas menores */

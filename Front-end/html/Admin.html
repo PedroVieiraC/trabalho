@@ -44,7 +44,7 @@
     <div class="container-fluid vh-100 p-0">
         <div class="row h-100 m-0">
             <!-- Primeira tela (Equipamentos) -->
-            <div id = "equipamentos" class="col-12 d-flex justify-content-center align-items-center">
+            <div id="equipamentos" class="col-12 d-flex justify-content-center align-items-center">
                 <div class="w-90 h-100 p-4">
                     <div class="card shadow-sm h-100">
                         <div class="d-flex justify-content-center mt-3">
@@ -65,12 +65,22 @@
                             <h2 id="tituloPrincipal" class="fw-bold">Adicionar Equipamento</h2>
                             <p id="descricaoPrincipal" class="text-muted">Preencha os dados do equipamento</p>
                         </div>
+
                         <div class="card-body p-4">
                             <form id="equipamentoForm" class="needs-validation" novalidate>
+
+                                <!-- Dropdown para selecionar o equipamento a ser atualizado -->
+                                <div class="mb-4" id="equipamentoDropdownContainer" style="display: none;">
+                                    <label for="equipamentoSelect" class="form-label">Selecionar Equipamento</label>
+                                    <select id="equipamentoSelect" class="form-select">
+                                        <option value="">Selecione um equipamento...</option>
+                                    </select>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="idEquipamento" class="form-label">ID Equipamento</label>
-                                        <input type="text" class="form-control" id="idEquipamento" required>
+                                        <label for="quantidade" class="form-label">Quantidade</label>
+                                        <input type="text" class="form-control" id="Quantidade" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="cnpjFornecedor" class="form-label">CNPJ do Fornecedor</label>
@@ -103,7 +113,7 @@
             </div>
 
             <!-- Segunda tela (Clientes) -->
-            <div id = "clientes" class="col-12 d-flex justify-content-center align-items-center">
+            <div id="clientes" class="col-12 d-flex justify-content-center align-items-center">
                 <div class="w-90 h-100 p-4">
                     <div class="card shadow-sm h-100">
                         <div class="d-flex justify-content-center mt-3">
@@ -149,7 +159,7 @@
             </div>
 
             <!-- Terceira tela (Fornecedores) -->
-            <div id = "fornecedores" class="col-12 d-flex justify-content-center align-items-center">
+            <div id="fornecedores" class="col-12 d-flex justify-content-center align-items-center">
                 <div class="w-90 h-100 p-4">
                     <div class="card shadow-sm h-100">
                         <div class="d-flex justify-content-center mt-3">
@@ -204,7 +214,7 @@
             </div>
 
             <!-- Quarta tela (Aluguéis) -->
-            <div id = "alugueis" class="col-12 d-flex justify-content-center align-items-center">
+            <div id="alugueis" class="col-12 d-flex justify-content-center align-items-center">
                 <div class="w-90 h-100 p-4">
                     <div class="card shadow-sm h-100">
                         <div class="d-flex justify-content-center mt-3">

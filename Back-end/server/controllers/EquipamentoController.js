@@ -32,6 +32,31 @@ class EquipamentoController {
     }
   }
 
+  async update(req, res) {
+    const id = req.params.id;
+    const { nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem } = req.body;
+
+    if (!nome || !cnpj_fornecedor || !quantidade || !descricao || !valor_diaria || !url_imagem) {
+        return res.status(400).json({ message: "Todos os campos são obrigatórios." });
+    }
+
+    try {
+        const equipamentoAtualizado = await equipamentoService.update(id, { nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem });
+        res.json({ message: "Equipamento atualizado com sucesso!", equipamento: equipamentoAtualizado });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+async delete(req, res) {
+  const id = req.params.id;
+  try {
+    await equipamentoService.delete(id);
+    res.json({ message: "Equipamento deletado com sucesso!" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
 
 }
 

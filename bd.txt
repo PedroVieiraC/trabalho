@@ -196,12 +196,17 @@ INSERT INTO FORNECEDOR VALUES
 
 -- Equipamento
 INSERT INTO EQUIPAMENTO (ID, NOME, CNPJ_FORNECEDOR, QUANTIDADE, DESCRICAO, VALOR_DIARIA, URL_IMAGEM) VALUES
-(1001, 'Betoneira', '12312312301000', 300, '400 litros, 220v', 60.00, 'https://img.freepik.com/fotos-premium/maquinaria-industrial-do-misturador-de-cimento-no-canteiro-de-obras_56854-3133.jpg?w=900'),
-(1002, 'Kit EPI', '45645645601000', 550,'Capacete, luvas, botina 40, oculos protetor', 8.00, 'https://img.freepik.com/fotos-gratis/luvas-de-seguranca-de-construcao-plana-e-mascara-medica_23-2148784095.jpg?t=st=1737938300~exp=1737941900~hmac=357eb96254e3720f4e3b49d82a104bf633ccacb9b20349cc74d38c3d208462cc&w=740'),
-(1003, 'Martelos', '78978979801000', 120,'Martelo de unha, martelo chapeador e martelo pena', 7.00, 'https://img.freepik.com/fotos-gratis/martelos-de-construcao-ainda-vida_23-2150563178.jpg?t=st=1737938350~exp=1737941950~hmac=67887079eccdd68d2d79bc20480771b11d7ce854da85dbd562805790b66bc617&w=740'),
-(1004, 'Aindaime 4 unidades','44455566601000',80, '1,00 x 1,50m', 20.00, 'https://img.freepik.com/fotos-gratis/bela-foto-de-barras-de-aco-de-metal-no-predio_181624-26081.jpg?t=st=1737938576~exp=1737942176~hmac=483c79d75ad5ffb3077bea3cf0adf4881a812762046314e309a3d1f551eb944b&w=900'),
-(1005, 'Lixadeira', '11122233301000', 800, 'Esmerilhadeira 115mm 880w', 10.00, 'https://img.freepik.com/fotos-gratis/homem-trabalhando-com-um-moedor-angular-com-brilhos-dele_181624-29243.jpg?t=st=1737938682~exp=1737942282~hmac=8f06b0349796131fbc9975ad0190379dd9ae65aeaca5d2eb19b975beb6665c04&w=900');
+(1,'Betoneira', '12312312301000', 300, '400 litros, 220v', 60.00, 'https://img.freepik.com/fotos-premium/maquinaria-industrial-do-misturador-de-cimento-no-canteiro-de-obras_56854-3133.jpg?w=900'),
+(2, 'Kit EPI', '45645645601000', 550,'Capacete, luvas, botina 40, oculos protetor', 8.00, 'https://img.freepik.com/fotos-gratis/luvas-de-seguranca-de-construcao-plana-e-mascara-medica_23-2148784095.jpg?t=st=1737938300~exp=1737941900~hmac=357eb96254e3720f4e3b49d82a104bf633ccacb9b20349cc74d38c3d208462cc&w=740'),
+(3, 'Martelos', '78978979801000', 120,'Martelo de unha, martelo chapeador e martelo pena', 7.00, 'https://img.freepik.com/fotos-gratis/martelos-de-construcao-ainda-vida_23-2150563178.jpg?t=st=1737938350~exp=1737941950~hmac=67887079eccdd68d2d79bc20480771b11d7ce854da85dbd562805790b66bc617&w=740'),
+(4, 'Aindaime 4 unidades','44455566601000',80, '1,00 x 1,50m', 20.00, 'https://img.freepik.com/fotos-gratis/bela-foto-de-barras-de-aco-de-metal-no-predio_181624-26081.jpg?t=st=1737938576~exp=1737942176~hmac=483c79d75ad5ffb3077bea3cf0adf4881a812762046314e309a3d1f551eb944b&w=900'),
+(5, 'Lixadeira', '11122233301000', 800, 'Esmerilhadeira 115mm 880w', 10.00, 'https://img.freepik.com/fotos-gratis/homem-trabalhando-com-um-moedor-angular-com-brilhos-dele_181624-29243.jpg?t=st=1737938682~exp=1737942282~hmac=8f06b0349796131fbc9975ad0190379dd9ae65aeaca5d2eb19b975beb6665c04&w=900');
 
+--garantir que ao cadastrar vai estar em 6
+SELECT setval('equipamento_id_seq', (SELECT MAX(id) FROM equipamento));
+
+
+select * from equipamento;
 
 -- Aluguel
 INSERT INTO ALUGUEL (ID, CPF_CLIENTE, QTDE_PARCELAS, DATA_INICIO, DATA_FIM) VALUES
@@ -228,29 +233,29 @@ ON CONFLICT (ID_ALUGUEL, PARCELA_NUMERO) DO NOTHING;
 
 -- Alugueis Ativos
 INSERT INTO ALUGUEISATIVOS VALUES
-(1001, 1001, 100, NULL),
-(1001, 1003, 50, NULL),
-(1002, 1002, 300, NULL),
-(1002, 1004, 30, NULL),
-(1002, 1005, 200, NULL),
-(1003, 1002, 10, NULL),
-(1004, 1004, 30, NULL),
-(1005, 1005, 200, NULL);
+(1001, 1, 100, NULL),
+(1001, 3, 50, NULL),
+(1002, 2, 300, NULL),
+(1002, 4, 30, NULL),
+(1002, 5, 200, NULL),
+(1003, 2, 10, NULL),
+(1004, 4, 30, NULL),
+(1005, 5, 200, NULL);
 
 -- Registro de Alugueis
 INSERT INTO REGISTRODEALUGUEIS VALUES
-(1006, 1001, 2, 13000),
-(1006, 1002, 5, 775),
-(1007, 1003, 1, 3500),
-(1007, 1005, 3, 2400),
-(1008, 1004, 1, 40500),
-(1008, 1002, 8, 1240),
-(1008, 1005, 4, 3200),
-(1006, 1003, 2, 7000),
-(1007, 1001, 1, 6500),
-(1008, 1003, 3, 10500),
-(1009, 1001, 1, 6500),
-(1010, 1003, 3, 10500);
+(1006, 1, 2, 13000),
+(1006, 2, 5, 775),
+(1007, 3, 1, 3500),
+(1007, 5, 3, 2400),
+(1008, 4, 1, 40500),
+(1008, 2, 8, 1240),
+(1008, 5, 4, 3200),
+(1006, 3, 2, 7000),
+(1007, 1, 1, 6500),
+(1008, 3, 3, 10500),
+(1009, 1, 1, 6500),
+(1010, 3, 3, 10500);
 
 -- Consultas
 
@@ -291,35 +296,3 @@ WHERE EXISTS (
     FROM (SELECT * FROM REGISTRODEALUGUEIS ALUG JOIN ALUGUEL A ON ALUG.ID_ALUGUEL = A.ID) AL
     WHERE AL.CPF_CLIENTE = C.CPF
 );
-
-Subconsulta:
-
-A subconsulta (SELECT * FROM REGISTRODEALUGUEIS ALUG JOIN ALUGUEL A ON ALUG.ID_ALUGUEL = A.ID) faz uma junção interna entre as tabelas REGISTRODEALUGUEIS e ALUGUEL usando o campo ID_ALUGUEL.
-
-O resultado dessa subconsulta é uma lista de aluguéis encerrados com seus detalhes.
-
-Filtro com EXISTS:
-
-A cláusula EXISTS verifica se há pelo menos um registro na subconsulta onde o CPF_CLIENTE corresponde ao CPF do cliente na tabela CLIENTE.
-
-Resultado:
-
-A consulta principal retorna os nomes dos clientes que possuem aluguéis encerrados.
-
-Saída Esperada:
-NOME
-Alexander Neves Barbosa Júnior
-Pedro Vieira Conceição
-Resumo
-Consulta 1: Lista clientes com aluguéis ativos e detalhes dos aluguéis.
-
-Consulta 2: Lista todos os clientes, incluindo aqueles sem aluguéis ativos.
-
-Consulta 3: Calcula o valor total dos aluguéis ativos por cliente.
-
-Consulta 4: Filtra clientes com valor total de aluguéis ativos acima da média.
-
-Consulta 5: Lista clientes com aluguéis encerrados no histórico.
-
-Essas consultas são úteis para análises e relatórios sobre os aluguéis dos clientes.
-
