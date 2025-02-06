@@ -440,3 +440,45 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
 document.addEventListener('DOMContentLoaded', () => {
   mudarEstadoCliente('atualizar');  // Muda para o estado de atualizar logo que a página carregar
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const formFornecedor = document.getElementById("form-fornecedor");
+
+  formFornecedor.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const cnpj = document.getElementById("cnpj").value;
+      const nomeFantasia = document.getElementById("nome_fantasia").value;
+      const telefone = document.getElementById("telefone").value;
+      const email = document.getElementById("email").value;
+
+      const fornecedor = {
+          cnpj,
+          nome_fantasia: nomeFantasia,
+          telefone,
+          email
+      };
+
+      try {
+          const response = await fetch("http://localhost:3000/fornecedor", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(fornecedor)
+          });
+
+          if (!response.ok) {
+              throw new Error("Erro ao cadastrar fornecedor");
+          }
+
+          const result = await response.json();
+          alert("Fornecedor cadastrado com sucesso!");
+          formFornecedor.reset();
+      } catch (error) {
+          console.error("Erro:", error);
+          alert("Falha ao cadastrar fornecedor.");
+      }
+  });
+});

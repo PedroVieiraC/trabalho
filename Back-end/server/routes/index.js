@@ -4,13 +4,14 @@ const clienteRouter = require('./clienteRoutes');
 const equipamentoRoutes = require('./EquipamentoRoutes');
 const aluguelRoutes = require('./AluguelRoutes');
 const alugueisAtivosRoutes = require('./AlugueisAtivosRoutes');
-const registrodeAlugueisRoutes = require('./registrodeAlugueisRoutes')
+const registrodeAlugueisRoutes = require('./registrodeAlugueisRoutes');
+const fornecedorRoutes = require("./FornecedorRoute");
 
 router.use('/api/equipamento', equipamentoRoutes); 
 router.use('/api/cliente', clienteRouter);
 router.use('/api/aluguel', aluguelRoutes); 
 router.use('/api/alugueisAtivos', alugueisAtivosRoutes); 
 router.use('/api/registrodeAlugueis', registrodeAlugueisRoutes); 
-
+router.use("/api/fornecedor", fornecedorRoutes);
 
 module.exports = router;

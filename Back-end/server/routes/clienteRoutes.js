@@ -1,6 +1,6 @@
 // routes/clienteRoutes.js
 const express = require('express');
-const clienteController = require('../controllers/ClienteController');
+const clienteController = require('../controllers/clienteController');
 
 const router = express.Router();
 
