@@ -19,86 +19,63 @@
 
 <body>
   <nav class="navbar navbar-expand-lg fixed-top p-3">
-    <div class="container-fluid">
-      <!-- Logotipo -->
-      <a class="navbar-brand text-white" href="#">RitterConstruct</a>
-      <button class="navbar-toggler border-light" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <!-- Logotipo -->
+    <a class="navbar-brand text-white" href="#inicial">RitterConstruct</a>
+    <button class="navbar-toggler border-light" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <!-- Conteúdo da Navbar -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Lista de Navegação no Canto Esquerdo -->
-        <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="#inicial">Inicial</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#equipamentos">Equipamentos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#carrinho">Carrinho</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#alugueis">Alugueis</a>
-          </li>
-        </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Lista de Navegação no Canto Esquerdo -->
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" href="#inicial">Inicial</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#equipamentos">Equipamentos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#carrinho">Carrinho</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#alugueis">Alugueis</a>
+        </li>
+      </ul>
 
-        <!-- Formulário de Busca no Centro -->
-        <form class="d-flex mx-auto" role="search" id="searchForm">
-          <input id="searchInput" class="form-control bg-light border-black border-2" type="search"
-            placeholder="Digite o produto" aria-label="Search">
-          <button id="searchButton" class="btn btn-light border-black border-2" type="submit">
-            <i class="bi bi-search"></i> <!-- Ícone de lupa -->
+      <!-- Botões no Canto Direito -->
+      <div class="d-flex ms-auto">
+        <button id="cadastroButton" class="btn btn-light border-black border-2 me-2" type="button"
+          onclick="window.location.href='./html/Cadastro.html'">Cadastro</button>
+        <button id="loginButton" class="btn btn-light border-black border-2" type="button"
+          onclick="window.location.href='./html/Login.html'">Login</button>
+      </div>
+
+      <!-- Dropdown do cliente logado (se existir) -->
+      <div class="d-flex align-items-center">
+        <div id="clienteDropdown" class="dropdown d-none">
+          <button class="btn btn-light border-black border-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle"></i>
           </button>
-        </form>
-
-        <!-- Botões no Canto Direito -->
-        <div class="d-flex">
-          <button id="cadastroButton" class="btn btn-light border-black border-2 me-2" type="button"
-            onclick="window.location.href='./html/Cadastro.html'">Cadastro</button>
-          <button id="loginButton" class="btn btn-light border-black border-2" type="button"
-            onclick="window.location.href='./html/Login.html'">Login</button>
-        </div>
-
-        <div class="d-flex align-items-center">
-          <!-- Dropdown do cliente logado -->
-          <div id="clienteDropdown" class="dropdown d-none">
-            <button class="btn btn-light border-black border-2 dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle"></i> <!-- Ícone de rosto -->
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-              <li><span class="dropdown-item-text"><strong>Nome:</strong> <span id="dropdownNome"></span></span></li>
-              <li><span class="dropdown-item-text"><strong>CPF:</strong> <span id="dropdownCpf"></span></span></li>
-              <li><span class="dropdown-item-text"><strong>Telefone:</strong> <span id="dropdownTelefone"></span></span>
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><button id="logoutButton" class="dropdown-item text-danger">Deslogar</button></li>
-            </ul>
-          </div>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+            <li><span class="dropdown-item-text"><strong>Nome:</strong> <span id="dropdownNome"></span></span></li>
+            <li><span class="dropdown-item-text"><strong>CPF:</strong> <span id="dropdownCpf"></span></span></li>
+            <li><span class="dropdown-item-text"><strong>Telefone:</strong> <span id="dropdownTelefone"></span></span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><button id="logoutButton" class="dropdown-item text-danger">Deslogar</button></li>
+          </ul>
         </div>
       </div>
+    </div>
+
+    </div>
     </div>
   </nav>
-
-  <!-- Adicione esta seção após a navbar -->
-  <div id="clienteSection" class="d-none">
-    <div class="container mt-5">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h2 class="card-title">Bem-vindo, <span id="clienteNome"></span>!</h2>
-          <p class="card-text">CPF: <span id="clienteCpf"></span></p>
-          <p class="card-text">Telefone: <span id="clienteTelefone"></span></p>
-          <button id="logoutButton" class="btn btn-danger">Deslogar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div id="inicial" class="inicial d-flex flex-column justify-content-center align-items-center p-4">
     <div class="titulo d-flex flex-wrap justify-content-center align-items-center ">
