@@ -116,3 +116,48 @@ function mudarEstadoAluguel(acao) {
   }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const equipamentoForm = document.getElementById('equipamentoForm');
+
+    equipamentoForm.addEventListener('submit', async function (event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        // Coleta os dados do formulário
+        const equipamento = {
+            cnpj_fornecedor: document.getElementById('cnpjFornecedor').value,
+            nome: document.getElementById('nomeEquipamento').value,
+            descricao: document.getElementById('descricaoEquipamento').value,
+            valor_diaria: parseFloat(document.getElementById('valorDiariaEquipamento').value),
+            url_imagem: document.getElementById('urlImagemEquipamento').value
+        };
+        
+
+        // Validação básica dos campos
+        if (!equipamento.cnpj_fornecedor || !equipamento.nome || !equipamento.valor_diaria) {
+            alert('Por favor, preencha todos os campos obrigatórios.');
+            return;
+        }
+
+        try {
+            // Envia os dados para a API
+            const response = await fetch('http://localhost:3000/api/equipamento/cadastrar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(equipamento)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Equipamento cadastrado com sucesso!');
+                equipamentoForm.reset(); // Limpa o formulário após o sucesso
+            } else {
+                alert(`Erro ao cadastrar equipamento: ${data.message}`);
+            }
+        } catch (error) {
+            alert('Erro ao conectar com o servidor: ' + error.message);
+        }
+    });
+});

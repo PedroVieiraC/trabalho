@@ -22,14 +22,13 @@ class EquipamentoRepository {
             }
         });
     }
-    
+
     async cadastrarEquipamento(equipamento) {
-        const {id, nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem} = equipamento;
+        const {nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem } = equipamento;
         const query = `
-            INSERT INTO EQUIPAMENTO VALUES ($1, $2, $3, $4, $5, $6, $7)
-            RETURNING *;
+            INSERT INTO EQUIPAMENTO (NOME, CNPJ_FORNECEDOR, QUANTIDADE, DESCRICAO, VALOR_DIARIA, URL_IMAGEM) VALUES ($1, $2, $3, $4, $5, $6) RETURNING*;
         `;
-        const values = [id, nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem];
+        const values = [nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem];
 
         try {
             const { rows } = await db.query(query, values);
@@ -42,7 +41,7 @@ class EquipamentoRepository {
     async verificaridExistente(id) {
         const query = 'SELECT ID FROM EQUIPAMENTO WHERE ID = $1';
         const values = [id];
-    
+
         try {
             const result = await db.query(query, values);
             return result.rows.length > 0;

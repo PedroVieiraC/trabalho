@@ -23,14 +23,16 @@ class EquipamentoController {
   }
 
   async cadastrarEquipamento(req,res){
-    const {id, nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem} = req.body;
+    const {nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem} = req.body;
     try{
-      await equipamentoService.cadastrarEquipamento({id, nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem});
+      await equipamentoService.cadastrarEquipamento({nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem});
       res.status(201).json({message: 'Equipamento cadastrado com sucesso!'});
-    } catch (Error){
+    } catch (error){
       res.status(400).json({message: error.message});
     }
   }
+
+
 }
 
 // Exportar uma instância da classe

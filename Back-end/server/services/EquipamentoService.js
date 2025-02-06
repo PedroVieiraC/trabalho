@@ -10,16 +10,10 @@ class EquipamentoService {
     }
 
     async cadastrarEquipamento(equipamento) {
-        const { id, nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem } = equipamento;
-
-        // Verificar se o id já está cadastrado
-        const idExistente = await equipamentoRepository.verificaridExistente(id);
-        if (idExistente) {
-            throw new Error('id já cadastrado.');
-        }
+        const {nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem } = equipamento;
 
         // Cadastrar o equipamento
-        await equipamentoRepository.cadastrarEquipamento({ id, nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem });
+        await equipamentoRepository.cadastrarEquipamento({nome, cnpj_fornecedor, quantidade, descricao, valor_diaria, url_imagem });
     }
 }
 
