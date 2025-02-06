@@ -265,7 +265,6 @@ document.getElementById("equipamentoSelect").addEventListener("change", function
       .catch(error => console.error("Erro ao buscar detalhes do equipamento:", error));
   }
 });
-
 // Estado atual da tela de clientes ("atualizar" ou "remover")
 let estadoCliente = "atualizar";
 
@@ -384,7 +383,6 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
 
     console.log(cliente);
 
-
     // Validação básica (ajuste conforme necessário)
     if (!cliente.cpf || !cliente.nome || !cliente.cep || isNaN(cliente.numero) || !cliente.telefone || !cliente.senha) {
       alert("Preencha todos os campos obrigatórios.");
@@ -436,4 +434,9 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
       alert("Erro ao conectar com o servidor: " + error.message);
     }
   }
+});
+
+// Chama a função para configurar o estado para 'atualizar' assim que a página for carregada
+document.addEventListener('DOMContentLoaded', () => {
+  mudarEstadoCliente('atualizar');  // Muda para o estado de atualizar logo que a página carregar
 });
