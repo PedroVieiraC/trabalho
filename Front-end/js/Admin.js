@@ -25,18 +25,24 @@ function clearEquipamentoForm() {
 function setFormDisabled(disabled) {
   const campos = [
     "Quantidade",
-    "cnpjFornecedor",
     "nomeEquipamento",
     "descricaoEquipamento",
     "valorDiariaEquipamento",
     "urlImagemEquipamento"
   ];
+
   campos.forEach(id => {
     const elemento = document.getElementById(id);
     if (elemento) {
       elemento.disabled = disabled;
     }
   });
+
+  // O CNPJ do fornecedor deve sempre ser desabilitado no modo remover
+  const cnpjFornecedor = document.getElementById("cnpjFornecedorc");
+  if (cnpjFornecedor) {
+    cnpjFornecedor.disabled = disabled || estadoBotao === "remover";
+  }
 }
 
 // Função para mudar o estado da tela (adicionar, atualizar ou remover)
