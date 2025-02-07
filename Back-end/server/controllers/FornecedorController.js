@@ -1,18 +1,28 @@
 const fornecedorService = require("../services/FornecedorService");
 
-class FornecedorController{
+class FornecedorController {
 
-    getAll(req, res) {
-      fornecedorService.getAll((error, results) => {
-        if (error) {
-          res.status(500).send(error);
-        } else {
-          res.send(results);
-        }
-      });
-    }
+  getAll(req, res) {
+    fornecedorService.getAll((error, results) => {
+      if (error) {
+        res.status(500).send(error);
+      } else {
+        res.send(results);
+      }
+    });
+  }
 
-  
+  get(req, res) {
+    const cnpj = req.params.cnpj; // Pega o cnpj da URL
+    fornecedorService.get(cnpj, (error, result) => {
+      if (error) {
+        res.status(500).send(error);
+      } else {
+        res.send(result);
+      }
+    });
+  }
+
   async adicionarFornecedor(req, res) {
     try {
       const fornecedor = req.body;

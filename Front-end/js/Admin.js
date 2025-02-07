@@ -543,7 +543,7 @@ document.addEventListener("DOMContentLoaded", function () {
       email: document.getElementById("emailFornecedor").value
     };
 
-    let url = "http://localhost:3000/api/fornecedor/cadastrar";
+    let url = "http://localhost:3000/api/fornecedor";
     let metodo = "POST";
 
     if (estadoBotao === "atualizar") {

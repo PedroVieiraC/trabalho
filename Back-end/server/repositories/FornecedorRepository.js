@@ -4,14 +4,24 @@ class FornecedorRepository {
   getAll(callback) {
     const sql = 'SELECT * FROM FORNECEDOR';
     db.query(sql, (error, result) => {
-        if (error) {
-            callback(error, null);
-        } else {
-            callback(null, result.rows); // Retorna apenas as linhas (dados)
-        }
+      if (error) {
+        callback(error, null);
+      } else {
+        callback(null, result.rows); // Retorna apenas as linhas (dados)
+      }
     });
-}
+  }
 
+  get(cnpj, callback) {
+    const sql = 'SELECT * FROM FORNECEDOR WHERE cnpj = $1';
+    db.query(sql, [cnpj], (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        callback(null, result.rows[0]); // Retorna apenas a primeira linha (dado único)
+      }
+    });
+  }
 
   async adicionarFornecedor(fornecedor) {
     const { cnpj, nomeFantasia, telefone, email } = fornecedor;
@@ -44,7 +54,7 @@ class FornecedorRepository {
     try {
       const result = await db.query(query, [cnpj]);
       if (result.rowCount === 0) throw new Error("Fornecedor não encontrado.");
-      return { message: "Fornecedor removido com sucesso!" };
+      return { message: "Fornecedor removcnpjo com sucesso!" };
     } catch (error) {
       throw new Error(`Erro ao remover fornecedor: ${error.message}`);
     }

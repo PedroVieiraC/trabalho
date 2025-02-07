@@ -6,6 +6,7 @@ const FornecedorController = require("../controllers/FornecedorController");
 const router = express.Router();
 
 router.get('/', FornecedorController.getAll);
+router.get('/:cnpj', FornecedorController.get);
 router.post("/cadastrar", FornecedorController.adicionarFornecedor);
 router.put("/:cnpj", FornecedorController.atualizarFornecedor);
 router.delete("/:cnpj", FornecedorController.removerFornecedor);
