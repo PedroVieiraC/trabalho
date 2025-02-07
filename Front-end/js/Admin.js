@@ -372,7 +372,7 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
   if (estadoCliente === 'atualizar') {
     // Coleta os dados do formulário
     const cliente = {
-      cpf: document.getElementById("cpfCliente").value.trim(), 
+      cpf: document.getElementById("cpfCliente").value.trim(),
       nome: document.getElementById("nomeCliente").value.trim(),
       cep: document.getElementById("cepCliente").value.trim(),
       numero: parseInt(document.getElementById("numeroCliente").value),
@@ -436,32 +436,73 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
   }
 });
 
-// Chama a função para configurar o estado para 'atualizar' assim que a página for carregada
-document.addEventListener('DOMContentLoaded', () => {
-  mudarEstadoCliente('atualizar');  // Muda para o estado de atualizar logo que a página carregar
+// Ajusta a altura do textarea automaticamente
+document.addEventListener("DOMContentLoaded", function () {
+    carregarFornecedores(); // Carregar a lista de fornecedores ao carregar a página
 });
 
+// Função para mudar o estado dos Fornecedores
+function mudarEstadoFornecedor(acao) {
+    const titulo = document.getElementById("tituloPrincipalFornecedor");
+    const descricao = document.getElementById("descricaoPrincipalFornecedor");
+    const botaoAcao = document.getElementById("btnAcaoFornecedor");
+    const fornecedorDropdownContainer = document.getElementById("fornecedorDropdownContainer");
 
+    switch (acao) {
+        case 'adicionar':
+            titulo.innerText = "Adicionar Fornecedor";
+            descricao.innerText = "Preencha os dados do fornecedor";
+            botaoAcao.innerText = "Salvar";
+            botaoAcao.className = "btn btn-primary w-100";
+            fornecedorDropdownContainer.style.display = "none"; // Oculta o dropdown
+            break;
+        case 'atualizar':
+            titulo.innerText = "Atualizar Fornecedor";
+            descricao.innerText = "Modifique os dados do fornecedor";
+            botaoAcao.innerText = "Atualizar";
+            botaoAcao.className = "btn btn-warning w-100";
+            fornecedorDropdownContainer.style.display = "block"; // Exibe o dropdown
+            break;
+        case 'remover':
+            titulo.innerText = "Remover Fornecedor";
+            descricao.innerText = "Informe o CNPJ do fornecedor a ser removido";
+            botaoAcao.innerText = "Remover";
+            botaoAcao.className = "btn btn-danger w-100";
+            fornecedorDropdownContainer.style.display = "block"; // Exibe o dropdown
+            break;
+    }
+}
 document.addEventListener("DOMContentLoaded", function () {
-  const formFornecedor = document.getElementById("form-fornecedor");
+  const formFornecedor = document.getElementById("fornecedorForm");
 
   formFornecedor.addEventListener("submit", async function (event) {
       event.preventDefault();
 
-      const cnpj = document.getElementById("cnpj").value;
-      const nomeFantasia = document.getElementById("nome_fantasia").value;
-      const telefone = document.getElementById("telefone").value;
-      const email = document.getElementById("email").value;
+      // Coleta os dados do formulário
+      const cnpj = document.getElementById("cnpjFornecedor").value.trim();
+      const nomeFantasia = document.getElementById("nomeFantasia").value.trim();
+      const telefone = document.getElementById("telefoneFornecedor").value.trim();
+      const email = document.getElementById("emailFornecedor").value.trim();
 
+      // Validações
+      if (!cnpj || !nomeFantasia || !telefone || !email) {
+          alert("Preencha todos os campos obrigatórios.");
+          return;
+      }
+
+      // Cria o objeto fornecedor
       const fornecedor = {
-          cnpj,
-          nome_fantasia: nomeFantasia,
-          telefone,
-          email
-      };
+        cnpj,
+        nomeFantasia, 
+        telefone,
+        email
+    };
+    
 
       try {
-          const response = await fetch("http://localhost:3000/fornecedor", {
+          console.log("Enviando dados:", fornecedor); // Log dos dados enviados
+
+          const response = await fetch("http://localhost:3000/api/fornecedor", {
               method: "POST",
               headers: {
                   "Content-Type": "application/json"
@@ -469,13 +510,17 @@ document.addEventListener("DOMContentLoaded", function () {
               body: JSON.stringify(fornecedor)
           });
 
+          console.log("Resposta do servidor:", response); // Log da resposta
+
           if (!response.ok) {
+              const errorData = await response.json(); // Captura o corpo da resposta de erro
+              console.error("Erro detalhado:", errorData); // Log do erro detalhado
               throw new Error("Erro ao cadastrar fornecedor");
           }
 
           const result = await response.json();
           alert("Fornecedor cadastrado com sucesso!");
-          formFornecedor.reset();
+          formFornecedor.reset(); // Limpa o formulário
       } catch (error) {
           console.error("Erro:", error);
           alert("Falha ao cadastrar fornecedor.");

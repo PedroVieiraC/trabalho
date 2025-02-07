@@ -5,8 +5,8 @@ const FornecedorController = require("../controllers/FornecedorController");
 
 const router = express.Router();
 
-router.post("/fornecedor", FornecedorController.adicionarFornecedor);
-router.put("/fornecedor/:cnpj", FornecedorController.atualizarFornecedor);
-router.delete("/fornecedor/:cnpj", FornecedorController.removerFornecedor);
+router.post("/", FornecedorController.adicionarFornecedor);
+router.put("/:cnpj", FornecedorController.atualizarFornecedor);
+router.delete("/:cnpj", FornecedorController.removerFornecedor);
 
 module.exports = router;
