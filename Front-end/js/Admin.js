@@ -325,7 +325,8 @@ document.getElementById("clienteSelect").addEventListener("change", function () 
       .then(response => response.json())
       .then(data => {
         // Preenche os campos com os dados atuais do cliente
-        document.getElementById("cpfCliente").value = data.cpf;
+        document.getElementById("cpfCliente").value = data.cpf;   // novo valor (editável)
+        document.getElementById("cpfAntigo").value = data.cpf;    // armazena o valor original
         document.getElementById("nomeCliente").value = data.nome;
         document.getElementById("cepCliente").value = data.cep;
         document.getElementById("numeroCliente").value = data.numero;
@@ -373,10 +374,12 @@ function mudarEstadoCliente(acao) {
 // Event listener para o envio do formulário de cliente
 document.getElementById("btnAcaoCliente").addEventListener("click", async function (event) {
   event.preventDefault();
+  
   if (estadoCliente === 'atualizar') {
-    // Coleta os dados do formulário
+    // Coleta os dados do formulário para atualização
+    const cpfAntigo = document.getElementById("cpfAntigo").value; // valor original (campo oculto)
     const cliente = {
-      cpf: document.getElementById("cpfCliente").value.trim(),
+      cpf: document.getElementById("cpfCliente").value.trim(),  // novo CPF, se modificado
       nome: document.getElementById("nomeCliente").value.trim(),
       cep: document.getElementById("cepCliente").value.trim(),
       numero: parseInt(document.getElementById("numeroCliente").value),
@@ -385,16 +388,13 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
       senha: document.getElementById("senhaCliente").value.trim()
     };
 
-    console.log(cliente);
-
-    // Validação básica (ajuste conforme necessário)
     if (!cliente.cpf || !cliente.nome || !cliente.cep || isNaN(cliente.numero) || !cliente.telefone || !cliente.senha) {
       alert("Preencha todos os campos obrigatórios.");
       return;
     }
 
-    let url = `http://localhost:3000/api/cliente/${cliente.cpf}`;
     try {
+      let url = `http://localhost:3000/api/cliente/${cpfAntigo}`; // usa o CPF antigo na URL
       const response = await fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -405,22 +405,24 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
       if (response.ok) {
         alert("Cliente atualizado com sucesso!");
         clearClienteForm();
+        carregarClientes(); // Atualiza o dropdown após alteração
       } else {
         alert(`Erro: ${data.message}`);
       }
     } catch (error) {
       alert("Erro ao conectar com o servidor: " + error.message);
     }
+    
   } else if (estadoCliente === 'remover') {
-    // No modo remover, o dropdown informa o CPF do cliente
+    // No modo remover, o dropdown informa o CPF do cliente a ser removido
     const cpf = document.getElementById("clienteSelect").value;
     if (!cpf) {
       alert("Selecione um cliente para remover.");
       return;
     }
 
-    let url = `http://localhost:3000/api/cliente/${cpf}`;
     try {
+      let url = `http://localhost:3000/api/cliente/${cpf}`;
       const response = await fetch(url, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" }
@@ -488,7 +490,8 @@ document.getElementById("fornecedorSelect").addEventListener("change", function 
       .then(response => response.json())
       .then(data => {
         // Preenche os campos com os dados atuais do fornecedor
-        document.getElementById("cnpjFornecedor").value = data.cnpj;
+        document.getElementById("cnpjFornecedor").value = data.cnpj; // novo valor editável
+        document.getElementById("cnpjAntigo").value = data.cnpj;     // armazena o valor original
         document.getElementById("nomeFantasia").value = data.nome_fantasia;
         document.getElementById("telefoneFornecedor").value = data.telefone;
         document.getElementById("emailFornecedor").value = data.email;
@@ -498,6 +501,7 @@ document.getElementById("fornecedorSelect").addEventListener("change", function 
     clearFornecedorForm();
   }
 });
+
 
 // Função para mudar o estado (adicionar, atualizar ou remover)
 function mudarEstadoFornecedor(acao) {
@@ -580,14 +584,14 @@ document.getElementById("btnAcaoFornecedor").addEventListener("click", async fun
       alert("Erro ao conectar com o servidor: " + error.message);
     }
   } else if (estadoFornecedor === "atualizar") {
-    // No modo atualizar, o dropdown informa o CNPJ do fornecedor selecionado
-    const cnpjSelecionado = document.getElementById("fornecedorSelect").value;
-    if (!cnpjSelecionado) {
+    // No modo atualizar, usamos o valor do campo oculto "cnpjAntigo" para identificar o registro
+    const cnpjAntigo = document.getElementById("cnpjAntigo").value;
+    if (!cnpjAntigo) {
       alert("Selecione um fornecedor para atualizar.");
       return;
     }
 
-    // Coleta os dados do formulário para atualização
+    // Coleta os dados do formulário para atualização (novo valor pode ser diferente)
     const fornecedor = {
       cnpj: document.getElementById("cnpjFornecedor").value.trim(),
       nomeFantasia: document.getElementById("nomeFantasia").value.trim(),
@@ -600,7 +604,8 @@ document.getElementById("btnAcaoFornecedor").addEventListener("click", async fun
       return;
     }
 
-    const url = `http://localhost:3000/api/fornecedor/${cnpjSelecionado}`;
+    // Usa o CNPJ antigo na URL para localizar o registro
+    const url = `http://localhost:3000/api/fornecedor/${cnpjAntigo}`;
     try {
       const response = await fetch(url, {
         method: "PUT",
