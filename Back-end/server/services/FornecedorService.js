@@ -1,26 +1,30 @@
-const FornecedorRepository = require("../repositories/FornecedorRepository");
+const fornecedorRepository = require("../repositories/FornecedorRepository");
 
-const FornecedorService = {
+class FornecedorService  {
+      getAll(callback) {
+          fornecedorRepository.getAll(callback);
+      }
+
   async adicionarFornecedor(fornecedor) {
     if (!fornecedor.cnpj || !fornecedor.nomeFantasia || !fornecedor.telefone || !fornecedor.email) {
       throw new Error("Todos os campos são obrigatórios.");
     }
-    return await FornecedorRepository.adicionarFornecedor(fornecedor);
-  },
+    return await fornecedorRepository.adicionarFornecedor(fornecedor);
+  }
 
   async atualizarFornecedor(cnpj, fornecedor) {
     if (!cnpj || !fornecedor.nomeFantasia || !fornecedor.telefone || !fornecedor.email) {
       throw new Error("Todos os campos são obrigatórios.");
     }
-    return await FornecedorRepository.atualizarFornecedor(cnpj, fornecedor);
-  },
+    return await fornecedorRepository.atualizarFornecedor(cnpj, fornecedor);
+  }
 
   async removerFornecedor(cnpj) {
     if (!cnpj) {
       throw new Error("CNPJ é obrigatório.");
     }
-    return await FornecedorRepository.removerFornecedor(cnpj);
+    return await fornecedorRepository.removerFornecedor(cnpj);
   }
-};
+}
 
-module.exports = FornecedorService;
+module.exports = new FornecedorService();

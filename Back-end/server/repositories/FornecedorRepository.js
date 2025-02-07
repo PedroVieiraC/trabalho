@@ -1,6 +1,18 @@
 const db = require("../config/db"); // Conexão com o banco de dados
 
-const FornecedorRepository = {
+class FornecedorRepository {
+  getAll(callback) {
+    const sql = 'SELECT * FROM FORNECEDOR';
+    db.query(sql, (error, result) => {
+        if (error) {
+            callback(error, null);
+        } else {
+            callback(null, result.rows); // Retorna apenas as linhas (dados)
+        }
+    });
+}
+
+
   async adicionarFornecedor(fornecedor) {
     const { cnpj, nomeFantasia, telefone, email } = fornecedor;
     const query = `INSERT INTO FORNECEDOR (CNPJ, NOME_FANTASIA, TELEFONE, EMAIL) VALUES ($1, $2, $3, $4)`;
@@ -11,7 +23,7 @@ const FornecedorRepository = {
     } catch (error) {
       throw new Error(`Erro ao adicionar fornecedor: ${error.message}`);
     }
-  },
+  }
 
   async atualizarFornecedor(cnpj, fornecedor) {
     const { nomeFantasia, telefone, email } = fornecedor;
@@ -24,7 +36,7 @@ const FornecedorRepository = {
     } catch (error) {
       throw new Error(`Erro ao atualizar fornecedor: ${error.message}`);
     }
-  },
+  }
 
   async removerFornecedor(cnpj) {
     const query = `DELETE FROM FORNECEDOR WHERE CNPJ = $1`;
@@ -37,6 +49,6 @@ const FornecedorRepository = {
       throw new Error(`Erro ao remover fornecedor: ${error.message}`);
     }
   }
-};
+}
 
-module.exports = FornecedorRepository;
+module.exports = new FornecedorRepository();

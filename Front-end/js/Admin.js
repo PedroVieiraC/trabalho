@@ -265,6 +265,10 @@ document.getElementById("equipamentoSelect").addEventListener("change", function
       .catch(error => console.error("Erro ao buscar detalhes do equipamento:", error));
   }
 });
+
+
+// CLIENTES
+
 // Estado atual da tela de clientes ("atualizar" ou "remover")
 let estadoCliente = "atualizar";
 
@@ -436,94 +440,152 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
   }
 });
 
-// Ajusta a altura do textarea automaticamente
-document.addEventListener("DOMContentLoaded", function () {
-    carregarFornecedores(); // Carregar a lista de fornecedores ao carregar a página
-});
+// FORNECEDORES
 
-// Função para mudar o estado dos Fornecedores
-function mudarEstadoFornecedor(acao) {
+document.addEventListener("DOMContentLoaded", function () {
+  carregarFornecedores(); // Carregar fornecedores no dropdown
+  
+  const formFornecedor = document.getElementById("fornecedorForm");
+  
+  // Função para mudar o estado dos Fornecedores
+  function mudarEstadoFornecedor(acao) {
     const titulo = document.getElementById("tituloPrincipalFornecedor");
     const descricao = document.getElementById("descricaoPrincipalFornecedor");
     const botaoAcao = document.getElementById("btnAcaoFornecedor");
-    const fornecedorDropdownContainer = document.getElementById("fornecedorDropdownContainer");
+    const dropdownContainer = document.getElementById("fornecedorDropdownContainer");
 
     switch (acao) {
-        case 'adicionar':
-            titulo.innerText = "Adicionar Fornecedor";
-            descricao.innerText = "Preencha os dados do fornecedor";
-            botaoAcao.innerText = "Salvar";
-            botaoAcao.className = "btn btn-primary w-100";
-            fornecedorDropdownContainer.style.display = "none"; // Oculta o dropdown
-            break;
-        case 'atualizar':
-            titulo.innerText = "Atualizar Fornecedor";
-            descricao.innerText = "Modifique os dados do fornecedor";
-            botaoAcao.innerText = "Atualizar";
-            botaoAcao.className = "btn btn-warning w-100";
-            fornecedorDropdownContainer.style.display = "block"; // Exibe o dropdown
-            break;
-        case 'remover':
-            titulo.innerText = "Remover Fornecedor";
-            descricao.innerText = "Informe o CNPJ do fornecedor a ser removido";
-            botaoAcao.innerText = "Remover";
-            botaoAcao.className = "btn btn-danger w-100";
-            fornecedorDropdownContainer.style.display = "block"; // Exibe o dropdown
-            break;
+      case 'adicionar':
+        titulo.innerText = "Adicionar Fornecedor";
+        descricao.innerText = "Preencha os dados do fornecedor";
+        botaoAcao.innerText = "Salvar";
+        botaoAcao.className = "btn btn-primary w-100";
+        dropdownContainer.style.display = "none"; // Oculta o dropdown
+        break;
+      case 'atualizar':
+        titulo.innerText = "Atualizar Fornecedor";
+        descricao.innerText = "Modifique os dados do fornecedor";
+        botaoAcao.innerText = "Atualizar";
+        botaoAcao.className = "btn btn-warning w-100";
+        dropdownContainer.style.display = "block"; // Exibe o dropdown
+        break;
+      case 'remover':
+        titulo.innerText = "Remover Fornecedor";
+        descricao.innerText = "Selecione o fornecedor a ser removido";
+        botaoAcao.innerText = "Remover";
+        botaoAcao.className = "btn btn-danger w-100";
+        dropdownContainer.style.display = "block"; // Exibe o dropdown
+        break;
     }
-}
-document.addEventListener("DOMContentLoaded", function () {
-  const formFornecedor = document.getElementById("fornecedorForm");
+  }
+
+  // Função para carregar fornecedores no dropdown
+  function carregarFornecedores() {
+    fetch("http://localhost:3000/api/fornecedor")
+      .then(response => response.json())
+      .then(data => {
+        const select = document.getElementById("fornecedorSelect");
+        select.innerHTML = '<option value="">Selecione um fornecedor...</option>';
+        data.forEach(fornecedor => {
+          const option = document.createElement("option");
+          option.value = fornecedor.cnpj;
+          option.textContent = `${fornecedor.cnpj} - ${fornecedor.nomeFantasia}`;
+          select.appendChild(option);
+        });
+      })
+      .catch(error => console.error("Erro ao carregar fornecedores:", error));
+  }
+
+  // Ao selecionar um fornecedor no dropdown, buscar seus detalhes (para atualizar ou visualizar)
+  document.getElementById("fornecedorSelect").addEventListener("change", function () {
+    const cnpjFornecedor = this.value;
+    if (cnpjFornecedor) {
+      fetch(`http://localhost:3000/api/fornecedor/${cnpjFornecedor}`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("cnpjFornecedor").value = data.cnpj;
+          document.getElementById("nomeFantasia").value = data.nomeFantasia;
+          document.getElementById("telefoneFornecedor").value = data.telefone;
+          document.getElementById("emailFornecedor").value = data.email;
+          
+          // Desabilitar campos na tela de remover
+          if (estadoBotao === "remover") {
+            setFormDisabled(true);
+          }
+        })
+        .catch(error => console.error("Erro ao buscar detalhes do fornecedor:", error));
+    }
+  });
+
+  // Função para habilitar ou desabilitar os campos do formulário
+  function setFormDisabled(disabled) {
+    const campos = [
+      "cnpjFornecedor",
+      "nomeFantasia",
+      "telefoneFornecedor",
+      "emailFornecedor"
+    ];
+    campos.forEach(id => {
+      const elemento = document.getElementById(id);
+      if (elemento) {
+        elemento.disabled = disabled;
+      }
+    });
+  }
 
   formFornecedor.addEventListener("submit", async function (event) {
-      event.preventDefault();
+    event.preventDefault();
 
-      // Coleta os dados do formulário
-      const cnpj = document.getElementById("cnpjFornecedor").value.trim();
-      const nomeFantasia = document.getElementById("nomeFantasia").value.trim();
-      const telefone = document.getElementById("telefoneFornecedor").value.trim();
-      const email = document.getElementById("emailFornecedor").value.trim();
-
-      // Validações
-      if (!cnpj || !nomeFantasia || !telefone || !email) {
-          alert("Preencha todos os campos obrigatórios.");
-          return;
-      }
-
-      // Cria o objeto fornecedor
-      const fornecedor = {
-        cnpj,
-        nomeFantasia, 
-        telefone,
-        email
+    const fornecedor = {
+      cnpj: document.getElementById("cnpjFornecedor").value,
+      nomeFantasia: document.getElementById("nomeFantasia").value,
+      telefone: document.getElementById("telefoneFornecedor").value,
+      email: document.getElementById("emailFornecedor").value
     };
-    
 
-      try {
-          console.log("Enviando dados:", fornecedor); // Log dos dados enviados
+    let url = "http://localhost:3000/api/fornecedor/cadastrar";
+    let metodo = "POST";
 
-          const response = await fetch("http://localhost:3000/api/fornecedor", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify(fornecedor)
-          });
-
-          console.log("Resposta do servidor:", response); // Log da resposta
-
-          if (!response.ok) {
-              const errorData = await response.json(); // Captura o corpo da resposta de erro
-              console.error("Erro detalhado:", errorData); // Log do erro detalhado
-              throw new Error("Erro ao cadastrar fornecedor");
-          }
-
-          const result = await response.json();
-          alert("Fornecedor cadastrado com sucesso!");
-          formFornecedor.reset(); // Limpa o formulário
-      } catch (error) {
-          console.error("Erro:", error);
-          alert("Falha ao cadastrar fornecedor.");
+    if (estadoBotao === "atualizar") {
+      const cnpjFornecedor = document.getElementById("fornecedorSelect").value;
+      if (!cnpjFornecedor) {
+        alert("Selecione um fornecedor para atualizar.");
+        return;
       }
+      url += `/${cnpjFornecedor}`;
+      metodo = "PUT";
+    } else if (estadoBotao === "remover") {
+      const cnpjFornecedor = document.getElementById("fornecedorSelect").value;
+      if (!cnpjFornecedor) {
+        alert("Selecione um fornecedor para remover.");
+        return;
+      }
+      url += `/${cnpjFornecedor}`;
+      metodo = "DELETE";
+    }
+
+    try {
+      const options = {
+        method: metodo,
+        headers: { "Content-Type": "application/json" }
+      };
+      if (metodo !== "DELETE") {
+        options.body = JSON.stringify(fornecedor);
+      }
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(estadoBotao === "remover" ? "Fornecedor removido com sucesso!" : estadoBotao === "atualizar" ? "Fornecedor atualizado com sucesso!" : "Fornecedor cadastrado com sucesso!");
+        formFornecedor.reset();
+        carregarFornecedores();
+        setFormDisabled(false); // Reabilitar os campos
+      } else {
+        alert(`Erro: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Erro ao salvar o fornecedor:", error);
+    }
   });
 });

@@ -181,59 +181,57 @@
                     </div>
                 </div>
             </div>
-
+            
             <div id="fornecedores" class="col-12 d-flex justify-content-center align-items-center">
                 <div class="w-90 h-100 p-4">
-                    <div class="card shadow-sm h-100">
-                        <div class="d-flex justify-content-center mt-3">
-                            <ul class="botaoEscolha d-flex justify-content-center">
-                                <li>
-                                    <a href="javascript:void(0)"
-                                        onclick="mudarEstadoFornecedor('adicionar'); return false;">Criar</a>
-                                </li>
-                                <li>
-                                    <a class="center" href="javascript:void(0)"
-                                        onclick="mudarEstadoFornecedor('atualizar'); return false;">Atualizar</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"
-                                        onclick="mudarEstadoFornecedor('remover'); return false;">Remover</a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="text-center mb-4">
-                            <h2 id="tituloPrincipalFornecedor" class="fw-bold">Adicionar Fornecedor</h2>
-                            <p id="descricaoPrincipalFornecedor" class="text-muted">Preencha os dados do fornecedor</p>
-                        </div>
-                        <div class="card-body p-4">
-                            <form id="fornecedorForm" class="needs-validation" novalidate>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="cnpjFornecedor" class="form-label">CNPJ do Fornecedor</label>
-                                        <input type="text" class="form-control" id="cnpjFornecedor" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="nomeFantasia" class="form-label">Nome Fantasia </label>
-                                        <input type="text" class="form-control" id="nomeFantasia" required>
-                                    </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="telefoneFornecedor" class="form-label">Telefone</label>
-                                    <input type="text" class="form-control" id="telefoneFornecedor" required
-                                        maxlength="11">
-                                </div>
-                                <div class="mb-4">
-                                    <label for="emailFornecedor" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control" id="emailFornecedor" required>
-                                </div>
-                                <button type="submit" id="btnAcaoFornecedor"
-                                    class="btn btn-primary w-100">Salvar</button>
-                            </form>
-                        </div>
+                  <div class="card shadow-sm h-100">
+                    <div class="d-flex justify-content-center mt-3">
+                      <ul class="botaoEscolha d-flex justify-content-center">
+                        <li><a href="javascript:void(0)" onclick="mudarEstadoFornecedor('adicionar'); return false;">Criar</a></li>
+                        <li><a class="center" href="javascript:void(0)" onclick="mudarEstadoFornecedor('atualizar'); return false;">Atualizar</a></li>
+                        <li><a href="javascript:void(0)" onclick="mudarEstadoFornecedor('remover'); return false;">Remover</a></li>
+                      </ul>
                     </div>
+                    <div class="text-center mb-4">
+                      <h2 id="tituloPrincipalFornecedor" class="fw-bold">Adicionar Fornecedor</h2>
+                      <p id="descricaoPrincipalFornecedor" class="text-muted">Preencha os dados do fornecedor</p>
+                    </div>
+                    <div class="card-body p-4">
+                      <form id="fornecedorForm" class="needs-validation" novalidate>
+                        <!-- Dropdown para selecionar o fornecedor a ser atualizado ou removido -->
+                        <div class="mb-4" id="fornecedorDropdownContainer" style="display: none;">
+                          <label for="fornecedorSelect" class="form-label">Selecionar Fornecedor</label>
+                          <select id="fornecedorSelect" class="form-select">
+                            <option value="">Selecione um fornecedor...</option>
+                          </select>
+                        </div>
+              
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label for="cnpjFornecedor" class="form-label">CNPJ do Fornecedor</label>
+                            <input type="text" class="form-control" id="cnpjFornecedor" required>
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label for="nomeFantasia" class="form-label">Nome Fantasia</label>
+                            <input type="text" class="form-control" id="nomeFantasia" required>
+                          </div>
+                        </div>
+              
+                        <div class="mb-4">
+                          <label for="telefoneFornecedor" class="form-label">Telefone</label>
+                          <input type="text" class="form-control" id="telefoneFornecedor" required maxlength="11">
+                        </div>
+                        <div class="mb-4">
+                          <label for="emailFornecedor" class="form-label">E-mail</label>
+                          <input type="email" class="form-control" id="emailFornecedor" required>
+                        </div>
+                        <button type="submit" id="btnAcaoFornecedor" class="btn btn-primary w-100">Salvar</button>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
 
             <!-- Quarta tela (Aluguéis) -->
             <div id="alugueis" class="col-12 d-flex justify-content-center align-items-center">
