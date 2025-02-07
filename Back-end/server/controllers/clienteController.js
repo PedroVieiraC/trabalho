@@ -42,20 +42,19 @@ class ClienteController {
     }
 
     async update(req, res) {
-        const cpf = req.params.cpf;
-        const { nome, cep, numero, complemento, telefone, senha } = req.body;
-
-        if (!nome || !cep || !numero || !telefone || !senha) {
+        const cpfAntigo = req.params.cpf;  // valor antigo vindo da URL
+        const { cpf: cpfNovo, nome, cep, numero, complemento, telefone, senha } = req.body; // novo valor no body
+        if (!cpfNovo || !nome || !cep || !numero || !telefone || !senha) {
             return res.status(400).json({ message: "Todos os campos são obrigatórios." });
         }
-
         try {
-            const clienteAtualizado = await clienteService.update(cpf, { nome, cep, numero, complemento, telefone, senha });
+            const clienteAtualizado = await clienteService.update(cpfAntigo, { cpf: cpfNovo, nome, cep, numero, complemento, telefone, senha });
             res.json({ message: "Cliente atualizado com sucesso!", cliente: clienteAtualizado });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     }
+    
 
     async delete(req, res) {
         const cpf = req.params.cpf;

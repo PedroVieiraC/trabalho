@@ -35,18 +35,22 @@ class FornecedorRepository {
     }
   }
 
-  async atualizarFornecedor(cnpj, fornecedor) {
-    const { nomeFantasia, telefone, email } = fornecedor;
-    const query = `UPDATE FORNECEDOR SET NOME_FANTASIA = $1, TELEFONE = $2, EMAIL = $3 WHERE CNPJ = $4`;
-
+  async atualizarFornecedor(cnpjAntigo, fornecedor) {
+    const { cnpj: cnpjNovo, nomeFantasia, telefone, email } = fornecedor;
+    const query = `
+      UPDATE FORNECEDOR 
+      SET cnpj = $1, nome_fantasia = $2, telefone = $3, email = $4 
+      WHERE cnpj = $5;
+    `;
     try {
-      const result = await db.query(query, [nomeFantasia, telefone, email, cnpj]);
+      const result = await db.query(query, [cnpjNovo, nomeFantasia, telefone, email, cnpjAntigo]);
       if (result.rowCount === 0) throw new Error("Fornecedor não encontrado.");
       return { message: "Fornecedor atualizado com sucesso!" };
     } catch (error) {
       throw new Error(`Erro ao atualizar fornecedor: ${error.message}`);
     }
-  }
+}
+
 
   async removerFornecedor(cnpj) {
     const query = `DELETE FROM FORNECEDOR WHERE CNPJ = $1`;

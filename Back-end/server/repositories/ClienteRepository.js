@@ -65,14 +65,14 @@ class ClienteRepository {
         }
     }
 
-    async update(cpf, cliente) {
-        const { nome, cep, numero, complemento, telefone, senha } = cliente;
+    async update(cpfAntigo, cliente) {
+        const { cpf: cpfNovo, nome, cep, numero, complemento, telefone, senha } = cliente;
         const query = `
-            UPDATE CLIENTE 
-            SET nome = $2, cep = $3, numero = $4, complemento = $5, telefone = $6, senha = $7 
-            WHERE cpf = $1 RETURNING *;
+          UPDATE CLIENTE 
+          SET cpf = $1, nome = $2, cep = $3, numero = $4, complemento = $5, telefone = $6, senha = $7 
+          WHERE cpf = $8 RETURNING *;
         `;
-        const values = [cpf, nome, cep, numero, complemento, telefone, senha];
+        const values = [cpfNovo, nome, cep, numero, complemento, telefone, senha, cpfAntigo];
         try {
             const { rows } = await db.query(query, values);
             if (rows.length === 0) {

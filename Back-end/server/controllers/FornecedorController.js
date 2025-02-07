@@ -34,15 +34,19 @@ class FornecedorController {
   }
 
   async atualizarFornecedor(req, res) {
+    const cnpjAntigo = req.params.cnpj;  // valor antigo
+    const { cnpj: cnpjNovo, nomeFantasia, telefone, email } = req.body; // novo valor no body
+    if (!cnpjNovo || !nomeFantasia || !telefone || !email) {
+      return res.status(400).json({ message: "Todos os campos são obrigatórios." });
+    }
     try {
-      const { cnpj } = req.params;
-      const fornecedor = req.body;
-      const resultado = await fornecedorService.atualizarFornecedor(cnpj, fornecedor);
+      const resultado = await fornecedorService.atualizarFornecedor(cnpjAntigo, { cnpj: cnpjNovo, nomeFantasia, telefone, email });
       res.status(200).json(resultado);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
-  }
+}
+
 
   async removerFornecedor(req, res) {
     try {

@@ -16,12 +16,13 @@ class FornecedorService {
     return await fornecedorRepository.adicionarFornecedor(fornecedor);
   }
 
-  async atualizarFornecedor(cnpj, fornecedor) {
-    if (!cnpj || !fornecedor.nomeFantasia || !fornecedor.telefone || !fornecedor.email) {
+  async atualizarFornecedor(cnpjAntigo, fornecedor) {
+    if (!cnpjAntigo || !fornecedor.cnpj || !fornecedor.nomeFantasia || !fornecedor.telefone || !fornecedor.email) {
       throw new Error("Todos os campos são obrigatórios.");
     }
-    return await fornecedorRepository.atualizarFornecedor(cnpj, fornecedor);
-  }
+    return await fornecedorRepository.atualizarFornecedor(cnpjAntigo, fornecedor);
+}
+
 
   async removerFornecedor(cnpj) {
     if (!cnpj) {

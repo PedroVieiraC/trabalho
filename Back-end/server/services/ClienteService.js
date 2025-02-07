@@ -32,13 +32,14 @@ class ClienteService {
         return cliente;
     }
 
-    async update(cpf, cliente) {
-        const existe = await clienteRepository.verificarCpfExistente(cpf);
+    async update(cpfAntigo, cliente) {
+        const existe = await clienteRepository.verificarCpfExistente(cpfAntigo);
         if (!existe) {
             throw new Error("CPF não encontrado.");
         }
-        return await clienteRepository.update(cpf, cliente);
+        return await clienteRepository.update(cpfAntigo, cliente);
     }
+    
 
     async delete(cpf) {
         return await clienteRepository.delete(cpf);
