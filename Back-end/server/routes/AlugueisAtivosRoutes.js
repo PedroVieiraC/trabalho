@@ -3,7 +3,13 @@ const alugueisAtivosController = require('../controllers/AlugueisAtivosControlle
 
 const router = express.Router();
 
-// Definição da rota correta
-router.get('/:cpfCliente', alugueisAtivosController.get); 
+// Retorna os aluguéis ativos de um cliente (usando CPF)
+router.get('/:cpfCliente', alugueisAtivosController.get);
+
+// Atualiza um aluguel ativo (usando somente o idAluguel)
+router.put('/:idAluguel', alugueisAtivosController.update);
+
+// Remove um aluguel ativo (usando somente o idAluguel)
+router.delete('/:idAluguel', alugueisAtivosController.remove);
 
 module.exports = router;
