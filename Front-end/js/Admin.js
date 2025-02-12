@@ -273,9 +273,9 @@ document.getElementById("equipamentoSelect").addEventListener("change", function
 });
 
 
-// CLIENTES
-
-// Estado atual da tela de clientes ("atualizar" ou "remover")
+/*********************/
+/*    SEÇÃO CLIENTES */
+/*********************/
 let estadoCliente = "atualizar";
 
 // Limpa os campos do formulário de cliente
@@ -305,13 +305,12 @@ function setClienteFormDisabled(disabled) {
   });
 }
 
-// Função para carregar os clientes do endpoint e preencher o dropdown
+// Carrega os clientes e preenche o dropdown da seção Clientes
 function carregarClientes() {
   fetch("http://localhost:3000/api/cliente")
     .then(response => response.json())
     .then(data => {
       const select = document.getElementById("clienteSelect");
-      // Limpa as opções e adiciona uma opção padrão
       select.innerHTML = '<option value="">Selecione um cliente...</option>';
       data.forEach(cliente => {
         const option = document.createElement("option");
@@ -323,16 +322,15 @@ function carregarClientes() {
     .catch(error => console.error("Erro ao carregar clientes:", error));
 }
 
-// Ao selecionar um cliente no dropdown, busca seus dados e preenche o formulário
+// Ao selecionar um cliente, busca seus dados e preenche o formulário
 document.getElementById("clienteSelect").addEventListener("change", function () {
   const cpf = this.value;
   if (cpf) {
     fetch(`http://localhost:3000/api/cliente/${cpf}`)
       .then(response => response.json())
       .then(data => {
-        // Preenche os campos com os dados atuais do cliente
-        document.getElementById("cpfCliente").value = data.cpf;   // novo valor (editável)
-        document.getElementById("cpfAntigo").value = data.cpf;    // armazena o valor original
+        document.getElementById("cpfCliente").value = data.cpf;
+        document.getElementById("cpfAntigo").value = data.cpf;
         document.getElementById("nomeCliente").value = data.nome;
         document.getElementById("cepCliente").value = data.cep;
         document.getElementById("numeroCliente").value = data.numero;
@@ -346,16 +344,14 @@ document.getElementById("clienteSelect").addEventListener("change", function () 
   }
 });
 
-// Função para mudar o estado (atualizar ou remover)
+// Muda o estado (atualizar ou remover) na tela de clientes
 function mudarEstadoCliente(acao) {
   const titulo = document.getElementById("tituloPrincipalCliente");
   const descricao = document.getElementById("descricaoPrincipalCliente");
   const botaoAcao = document.getElementById("btnAcaoCliente");
   const dropdownContainer = document.getElementById("clienteDropdownContainer");
 
-  estadoCliente = acao; // Atualiza o estado global
-
-  // Exibe o dropdown em ambos os modos
+  estadoCliente = acao;
   dropdownContainer.style.display = "block";
 
   if (acao === 'atualizar') {
@@ -363,7 +359,7 @@ function mudarEstadoCliente(acao) {
     descricao.innerText = "Selecione o cliente e modifique os dados";
     botaoAcao.innerText = "Atualizar";
     botaoAcao.className = "btn btn-warning w-100";
-    setClienteFormDisabled(false); // Campos editáveis
+    setClienteFormDisabled(false);
     clearClienteForm();
     carregarClientes();
   } else if (acao === 'remover') {
@@ -371,21 +367,20 @@ function mudarEstadoCliente(acao) {
     descricao.innerText = "Selecione o cliente a ser removido";
     botaoAcao.innerText = "Remover";
     botaoAcao.className = "btn btn-danger w-100";
-    setClienteFormDisabled(true); // Campos não editáveis
+    setClienteFormDisabled(true);
     clearClienteForm();
     carregarClientes();
   }
 }
 
-// Event listener para o envio do formulário de cliente
+// Envio do formulário de cliente
 document.getElementById("btnAcaoCliente").addEventListener("click", async function (event) {
   event.preventDefault();
   
   if (estadoCliente === 'atualizar') {
-    // Coleta os dados do formulário para atualização
-    const cpfAntigo = document.getElementById("cpfAntigo").value; // valor original (campo oculto)
+    const cpfAntigo = document.getElementById("cpfAntigo").value;
     const cliente = {
-      cpf: document.getElementById("cpfCliente").value.trim(),  // novo CPF, se modificado
+      cpf: document.getElementById("cpfCliente").value.trim(),
       nome: document.getElementById("nomeCliente").value.trim(),
       cep: document.getElementById("cepCliente").value.trim(),
       numero: parseInt(document.getElementById("numeroCliente").value),
@@ -400,7 +395,7 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
     }
 
     try {
-      let url = `http://localhost:3000/api/cliente/${cpfAntigo}`; // usa o CPF antigo na URL
+      const url = `http://localhost:3000/api/cliente/${cpfAntigo}`;
       const response = await fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -411,7 +406,7 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
       if (response.ok) {
         alert("Cliente atualizado com sucesso!");
         clearClienteForm();
-        carregarClientes(); // Atualiza o dropdown após alteração
+        carregarClientes();
       } else {
         alert(`Erro: ${data.message}`);
       }
@@ -420,7 +415,6 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
     }
     
   } else if (estadoCliente === 'remover') {
-    // No modo remover, o dropdown informa o CPF do cliente a ser removido
     const cpf = document.getElementById("clienteSelect").value;
     if (!cpf) {
       alert("Selecione um cliente para remover.");
@@ -428,7 +422,7 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
     }
 
     try {
-      let url = `http://localhost:3000/api/cliente/${cpf}`;
+      const url = `http://localhost:3000/api/cliente/${cpf}`;
       const response = await fetch(url, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" }
@@ -438,7 +432,7 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
       if (response.ok) {
         alert("Cliente removido com sucesso!");
         clearClienteForm();
-        carregarClientes(); // Atualiza a lista do dropdown
+        carregarClientes();
       } else {
         alert(`Erro: ${data.message}`);
       }
@@ -447,6 +441,7 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
     }
   }
 });
+
 
 // FORNECEDORES
 
@@ -657,4 +652,133 @@ document.getElementById("btnAcaoFornecedor").addEventListener("click", async fun
       alert("Erro ao conectar com o servidor: " + error.message);
     }
   }
+});
+
+/***********************/
+/*   SEÇÃO ALUGUEIS    */
+/***********************/
+let estadoAluguel = "atualizar";
+
+// Muda o estado da tela de aluguel (atualizar ou remover)
+function mudarEstadoAluguel(acao) {
+  estadoAluguel = acao;
+  const titulo = document.getElementById("tituloPrincipalAluguel");
+  const descricao = document.getElementById("descricaoPrincipalAluguel");
+  const botaoAcao = document.getElementById("btnAcaoAluguel");
+  const novaDataFim = document.getElementById("novaDataFim");
+
+  if (acao === "atualizar") {
+    titulo.innerText = "Atualizar Aluguel";
+    descricao.innerText = "Selecione o aluguel ativo e altere a data final para estender o aluguel";
+    botaoAcao.innerText = "Atualizar";
+    botaoAcao.className = "btn btn-warning w-100";
+    novaDataFim.disabled = false;
+  } else if (acao === "remover") {
+    titulo.innerText = "Remover Aluguel";
+    descricao.innerText = "Selecione o aluguel ativo a ser removido";
+    botaoAcao.innerText = "Remover";
+    botaoAcao.className = "btn btn-danger w-100";
+    novaDataFim.disabled = true;
+  }
+}
+
+// Carrega os clientes no dropdown da seção Aluguéis
+function carregarClientesAlugueis() {
+  fetch("http://localhost:3000/api/cliente")
+    .then(response => response.json())
+    .then(data => {
+      const select = document.getElementById("clienteSelectAlugueis");
+      select.innerHTML = '<option value="">Selecione um cliente...</option>';
+      data.forEach(cliente => {
+        const option = document.createElement("option");
+        option.value = cliente.cpf;
+        option.textContent = `${cliente.nome} - ${cliente.cpf}`;
+        select.appendChild(option);
+      });
+    })
+    .catch(error => console.error("Erro ao carregar clientes:", error));
+}
+
+// Carrega os aluguéis ativos do cliente selecionado
+function carregarAlugueisAtivos(cpf) {
+  if (!cpf) {
+    alert("Selecione um cliente para carregar os aluguéis ativos.");
+    return;
+  }
+  fetch(`http://localhost:3000/api/aluguel/ativos/${cpf}`)
+    .then(response => response.json())
+    .then(data => {
+      const select = document.getElementById("aluguelSelect");
+      select.innerHTML = '<option value="">Selecione um aluguel...</option>';
+      data.forEach(aluguel => {
+        const option = document.createElement("option");
+        option.value = aluguel.id_aluguel;
+        option.textContent = `ID: ${aluguel.id_aluguel} - Valor: R$${aluguel.valor}`;
+        select.appendChild(option);
+      });
+    })
+    .catch(error => console.error("Erro ao carregar aluguéis ativos:", error));
+}
+
+// Ao selecionar um aluguel, preenche os campos do formulário
+document.getElementById("aluguelSelect").addEventListener("change", function () {
+  const idAluguel = this.value;
+  if (!idAluguel) return;
+
+  fetch(`http://localhost:3000/api/aluguel/${idAluguel}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("idAluguel").value = data.id_aluguel;
+      document.getElementById("cpfClienteAluguel").value = data.cpf_cliente;
+      document.getElementById("valorAluguel").value = data.valor;
+      document.getElementById("dataFimAtual").value = data.data_fim;
+    })
+    .catch(error => console.error("Erro ao buscar detalhes do aluguel:", error));
+});
+
+// Envio do formulário de aluguel
+document.getElementById("aluguelForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+  const idAluguel = document.getElementById("idAluguel").value;
+  const dataFimAtual = new Date(document.getElementById("dataFimAtual").value);
+  const novaDataFimValue = document.getElementById("novaDataFim").value;
+  
+  if (!novaDataFimValue) {
+    alert("Selecione a nova data final.");
+    return;
+  }
+  
+  const novaDataFim = new Date(novaDataFimValue);
+  const valorAtual = parseFloat(document.getElementById("valorAluguel").value);
+
+  if (novaDataFim <= dataFimAtual) {
+    alert("A nova data deve ser posterior à data atual.");
+    return;
+  }
+
+  const diasTotais = Math.ceil((dataFimAtual - novaDataFim) / (1000 * 60 * 60 * 24));
+  const valorDiaria = valorAtual / diasTotais;
+  const diasExtras = Math.ceil((novaDataFim - dataFimAtual) / (1000 * 60 * 60 * 24));
+  const novoValor = valorAtual + (valorDiaria * diasExtras);
+
+  fetch(`http://localhost:3000/api/aluguel/${idAluguel}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ novaDataFim, novoValor })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert("Aluguel atualizado com sucesso!");
+    carregarClientesAlugueis();
+  })
+  .catch(error => console.error("Erro ao atualizar aluguel:", error));
+});
+
+// Inicializa os dropdowns da seção Aluguéis ao carregar a página
+window.addEventListener("load", () => {
+  carregarClientesAlugueis();
+  document.getElementById("clienteSelectAlugueis").addEventListener("change", function () {
+    const cpf = this.value;
+    carregarAlugueisAtivos(cpf);
+  });
 });
