@@ -654,10 +654,12 @@ document.getElementById("btnAcaoFornecedor").addEventListener("click", async fun
   }
 });
 
-/***********************/
-/*   SEÇÃO ALUGUEIS    */
-/***********************/
-let estadoAluguel = "atualizar";
+/**********************/
+/*   SEÇÃO ALUGUEIS   */
+/**********************/
+
+let estadoAluguel = "atualizar"; // ou "remover"
+let listaAlugueisAtivos = [];
 
 // Muda o estado da tela de aluguel (atualizar ou remover)
 function mudarEstadoAluguel(acao) {
@@ -669,7 +671,7 @@ function mudarEstadoAluguel(acao) {
 
   if (acao === "atualizar") {
     titulo.innerText = "Atualizar Aluguel";
-    descricao.innerText = "Selecione o aluguel ativo e altere a data final para estender o aluguel";
+    descricao.innerText = "Selecione o aluguel ativo e altere a nova data final para estender o aluguel";
     botaoAcao.innerText = "Atualizar";
     botaoAcao.className = "btn btn-warning w-100";
     novaDataFim.disabled = false;
@@ -705,56 +707,106 @@ function carregarAlugueisAtivos(cpf) {
     alert("Selecione um cliente para carregar os aluguéis ativos.");
     return;
   }
-  // Utiliza o endpoint fornecido (note que é 'alugueisAtivos' no plural)
   fetch(`http://localhost:3000/api/alugueisAtivos/${cpf}`)
     .then(response => response.json())
     .then(data => {
+      listaAlugueisAtivos = data;
       const select = document.getElementById("aluguelSelect");
       select.innerHTML = '<option value="">Selecione um aluguel...</option>';
       data.forEach(aluguel => {
         const option = document.createElement("option");
-        // Usamos o id_equipamento como identificador
-        option.value = aluguel.id_equipamento;
-        // Exibe o nome do equipamento e seu valor
-        option.textContent = `Equipamento: ${aluguel.nome} - Valor: R$${aluguel.valor}`;
-        // Armazena informações adicionais no dataset para uso futuro
+        option.value = aluguel.id_aluguel;
+        option.textContent = `ID: ${aluguel.id_aluguel} - Valor: R$${aluguel.valor}`;
         option.dataset.valor = aluguel.valor;
         option.dataset.dataFim = aluguel.data_fim;
-        option.dataset.nome = aluguel.nome;
         select.appendChild(option);
       });
     })
     .catch(error => console.error("Erro ao carregar aluguéis ativos:", error));
 }
 
-// Ao selecionar um aluguel, preenche os campos do formulário com os dados disponíveis
+// Ao selecionar um aluguel ativo, preenche os campos do formulário
 document.getElementById("aluguelSelect").addEventListener("change", function () {
   const selectedOption = this.options[this.selectedIndex];
   if (!selectedOption.value) return;
   
-  // Preenche o campo de ID do aluguel (neste caso, o id_equipamento)
   document.getElementById("idAluguel").value = selectedOption.value;
-  // Preenche o valor do aluguel
   document.getElementById("valorAluguel").value = selectedOption.dataset.valor;
   
-  // Converte a data (se estiver em formato ISO, exibe apenas a parte da data)
   let dataFim = selectedOption.dataset.dataFim;
   if (dataFim) {
     dataFim = dataFim.split("T")[0];
   }
   document.getElementById("dataFimAtual").value = dataFim;
   
-  // Preenche o campo CPF do cliente com o valor selecionado no dropdown de clientes
+  // Preenche o CPF do cliente a partir do dropdown de clientes
   const cpfCliente = document.getElementById("clienteSelectAlugueis").value;
   document.getElementById("cpfClienteAluguel").value = cpfCliente;
 });
 
-// Inicializa os dropdowns da seção Aluguéis ao carregar a página
+// Evento para o envio do formulário de aluguel ativo
+document.getElementById("aluguelForm").addEventListener("submit", async function (event) {
+  event.preventDefault();
+  
+  const idAluguel = document.getElementById("idAluguel").value;
+  if (!idAluguel) {
+    alert("Selecione um aluguel ativo.");
+    return;
+  }
+  
+  if (estadoAluguel === "atualizar") {
+    const novaDataFim = document.getElementById("novaDataFim").value;
+    if (!novaDataFim) {
+      alert("Informe a nova data final.");
+      return;
+    }
+    
+    try {
+      let url = `http://localhost:3000/api/alugueisAtivos/${idAluguel}`;
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ novaDataFim })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("Aluguel atualizado com sucesso!");
+        // Atualiza o dropdown de aluguéis ativos para refletir a alteração
+        const cpf = document.getElementById("clienteSelectAlugueis").value;
+        carregarAlugueisAtivos(cpf);
+      } else {
+        alert(`Erro: ${data.message}`);
+      }
+    } catch (error) {
+      alert("Erro ao conectar com o servidor: " + error.message);
+    }
+  } else if (estadoAluguel === "remover") {
+    try {
+      let url = `http://localhost:3000/api/alugueisAtivos/${idAluguel}`;
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" }
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("Aluguel removido com sucesso!");
+        const cpf = document.getElementById("clienteSelectAlugueis").value;
+        carregarAlugueisAtivos(cpf);
+      } else {
+        alert(`Erro: ${data.message}`);
+      }
+    } catch (error) {
+      alert("Erro ao conectar com o servidor: " + error.message);
+    }
+  }
+  return false;
+});
+
+// Inicializa os dropdowns ao carregar a página
 window.addEventListener("load", () => {
   carregarClientesAlugueis();
   document.getElementById("clienteSelectAlugueis").addEventListener("change", function () {
     const cpf = this.value;
-    // Quando um cliente for selecionado, carrega os aluguéis ativos dele
     carregarAlugueisAtivos(cpf);
   });
 });

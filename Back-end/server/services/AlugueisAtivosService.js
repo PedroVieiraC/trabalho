@@ -5,8 +5,8 @@ class AlugueisAtivosService {
     aluguelRepository.get(cpfCliente, callback);
   }
 
-  update(idAluguel, valor, data_fim, callback) {
-    aluguelRepository.update(idAluguel, valor, data_fim, callback);
+  update(idAluguel, novaDataFim, callback) {
+    aluguelRepository.update(idAluguel, novaDataFim, callback);
   }
 
   remove(idAluguel, callback) {

@@ -246,10 +246,11 @@
         </div>
       </div>
 
-<!-- Seção de Aluguéis Ativos -->
+      <!-- Seção de Aluguéis Ativos -->
 <div id="alugueis" class="col-12 d-flex justify-content-center align-items-center">
   <div class="w-90 h-100 p-4">
     <div class="card shadow-sm h-100">
+      <!-- Botões para alternar entre atualizar e remover -->
       <div class="d-flex justify-content-center mt-3">
         <ul class="botaoEscolha d-flex justify-content-center">
           <li>
@@ -268,6 +269,7 @@
 
       <div class="card-body p-4">
         <form id="aluguelForm" class="needs-validation" novalidate>
+          <!-- Dropdown de Clientes -->
           <div class="mb-4">
             <label for="clienteSelectAlugueis" class="form-label">Selecione um Cliente</label>
             <select id="clienteSelectAlugueis" class="form-select">
@@ -275,6 +277,7 @@
             </select>
           </div>
 
+          <!-- Dropdown de Aluguéis Ativos -->
           <div class="mb-4">
             <label for="aluguelSelect" class="form-label">Selecione um Aluguel</label>
             <select id="aluguelSelect" class="form-select">
@@ -282,26 +285,25 @@
             </select>
           </div>
 
+          <!-- Campos somente leitura -->
           <div class="mb-4">
             <label for="idAluguel" class="form-label">ID do Aluguel</label>
             <input type="text" class="form-control" id="idAluguel" disabled>
           </div>
-
           <div class="mb-4">
             <label for="cpfClienteAluguel" class="form-label">CPF do Cliente</label>
             <input type="text" class="form-control" id="cpfClienteAluguel" disabled>
           </div>
-
           <div class="mb-4">
             <label for="valorAluguel" class="form-label">Valor Atual</label>
             <input type="text" class="form-control" id="valorAluguel" disabled>
           </div>
-
           <div class="mb-4">
             <label for="dataFimAtual" class="form-label">Data Final Atual</label>
             <input type="date" class="form-control" id="dataFimAtual" disabled>
           </div>
 
+          <!-- Campo editável (somente em atualização) -->
           <div class="mb-4">
             <label for="novaDataFim" class="form-label">Nova Data Final</label>
             <input type="date" class="form-control" id="novaDataFim">
@@ -313,6 +315,7 @@
     </div>
   </div>
 </div>
+
 
 
 
