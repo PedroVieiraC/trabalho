@@ -78,6 +78,13 @@ CREATE TABLE PAGAMENTO(
     PRIMARY KEY (ID_ALUGUEL, PARCELA_NUMERO)
 );
 
+ALTER TABLE REGISTRODEALUGUEIS DROP CONSTRAINT registrodealugueis_id_aluguel_fkey;
+
+ALTER TABLE REGISTRODEALUGUEIS
+ADD CONSTRAINT registrodealugueis_id_aluguel_fkey
+FOREIGN KEY (ID_ALUGUEL) REFERENCES ALUGUEL(ID) ON DELETE CASCADE;
+
+
 -- TRIGGERS
 
 -- 1) SE O ADMINISTRADOR APAGOU UM ALUGUEL ATIVO, VAI PARA O REGISTRO
@@ -210,6 +217,39 @@ INSERT INTO EQUIPAMENTO (ID, NOME, CNPJ_FORNECEDOR, QUANTIDADE, DESCRICAO, VALOR
 (4, 'Aindaime 4 unidades','44455566601000',80, '1,00 x 1,50m', 20.00, 'https://img.freepik.com/fotos-gratis/bela-foto-de-barras-de-aco-de-metal-no-predio_181624-26081.jpg?t=st=1737938576~exp=1737942176~hmac=483c79d75ad5ffb3077bea3cf0adf4881a812762046314e309a3d1f551eb944b&w=900'),
 (5, 'Lixadeira', '11122233301000', 800, 'Esmerilhadeira 115mm 880w', 10.00, 'https://img.freepik.com/fotos-gratis/homem-trabalhando-com-um-moedor-angular-com-brilhos-dele_181624-29243.jpg?t=st=1737938682~exp=1737942282~hmac=8f06b0349796131fbc9975ad0190379dd9ae65aeaca5d2eb19b975beb6665c04&w=900');
 
+-- Inserindo aluguéis
+INSERT INTO ALUGUEL (CPF_CLIENTE, QTDE_PARCELAS, DATA_INICIO, DATA_FIM) VALUES
+('11111111111', 3, '2024-02-01', '2024-03-01'),
+('22222222222', 2, '2024-02-05', '2024-03-05'),
+('33333333333', 4, '2024-02-10', '2024-03-10'),
+('44444444444', 1, '2024-02-15', '2024-03-15'),
+('55555555555', 6, '2024-02-20', '2024-03-20');
+
+-- Garantir que os IDs estão corretos
+SELECT setval('aluguel_id_seq', (SELECT MAX(ID) FROM ALUGUEL));
+
+-- Associando equipamentos aos aluguéis
+INSERT INTO ALUGUEISATIVOS (ID_ALUGUEL, ID_EQUIPAMENTO, QUANTIDADE, VALOR) VALUES
+(1, 1, 2, NULL), -- Betoneira (será calculado pelo trigger)
+(1, 2, 5, NULL), -- Kit EPI
+(2, 3, 10, NULL), -- Martelos
+(3, 4, 4, NULL), -- Andaimes
+(4, 5, 1, NULL); -- Lixadeira
+
+-- Simulando registros de aluguéis encerrados
+INSERT INTO REGISTRODEALUGUEIS (ID_ALUGUEL, ID_EQUIPAMENTO, QUANTIDADE, VALOR) VALUES
+(1, 1, 2, 3600.00), -- Betoneira (2 unidades * 30 dias * R$60)
+(1, 2, 5, 1200.00), -- Kit EPI (5 unidades * 30 dias * R$8)
+(2, 3, 10, 2100.00), -- Martelos (10 unidades * 30 dias * R$7)
+(3, 4, 4, 2400.00), -- Andaimes (4 unidades * 30 dias * R$20)
+(4, 5, 1, 300.00);  -- Lixadeira (1 unidade * 30 dias * R$10)
+
+
+-- Após inserir em ALUGUEISATIVOS, os triggers calcularão o valor e povoarão automaticamente PAGAMENTO
+-- REGISTRODEALUGUEIS só será preenchido quando deletarmos um aluguel ativo
+
+
+
 -- Garantir que ao cadastrar vai estar em 6
 SELECT setval('equipamento_id_seq', (SELECT MAX(id) FROM equipamento));
 SELECT setval('aluguel_id_seq', (SELECT MAX(ID) FROM ALUGUEL));
@@ -219,3 +259,9 @@ select * from equipamento;
 select * from fornecedor;
 
 select * from cliente;
+
+-- Verificar os dados inseridos
+SELECT * FROM ALUGUEL;
+SELECT * FROM ALUGUEISATIVOS;
+SELECT * FROM PAGAMENTO;
+SELECT * FROM REGISTRODEALUGUEIS;
