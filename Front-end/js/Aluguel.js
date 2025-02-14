@@ -155,8 +155,6 @@ async function filtrarAlugueis() {
 
   if (filtroStatus === 'todos') {
     rentalItemsContainer.innerHTML = ''; // Limpa o container antes de adicionar novos itens
-    console.log('Listar todos os aluguéis');
-
     // Busca aluguéis ativos e encerrados
     const alugueisAtivos = await listarAlugueisAtivos(cpfCliente);
     const alugueisEncerrados = await listarAlugueisEncerrados(cpfCliente);

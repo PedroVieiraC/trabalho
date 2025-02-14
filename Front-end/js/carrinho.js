@@ -93,9 +93,16 @@ function alterarDiarias(id, delta) {
   }
 }
 
-// Função para finalizar aluguel e registrar pagamento
+function getCpfClienteLogado() {
+  let clienteString = localStorage.getItem("cliente");
+  let clienteObjeto = JSON.parse(clienteString);
+  return clienteObjeto.cpf;
+}
+
+
 async function finalizarAluguel() {
-  const cpfCliente = '12345678901'; // Substitua pelo CPF do cliente logado
+  const cpfCliente = getCpfClienteLogado();
+  console.log("CPF do cliente:", cpfCliente);
   const parcelas = parseInt(document.querySelector('#parcelas').value);
   const total = carrinho.reduce((total, item) => total + item.valor_diaria * item.diarias * item.quantidade, 0);
 
@@ -107,22 +114,24 @@ async function finalizarAluguel() {
   }));
 
   try {
-    // Envia os dados para a API
-    const response = await fetch('http://localhost:3000/api/aluguel', {
+    // Envia os dados para o endpoint de aluguel, que cria o aluguel e, via trigger, gera os pagamentos automaticamente.
+    const responseAluguel = await fetch(`http://localhost:3000/api/aluguel/${cpfCliente}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ cpfCliente, equipamentos, total, parcelas }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ equipamentos, total, parcelas }),
     });
 
-    if (!response.ok) {
-      throw new Error(`Erro na requisição: ${response.status}`);
+    if (!responseAluguel.ok) {
+      throw new Error(`Erro na requisição de aluguel: ${responseAluguel.status}`);
     }
 
-    const data = await response.json();
-    alert('Aluguel finalizado com sucesso!');
+    const aluguelData = await responseAluguel.json();
+    // Supondo que o retorno contenha o id do aluguel (ex.: { idAluguel: ... })
+    if (!aluguelData.idAluguel) {
+      throw new Error('ID do aluguel não retornado.');
+    }
 
+    alert('Aluguel finalizado com sucesso!');
     carrinho = [];
     atualizarCarrinho();
   } catch (error) {
@@ -130,7 +139,3 @@ async function finalizarAluguel() {
     alert('Erro ao finalizar o aluguel. Tente novamente.');
   }
 }
-
-// Adicionar evento ao botão "Finalizar Aluguel"
-document.querySelector('.btn-primary').addEventListener('click', finalizarAluguel);
-inicializarCarrinho();
