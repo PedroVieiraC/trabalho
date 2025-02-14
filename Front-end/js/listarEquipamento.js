@@ -25,9 +25,15 @@ function gerarCards(dados) {
            class="card-img-top" alt="${equipamento.nome}" style="height: 180px; object-fit: cover; border: none;">
       <div class="card-body d-flex flex-column justify-content-between">
         <h5 class="card-title">${equipamento.nome}</h5>
-        <p class="card-text">${equipamento.descricao}</p>
-        <span class="badge bg-primary mb-2">Valor da diária</span>
+        <p class="card-text flex-grow-1">${equipamento.descricao}</p>
+        
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="badge bg-primary">Valor da diária</span>
+          <span class="badge bg-secondary">Qtd: ${equipamento.quantidade}</span>
+        </div>
+
         <h4 class="text-primary fw-bold">R$${parseFloat(equipamento.valor_diaria).toFixed(2)}</h4>
+                
         <a href="#" class="btn btn-warning text-white fw-bold mt-auto btn-alugar" 
            data-id="${equipamento.id}" 
            data-nome="${equipamento.nome}" 
@@ -36,9 +42,7 @@ function gerarCards(dados) {
            Alugar Agora
         </a>
       </div>
-    </div>
-  `;
-
+    </div>`;
     container.innerHTML += cardHTML; // Adiciona o card no container
   });
 
