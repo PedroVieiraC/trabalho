@@ -117,7 +117,6 @@
             </div>
           </div>
 
-          <!-- Resumo do carrinho -->
           <div class="col-lg-4 col-12 d-flex justify-content-center mt-4 mt-lg-0">
             <div class="card shadow-sm"
               style="width: 100%; max-width: 30rem; height: auto; overflow: hidden; border: 3px solid black;">
@@ -129,19 +128,22 @@
                   <span id="subtotal">R$ 0,00</span>
                 </div>
 
-                <div class="d-flex justify-content-between mb-2">
-                  <span>Taxa de serviço</span>
-                  <span>R$ 50,00</span>
-                </div>
-
-                <div class="d-flex justify-content-between mb-4">
-                  <span>Seguro</span>
-                  <span>R$ 100,00</span>
-                </div>
-
                 <div class="d-flex justify-content-between fw-bold mb-4">
                   <span>Total</span>
                   <span id="total">R$ 0,00</span>
+                </div>
+
+                <!-- Seção de Pagamento -->
+                <div class="mb-4">
+                  <label for="parcelas" class="form-label fw-bold">Quantidade de Parcelas</label>
+                  <select id="parcelas" class="form-select border-black border-2">
+                    <option value="1">1x sem juros</option>
+                    <option value="2">2x sem juros</option>
+                    <option value="3">3x sem juros</option>
+                    <option value="4">4x sem juros</option>
+                    <option value="5">5x sem juros</option>
+                    <option value="6">6x sem juros</option>
+                  </select>
                 </div>
 
                 <button class="btn btn-primary w-100 mb-3">Finalizar Aluguel</button>
@@ -149,6 +151,7 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

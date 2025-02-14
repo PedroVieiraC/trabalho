@@ -12,36 +12,26 @@ function adicionarAoCarrinho(event) {
   const itemExistente = carrinho.find(item => item.id === id);
 
   if (itemExistente) {
-    // Se já estiver no carrinho, aumenta a quantidade
     itemExistente.quantidade += 1;
   } else {
-    // Caso contrário, adiciona um novo item ao carrinho com valor inicial de diarias
     carrinho.push({
       id,
       nome,
       valor_diaria,
       imagem,
       quantidade: 1,
-      diarias: 1  // Inicializa diarias com o valor padrão
+      diarias: 1,
     });
   }
-  // Atualiza o carrinho
   atualizarCarrinho();
 }
 
 function atualizarCarrinho() {
-  console.log("Carrinho Atualizado:", carrinho);  // Verifica o carrinho antes de atualizar a interface
-
   const carrinhoContainer = document.querySelector('#carrinhoItens');
-  carrinhoContainer.innerHTML = ''; // Limpa o carrinho
+  carrinhoContainer.innerHTML = '';
 
   if (carrinho.length === 0) {
-    const carrinhoVazioHTML = `
-        <div class="text-center w-100">
-          <p><strong>Carrinho Vazio</strong></p>
-        </div>
-      `;
-    carrinhoContainer.innerHTML = carrinhoVazioHTML;
+    carrinhoContainer.innerHTML = '<div class="text-center w-100"><p><strong>Carrinho Vazio</strong></p></div>';
     return;
   }
 
@@ -66,111 +56,74 @@ function atualizarCarrinho() {
               <input type="text" class="form-control text-center" value="${item.diarias}" readonly>
               <button class="btn btn-outline-secondary" type="button" onclick="alterarDiarias(${item.id}, 1)">+</button>
             </div>
-  
-            <button class="btn btn-outline-danger btn-sm" onclick="removerItem(${item.id})">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 6h18"></path>
-                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-              </svg>
-            </button>
+            <button class="btn btn-outline-danger btn-sm" onclick="removerItem(${item.id})">🗑️</button>
           </div>
-        </div>
-      `;
+        </div>`;
     carrinhoContainer.innerHTML += itemHTML;
   });
 
-  if (carrinho.length === 0) {
-    document.querySelector('#subtotal').textContent = `R$ 0.00`;
-  }
   atualizarTotal();
 }
 
-// Função para atualizar o total do carrinho
+// Função para atualizar o total do carrinho (sem taxa de serviço e seguro)
 function atualizarTotal() {
-
-  // Subtotal: considerando valor da diária, quantidade e número de diárias
   const subtotal = carrinho.reduce((total, item) => total + item.valor_diaria * item.diarias * item.quantidade, 0);
-
-  // Total: incluindo taxa de serviço e seguro
-  const total = subtotal + 50 + 100; // Incluindo taxa de serviço e seguro
-
-  // Atualiza a interface com os valores calculados
   document.querySelector('#subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
-  document.querySelector('#total').textContent = `R$ ${total.toFixed(2)}`;
-
-  // Se o carrinho estiver vazio, o subtotal e o total voltam a 0
+  document.querySelector('#total').textContent = `R$ ${subtotal.toFixed(2)}`;
 }
+
 function removerItem(id) {
-  // Filtra e verifica os itens
-  carrinho = carrinho.filter(item => {
-    return String(item.id) !== String(id);  // Comparação de tipos
-  });
-
-  // Atualiza a interface do carrinho
+  carrinho = carrinho.filter(item => String(item.id) !== String(id));
   atualizarCarrinho();
-  atualizarTotal();
 }
 
-// Função para alterar a quantidade de um item no carrinho
 function alterarQuantidade(id, delta) {
-  const item = carrinho.find(item => String(item.id) === String(id)); // Comparação corrigida
+  const item = carrinho.find(item => String(item.id) === String(id));
   if (item) {
-    item.quantidade = Math.max(1, item.quantidade + delta); // Impede quantidade negativa
-    atualizarCarrinho();  // Atualiza a visualização do carrinho
+    item.quantidade = Math.max(1, item.quantidade + delta);
+    atualizarCarrinho();
   }
 }
-
 
 function alterarDiarias(id, delta) {
-
-
-  const item = carrinho.find(item => String(item.id) === String(id)); // Garantir comparação correta
+  const item = carrinho.find(item => String(item.id) === String(id));
   if (item) {
-
-    item.diarias = Math.max(1, item.diarias + delta); // Impede diárias negativas
-    atualizarCarrinho();  // Atualiza a visualização do carrinho
+    item.diarias = Math.max(1, item.diarias + delta);
+    atualizarCarrinho();
   }
 }
 
-
-
-
-// Função que inicializa o carrinho e adiciona os eventos aos botões
-function inicializarCarrinho() {
-  // Adiciona o evento de clique aos botões de "Alugar Agora"
-  const botoesAlugar = document.querySelectorAll('.btn-alugar');
-  botoesAlugar.forEach(botao => {
-    botao.addEventListener('click', adicionarAoCarrinho);
-  });
-}
-
+// Função para finalizar aluguel e registrar pagamento
 async function finalizarAluguel() {
   const cpfCliente = '12345678901'; // Substitua pelo CPF do cliente logado
+  const parcelas = parseInt(document.querySelector('#parcelas').value);
+  const total = carrinho.reduce((total, item) => total + item.valor_diaria * item.diarias * item.quantidade, 0);
+
   const equipamentos = carrinho.map(item => ({
     id: item.id,
     quantidade: item.quantidade,
     valor_diaria: item.valor_diaria,
     diarias: item.diarias,
   }));
-  const valorSeguro = 100.00; // Valor fixo do seguro
 
   try {
+    // Envia os dados para a API
     const response = await fetch('http://localhost:3000/api/aluguel', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ cpfCliente, equipamentos, valorSeguro }),
+      body: JSON.stringify({ cpfCliente, equipamentos, total, parcelas }),
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`Erro na requisição: ${response.status}`);
     }
 
     const data = await response.json();
     alert('Aluguel finalizado com sucesso!');
-    carrinho = []; // Limpa o carrinho
+
+    carrinho = [];
     atualizarCarrinho();
   } catch (error) {
     console.error('Erro ao finalizar o aluguel:', error);
@@ -178,8 +131,6 @@ async function finalizarAluguel() {
   }
 }
 
-// Adicionar evento de clique ao botão "Finalizar Aluguel"
+// Adicionar evento ao botão "Finalizar Aluguel"
 document.querySelector('.btn-primary').addEventListener('click', finalizarAluguel);
-
-// Chama a função para inicializar o carrinho
 inicializarCarrinho();
