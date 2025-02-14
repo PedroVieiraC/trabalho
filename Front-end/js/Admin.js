@@ -654,6 +654,152 @@ document.getElementById("btnAcaoFornecedor").addEventListener("click", async fun
   }
 });
 
+// Função para carregar clientes para a seção de pagamentos
+function carregarClientesPagamentos() {
+  fetch("http://localhost:3000/api/cliente")
+    .then(response => response.json())
+    .then(data => {
+      const select = document.getElementById("clienteSelectPagamentos");
+      select.innerHTML = '<option value="">Selecione um cliente...</option>';
+      data.forEach(cliente => {
+        const option = document.createElement("option");
+        option.value = cliente.cpf;
+        option.textContent = `${cliente.nome} - ${cliente.cpf}`;
+        select.appendChild(option);
+      });
+    })
+    .catch(error => console.error("Erro ao carregar clientes para pagamentos:", error));
+}
+
+// Função para carregar os aluguéis ativos de um cliente para pagamentos
+function carregarAlugueisPagamentos(cpf) {
+  if (!cpf) {
+    alert("Selecione um cliente para carregar os aluguéis.");
+    return;
+  }
+  fetch(`http://localhost:3000/api/alugueisAtivos/${cpf}`)
+    .then(response => response.json())
+    .then(data => {
+      const select = document.getElementById("aluguelSelectPagamentos");
+      select.innerHTML = '<option value="">Selecione um aluguel...</option>';
+      data.forEach(aluguel => {
+        const option = document.createElement("option");
+        option.value = aluguel.id_aluguel;
+        // Armazena a quantidade de parcelas (caso esteja disponível) no dataset
+        option.dataset.qtdeParcelas = aluguel.qtde_parcelas || 3; 
+        option.textContent = `ID: ${aluguel.id_aluguel} - Valor: R$${aluguel.valor}`;
+        select.appendChild(option);
+      });
+    })
+    .catch(error => console.error("Erro ao carregar aluguéis para pagamentos:", error));
+}
+/**********************/
+/*   SEÇÃO PAGAMENTOS */
+/**********************/
+
+// Função para carregar clientes para a seção de pagamentos
+function carregarClientesPagamentos() {
+  fetch("http://localhost:3000/api/cliente")
+    .then(response => response.json())
+    .then(data => {
+      const select = document.getElementById("clienteSelectPagamentos");
+      select.innerHTML = '<option value="">Selecione um cliente...</option>';
+      data.forEach(cliente => {
+        const option = document.createElement("option");
+        option.value = cliente.cpf;
+        option.textContent = `${cliente.nome} - ${cliente.cpf}`;
+        select.appendChild(option);
+      });
+    })
+    .catch(error => console.error("Erro ao carregar clientes para pagamentos:", error));
+}
+
+// Função para carregar os aluguéis ativos de um cliente para pagamentos
+function carregarAlugueisPagamentos(cpf) {
+  if (!cpf) {
+    alert("Selecione um cliente para carregar os aluguéis.");
+    return;
+  }
+  fetch(`http://localhost:3000/api/alugueisAtivos/${cpf}`)
+    .then(response => response.json())
+    .then(data => {
+      const select = document.getElementById("aluguelSelectPagamentos");
+      select.innerHTML = '<option value="">Selecione um aluguel...</option>';
+      data.forEach(aluguel => {
+        const option = document.createElement("option");
+        option.value = aluguel.id_aluguel;
+        // Se disponível, armazena a quantidade de parcelas; caso contrário, usa 3 como padrão
+        option.dataset.qtdeParcelas = aluguel.qtde_parcelas || 3;
+        option.textContent = `ID: ${aluguel.id_aluguel} - Valor: R$${aluguel.valor}`;
+        select.appendChild(option);
+      });
+    })
+    .catch(error => console.error("Erro ao carregar aluguéis para pagamentos:", error));
+}
+
+// Ao selecionar um cliente na seção de pagamentos, carregar seus aluguéis
+document.getElementById("clienteSelectPagamentos").addEventListener("change", function() {
+  const cpf = this.value;
+  if (cpf) {
+    carregarAlugueisPagamentos(cpf);
+  }
+});
+
+// Ao selecionar um aluguel, preencher o dropdown de parcelas
+document.getElementById("aluguelSelectPagamentos").addEventListener("change", function() {
+  const idAluguel = this.value;
+  const parcelaSelect = document.getElementById("parcelaSelectPagamento");
+  parcelaSelect.innerHTML = '<option value="">Selecione a parcela...</option>';
+  if (idAluguel) {
+    // Obtém a quantidade de parcelas a partir do dataset do option selecionado
+    const qtdeParcelas = this.options[this.selectedIndex].dataset.qtdeParcelas || 3;
+    for (let i = 1; i <= qtdeParcelas; i++) {
+      const option = document.createElement("option");
+      option.value = i;
+      option.textContent = `Parcela ${i}`;
+      parcelaSelect.appendChild(option);
+    }
+  }
+});
+
+// Função para atualizar o pagamento
+document.getElementById("btnAtualizarPagamento").addEventListener("click", async function(event) {
+  event.preventDefault(); // Impede comportamento padrão
+  const idAluguel = document.getElementById("aluguelSelectPagamentos").value;
+  const parcelaNumero = document.getElementById("parcelaSelectPagamento").value;
+  const status = document.getElementById("statusPagamento").value;
+  
+  if (!idAluguel || !parcelaNumero || !status) {
+    alert("Preencha os campos obrigatórios (aluguel, parcela e status).");
+    return;
+  }
+  
+  try {
+    const url = `http://localhost:3000/api/pagamento/${idAluguel}/${parcelaNumero}`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status })
+    });
+    const data = await response.json();
+    const feedback = document.getElementById("feedbackPagamento");
+    // Cria um balão de mensagem usando classes Bootstrap Alert
+    if (response.ok) {
+      feedback.innerHTML = `<div class="alert alert-success" role="alert">Pagamento atualizado com sucesso!</div>`;
+    } else {
+      feedback.innerHTML = `<div class="alert alert-danger" role="alert">Erro: ${data.message}</div>`;
+    }
+  } catch (error) {
+    document.getElementById("feedbackPagamento").innerHTML = `<div class="alert alert-danger" role="alert">Erro ao conectar com o servidor: ${error.message}</div>`;
+  }
+});
+
+// Inicializa a seção de pagamentos ao carregar a página
+window.addEventListener("load", function() {
+  carregarClientesPagamentos();
+});
+
+
 /**********************/
 /*   SEÇÃO ALUGUEIS   */
 /**********************/

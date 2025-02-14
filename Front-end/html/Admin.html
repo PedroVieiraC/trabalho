@@ -30,8 +30,12 @@
             <a class="nav-link" href="#fornecedores">Fornecedores</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#pagamentos">Pagamentos</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#alugueis">Aluguéis</a>
           </li>
+
         </ul>
         <div class="d-flex">
           <a class="btn btn-outline-light" href="../index.html">Voltar</a>
@@ -111,78 +115,78 @@
         </div>
       </div>
 
-<!-- Seção de Clientes -->
-<div id="clientes" class="col-12 d-flex justify-content-center align-items-center">
-  <div class="w-90 h-100 p-4">
-    <div class="card shadow-sm h-100">
-      <div class="d-flex justify-content-center mt-3">
-        <ul class="botaoEscolha d-flex justify-content-center">
-          <li>
-            <a href="javascript:void(0)" onclick="mudarEstadoCliente('atualizar'); return false;">Atualizar</a>
-          </li>
-          <li>
-            <a href="javascript:void(0)" onclick="mudarEstadoCliente('remover'); return false;">Remover</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="text-center mb-4">
-        <h2 id="tituloPrincipalCliente" class="fw-bold">Atualizar Cliente</h2>
-        <p id="descricaoPrincipalCliente" class="text-muted">Selecione o cliente e modifique os dados</p>
-      </div>
-      <div class="card-body p-4">
-        <!-- Início do formulário de clientes -->
-        <form id="clienteForm" class="needs-validation" novalidate>
-          <!-- Dropdown para selecionar um cliente (usado em atualização e remoção) -->
-          <div class="mb-4" id="clienteDropdownContainer">
-            <label for="clienteSelect" class="form-label">Selecione um cliente</label>
-            <select id="clienteSelect" class="form-select">
-              <option value="">Selecione um cliente...</option>
-            </select>
-          </div>
-
-          <!-- Campo oculto para armazenar o CPF original -->
-          <input type="hidden" id="cpfAntigo" name="cpfAntigo">
-
-          <!-- Linha com CPF, CEP e Número -->
-          <div class="row">
-            <div class="col-md-3 mb-3">
-              <label for="cpfCliente" class="form-label">CPF</label>
-              <input type="text" class="form-control" id="cpfCliente" required>
+      <!-- Seção de Clientes -->
+      <div id="clientes" class="col-12 d-flex justify-content-center align-items-center">
+        <div class="w-90 h-100 p-4">
+          <div class="card shadow-sm h-100">
+            <div class="d-flex justify-content-center mt-3">
+              <ul class="botaoEscolha d-flex justify-content-center">
+                <li>
+                  <a href="javascript:void(0)" onclick="mudarEstadoCliente('atualizar'); return false;">Atualizar</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" onclick="mudarEstadoCliente('remover'); return false;">Remover</a>
+                </li>
+              </ul>
             </div>
-            <div class="col-md-4 mb-3">
-              <label for="cepCliente" class="form-label">CEP</label>
-              <input type="text" class="form-control" id="cepCliente" required>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="numeroCliente" class="form-label">Número</label>
-              <input type="number" class="form-control" id="numeroCliente" required>
-            </div>
-          </div>
 
-          <div class="mb-4">
-            <label for="nomeCliente" class="form-label">Nome do Cliente</label>
-            <input type="text" class="form-control" id="nomeCliente" required minlength="3">
+            <div class="text-center mb-4">
+              <h2 id="tituloPrincipalCliente" class="fw-bold">Atualizar Cliente</h2>
+              <p id="descricaoPrincipalCliente" class="text-muted">Selecione o cliente e modifique os dados</p>
+            </div>
+            <div class="card-body p-4">
+              <!-- Início do formulário de clientes -->
+              <form id="clienteForm" class="needs-validation" novalidate>
+                <!-- Dropdown para selecionar um cliente (usado em atualização e remoção) -->
+                <div class="mb-4" id="clienteDropdownContainer">
+                  <label for="clienteSelect" class="form-label">Selecione um cliente</label>
+                  <select id="clienteSelect" class="form-select">
+                    <option value="">Selecione um cliente...</option>
+                  </select>
+                </div>
+
+                <!-- Campo oculto para armazenar o CPF original -->
+                <input type="hidden" id="cpfAntigo" name="cpfAntigo">
+
+                <!-- Linha com CPF, CEP e Número -->
+                <div class="row">
+                  <div class="col-md-3 mb-3">
+                    <label for="cpfCliente" class="form-label">CPF</label>
+                    <input type="text" class="form-control" id="cpfCliente" required>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="cepCliente" class="form-label">CEP</label>
+                    <input type="text" class="form-control" id="cepCliente" required>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="numeroCliente" class="form-label">Número</label>
+                    <input type="number" class="form-control" id="numeroCliente" required>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="nomeCliente" class="form-label">Nome do Cliente</label>
+                  <input type="text" class="form-control" id="nomeCliente" required minlength="3">
+                </div>
+                <div class="mb-4">
+                  <label for="complementoCliente" class="form-label">Complemento</label>
+                  <input type="text" class="form-control" id="complementoCliente">
+                </div>
+                <div class="mb-4">
+                  <label for="telefoneCliente" class="form-label">Telefone</label>
+                  <input type="text" class="form-control" id="telefoneCliente" required>
+                </div>
+                <div class="mb-4">
+                  <label for="senhaCliente" class="form-label">Senha</label>
+                  <input type="password" class="form-control" id="senhaCliente" required>
+                </div>
+                <button type="submit" id="btnAcaoCliente" class="btn btn-primary w-100">Atualizar</button>
+              </form>
+              <!-- Fim do formulário de clientes -->
+            </div>
           </div>
-          <div class="mb-4">
-            <label for="complementoCliente" class="form-label">Complemento</label>
-            <input type="text" class="form-control" id="complementoCliente">
-          </div>
-          <div class="mb-4">
-            <label for="telefoneCliente" class="form-label">Telefone</label>
-            <input type="text" class="form-control" id="telefoneCliente" required>
-          </div>
-          <div class="mb-4">
-            <label for="senhaCliente" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="senhaCliente" required>
-          </div>
-          <button type="submit" id="btnAcaoCliente" class="btn btn-primary w-100">Atualizar</button>
-        </form>
-        <!-- Fim do formulário de clientes -->
+        </div>
       </div>
-    </div>
-  </div>
-</div>
       <!-- Fornecedores -->
       <div id="fornecedores" class="col-12 d-flex justify-content-center align-items-center">
         <div class="w-90 h-100 p-4">
@@ -246,75 +250,123 @@
         </div>
       </div>
 
-      <!-- Seção de Aluguéis Ativos -->
-<div id="alugueis" class="col-12 d-flex justify-content-center align-items-center">
-  <div class="w-90 h-100 p-4">
-    <div class="card shadow-sm h-100">
-      <!-- Botões para alternar entre atualizar e remover -->
-      <div class="d-flex justify-content-center mt-3">
-        <ul class="botaoEscolha d-flex justify-content-center">
-          <li>
-            <a href="javascript:void(0)" onclick="mudarEstadoAluguel('atualizar'); return false;">Atualizar</a>
-          </li>
-          <li>
-            <a href="javascript:void(0)" onclick="mudarEstadoAluguel('remover'); return false;">Remover</a>
-          </li>
-        </ul>
+<!-- Seção de Pagamentos -->
+<section id="pagamentos" class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header text-center">
+      <h2>Gerenciar Pagamentos</h2>
+    </div>
+    <div class="card-body">
+      <!-- Dropdown para selecionar um Cliente -->
+      <div class="mb-3">
+        <label for="clienteSelectPagamentos" class="form-label">Selecione um Cliente</label>
+        <select id="clienteSelectPagamentos" class="form-select">
+          <option value="">Selecione um cliente...</option>
+        </select>
       </div>
-
-      <div class="text-center mb-4">
-        <h2 id="tituloPrincipalAluguel" class="fw-bold">Atualizar Aluguel</h2>
-        <p id="descricaoPrincipalAluguel" class="text-muted">Altere os dados do aluguel</p>
+      <!-- Dropdown para selecionar um Aluguel do cliente -->
+      <div class="mb-3">
+        <label for="aluguelSelectPagamentos" class="form-label">Selecione um Aluguel</label>
+        <select id="aluguelSelectPagamentos" class="form-select">
+          <option value="">Selecione um aluguel...</option>
+        </select>
       </div>
-
-      <div class="card-body p-4">
-        <form id="aluguelForm" class="needs-validation" novalidate>
-          <!-- Dropdown de Clientes -->
-          <div class="mb-4">
-            <label for="clienteSelectAlugueis" class="form-label">Selecione um Cliente</label>
-            <select id="clienteSelectAlugueis" class="form-select">
-              <option value="">Selecione um cliente...</option>
-            </select>
-          </div>
-
-          <!-- Dropdown de Aluguéis Ativos -->
-          <div class="mb-4">
-            <label for="aluguelSelect" class="form-label">Selecione um Aluguel</label>
-            <select id="aluguelSelect" class="form-select">
-              <option value="">Selecione um aluguel...</option>
-            </select>
-          </div>
-
-          <!-- Campos somente leitura -->
-          <div class="mb-4">
-            <label for="idAluguel" class="form-label">ID do Aluguel</label>
-            <input type="text" class="form-control" id="idAluguel" disabled>
-          </div>
-          <div class="mb-4">
-            <label for="cpfClienteAluguel" class="form-label">CPF do Cliente</label>
-            <input type="text" class="form-control" id="cpfClienteAluguel" disabled>
-          </div>
-          <div class="mb-4">
-            <label for="valorAluguel" class="form-label">Valor Atual</label>
-            <input type="text" class="form-control" id="valorAluguel" disabled>
-          </div>
-          <div class="mb-4">
-            <label for="dataFimAtual" class="form-label">Data Final Atual</label>
-            <input type="date" class="form-control" id="dataFimAtual" disabled>
-          </div>
-
-          <!-- Campo editável (somente em atualização) -->
-          <div class="mb-4">
-            <label for="novaDataFim" class="form-label">Nova Data Final</label>
-            <input type="date" class="form-control" id="novaDataFim">
-          </div>
-
-          <button type="submit" id="btnAcaoAluguel" class="btn btn-primary w-100">Atualizar</button>
-        </form>
+      <!-- Dropdown para selecionar a parcela -->
+      <div class="mb-3">
+        <label for="parcelaSelectPagamento" class="form-label">Parcela</label>
+        <select id="parcelaSelectPagamento" class="form-select">
+          <option value="">Selecione a parcela...</option>
+        </select>
       </div>
+      <!-- Dropdown para selecionar o novo status -->
+      <div class="mb-3">
+        <label for="statusPagamento" class="form-label">Status</label>
+        <select id="statusPagamento" class="form-select">
+          <option value="A PAGAR">A PAGAR</option>
+          <option value="PAGO">PAGO</option>
+          <option value="VENCIDO">VENCIDO</option>
+        </select>
+      </div>
+      <!-- Botão de atualizar -->
+      <button type="button" class="btn btn-primary" id="btnAtualizarPagamento">Atualizar</button>
+      <!-- Área para feedback (balão) -->
+      <div id="feedbackPagamento" class="mt-3"></div>
     </div>
   </div>
-</div>
+</section>
+
+
+
+
+      <!-- Seção de Aluguéis Ativos -->
+      <div id="alugueis" class="col-12 d-flex justify-content-center align-items-center">
+        <div class="w-90 h-100 p-4">
+          <div class="card shadow-sm h-100">
+            <!-- Botões para alternar entre atualizar e remover -->
+            <div class="d-flex justify-content-center mt-3">
+              <ul class="botaoEscolha d-flex justify-content-center">
+                <li>
+                  <a href="javascript:void(0)" onclick="mudarEstadoAluguel('atualizar'); return false;">Atualizar</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" onclick="mudarEstadoAluguel('remover'); return false;">Remover</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="text-center mb-4">
+              <h2 id="tituloPrincipalAluguel" class="fw-bold">Atualizar Aluguel</h2>
+              <p id="descricaoPrincipalAluguel" class="text-muted">Altere os dados do aluguel</p>
+            </div>
+
+            <div class="card-body p-4">
+              <form id="aluguelForm" class="needs-validation" novalidate>
+                <!-- Dropdown de Clientes -->
+                <div class="mb-4">
+                  <label for="clienteSelectAlugueis" class="form-label">Selecione um Cliente</label>
+                  <select id="clienteSelectAlugueis" class="form-select">
+                    <option value="">Selecione um cliente...</option>
+                  </select>
+                </div>
+
+                <!-- Dropdown de Aluguéis Ativos -->
+                <div class="mb-4">
+                  <label for="aluguelSelect" class="form-label">Selecione um Aluguel</label>
+                  <select id="aluguelSelect" class="form-select">
+                    <option value="">Selecione um aluguel...</option>
+                  </select>
+                </div>
+
+                <!-- Campos somente leitura -->
+                <div class="mb-4">
+                  <label for="idAluguel" class="form-label">ID do Aluguel</label>
+                  <input type="text" class="form-control" id="idAluguel" disabled>
+                </div>
+                <div class="mb-4">
+                  <label for="cpfClienteAluguel" class="form-label">CPF do Cliente</label>
+                  <input type="text" class="form-control" id="cpfClienteAluguel" disabled>
+                </div>
+                <div class="mb-4">
+                  <label for="valorAluguel" class="form-label">Valor Atual</label>
+                  <input type="text" class="form-control" id="valorAluguel" disabled>
+                </div>
+                <div class="mb-4">
+                  <label for="dataFimAtual" class="form-label">Data Final Atual</label>
+                  <input type="date" class="form-control" id="dataFimAtual" disabled>
+                </div>
+
+                <!-- Campo editável (somente em atualização) -->
+                <div class="mb-4">
+                  <label for="novaDataFim" class="form-label">Nova Data Final</label>
+                  <input type="date" class="form-control" id="novaDataFim">
+                </div>
+
+                <button type="submit" id="btnAcaoAluguel" class="btn btn-primary w-100">Atualizar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
