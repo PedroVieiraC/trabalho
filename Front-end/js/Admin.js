@@ -956,3 +956,106 @@ window.addEventListener("load", () => {
     carregarAlugueisAtivos(cpf);
   });
 });
+
+// Função assíncrona para carregar todos os relatórios
+async function carregarRelatorios() {
+  try {
+    // 1. Cliente com maior valor em aluguéis
+    const resClienteMaiorValor = await fetch('http://localhost:3000/api/relatorio/clienteMaiorValor');
+    const clienteMaiorValorData = await resClienteMaiorValor.json();
+    if (clienteMaiorValorData.length > 0) {
+      const cliente = clienteMaiorValorData[0];
+      document.getElementById('clienteMaiorValor').innerText =
+        `CPF: ${cliente.cpf} - ${cliente.nome} (R$ ${cliente.total_aluguel})`;
+    } else {
+      document.getElementById('clienteMaiorValor').innerText = "Nenhum dado encontrado";
+    }
+
+    // 2. Cliente que já alugou todos os equipamentos
+    const resClienteTodosEquipamentos = await fetch('http://localhost:3000/api/relatorio/clienteTodosEquipamentos');
+    const clienteTodosEquipamentosData = await resClienteTodosEquipamentos.json();
+    if (clienteTodosEquipamentosData.length > 0) {
+      // Se houver mais de um, exibe todos separados por " / "
+      const listaClientes = clienteTodosEquipamentosData
+        .map(cliente => `CPF: ${cliente.cpf} - ${cliente.nome}`)
+        .join(" / ");
+      document.getElementById('clienteTodosEquipamentos').innerText = listaClientes;
+    } else {
+      document.getElementById('clienteTodosEquipamentos').innerText = "Nenhum dado encontrado";
+    }
+
+    // 3. Equipamento mais alugado
+    const resEquipamentoMaisAlugado = await fetch('http://localhost:3000/api/relatorio/equipamentoMaisAlugado');
+    const equipamentoMaisAlugadoData = await resEquipamentoMaisAlugado.json();
+    if (equipamentoMaisAlugadoData.length > 0) {
+      const equip = equipamentoMaisAlugadoData[0];
+      document.getElementById('equipamentoMaisAlugado').innerText =
+        `${equip.nome} (Total: ${equip.total_alugado} unidades)`;
+    } else {
+      document.getElementById('equipamentoMaisAlugado').innerText = "Nenhum dado encontrado";
+    }
+
+    // 4. Receita total por mês
+    const resReceitaPorMes = await fetch('http://localhost:3000/api/relatorio/receitaPorMes');
+    const receitaPorMesData = await resReceitaPorMes.json();
+    const receitaPorMesBody = document.querySelector('#receitaPorMes tbody');
+    receitaPorMesBody.innerHTML = "";
+    if (receitaPorMesData.length > 0) {
+      receitaPorMesData.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${item.mes}</td><td>R$ ${item.receita_total}</td>`;
+        receitaPorMesBody.appendChild(tr);
+      });
+    } else {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="2">Nenhum dado encontrado</td>`;
+      receitaPorMesBody.appendChild(tr);
+    }
+
+    // 5. Clientes com pagamentos atrasados
+    const resClientesAtrasados = await fetch('http://localhost:3000/api/relatorio/clientesPagamentosAtrasados');
+    const clientesAtrasadosData = await resClientesAtrasados.json();
+    const listaClientesAtrasados = document.getElementById('clientesAtrasados');
+    listaClientesAtrasados.innerHTML = "";
+    if (clientesAtrasadosData.length > 0) {
+      clientesAtrasadosData.forEach(cliente => {
+        const li = document.createElement('li');
+        li.className = "list-group-item";
+        li.innerText = `CPF: ${cliente.cpf} - ${cliente.nome} (Atrasos: ${cliente.qtd_atrasados})`;
+        listaClientesAtrasados.appendChild(li);
+      });
+    } else {
+      const li = document.createElement('li');
+      li.className = "list-group-item";
+      li.innerText = "Nenhum dado encontrado";
+      listaClientesAtrasados.appendChild(li);
+    }
+
+    // 6. Equipamentos com estoque abaixo da média
+    const resEstoqueAbaixoMedia = await fetch('http://localhost:3000/api/relatorio/equipamentosEstoqueAbaixoMedia');
+    const estoqueAbaixoMediaData = await resEstoqueAbaixoMedia.json();
+    const listaEstoqueAbaixoMedia = document.getElementById('estoqueAbaixoMedia');
+    listaEstoqueAbaixoMedia.innerHTML = "";
+    if (estoqueAbaixoMediaData.length > 0) {
+      estoqueAbaixoMediaData.forEach(equip => {
+        const li = document.createElement('li');
+        li.className = "list-group-item";
+        li.innerText = `${equip.nome} (Estoque: ${equip.quantidade})`;
+        listaEstoqueAbaixoMedia.appendChild(li);
+      });
+    } else {
+      const li = document.createElement('li');
+      li.className = "list-group-item";
+      li.innerText = "Nenhum dado encontrado";
+      listaEstoqueAbaixoMedia.appendChild(li);
+    }
+  } catch (error) {
+    console.error("Erro ao carregar os relatórios:", error);
+  }
+}
+
+// Chama a função de carregamento dos relatórios quando a página for carregada
+window.onload = function() {
+  carregarRelatorios();
+  // ...outros carregamentos, se necessário
+};
