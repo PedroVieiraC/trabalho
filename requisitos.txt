@@ -1,4 +1,43 @@
-junção interna de no mínimo duas tabelas
-realizada em alugueis ativos, registro de alugueis
-SELECT AA.ID_EQUIPAMENTO, E.NOME, AA.QUANTIDADE, AA.VALOR, A.DATA_INICIO, A.DATA_FIM, E.URL_IMAGEM FROM ALUGUEISATIVOS AA JOIN ALUGUEL A ON AA.ID_ALUGUEL = A.ID JOIN EQUIPAMENTO E ON AA.ID_EQUIPAMENTO = E.ID WHERE A.CPF_CLIENTE = $1
+bom dia! venho apresentar o trabalho prático de banco de dados i,
+materia mininstrada pelo professor Evandrino Barros, no cefet mg.
 
+grupo 3 composto por 
+Alexander Neves 
+Maurilio Novaes
+Pedro Vieira
+
+
+por início, é válido informar que as linguagens utilizadas foram html, css, java script para o front end, nodejs para a api e back end e o banco de dados é o postgree.
+
+copiar o script e rodar no pg4
+
+
+começar apresentando pelo banco
+
+temos 5 entidades (mostrar diagrama) e apresentar cada uma
+
+
+temos 5 triggers também, sendo que o primeiro tem como função adicionar à tabela registrodeAlugueis um aluguel que foi removido de algueis ativos
+
+o segundo e o terceiro tem como função atualizar o estoque (qtd dentro de equipamentos), sendo o segundo quando um aluguel que antes estava ativo é encerrado (os produtos voltam para o estoque) e o terceiro quando um alguel é inciado (os produtos são removidos de estoque)
+
+o quarto tem como função calcular o valor do aluguel através de todos os itens que foram alugados e, por fim,
+
+ o quinto tem como função criar um pagamento assim que um aluguel é iniciado.
+
+
+por fim, tem-se os seriais, que servem para deixar sempre o id do equipamento ou aluguel que vão ser adicionados, atualizados.
+
+Segue em vídeo o povoamento do banco de dados e a consulta dos mesmos para garantir que foi povoado
+
+
+Agora, entrando no site, tem-se a tela inicial e a estrutura consiste em partes das relações.
+
+por in
+
+
+
+
+
+
+ 
