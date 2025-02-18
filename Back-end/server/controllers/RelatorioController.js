@@ -60,6 +60,17 @@ class RelatorioController {
       }
     });
   }
+
+  getClientesAlugueisAtivos(req, res) {
+    relatorioService.getClientesAlugueisAtivos((error, result) => {
+      if (error) {
+        res.status(500).send(error);
+      } else {
+        res.send(result);
+      }
+    });
+  }
+  
 }
 
 module.exports = new RelatorioController();

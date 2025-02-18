@@ -367,99 +367,122 @@
         </div>
       </div>
 
-      <!-- Seção de Relatórios -->
-      <div id="relatorio" class="col-12 d-flex justify-content-center align-items-center">
-        <div class="w-90 h-100 p-4">
-          <div class="row">
-            <!-- 1. Cliente com Maior Valor em Aluguéis -->
-            <div class="col-md-6 mb-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-header text-center">
-                  <h3>Cliente com Maior Valor em Aluguéis</h3>
-                </div>
-                <div class="card-body">
-                  <p id="clienteMaiorValor">Carregando...</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- 2. Cliente que Já Alugou Todos os Equipamentos -->
-            <div class="col-md-6 mb-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-header text-center">
-                  <h3>Cliente que Já Alugou Todos os Equipamentos</h3>
-                </div>
-                <div class="card-body">
-                  <p id="clienteTodosEquipamentos">Carregando...</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- 3. Equipamento Mais Alugado -->
-            <div class="col-md-6 mb-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-header text-center">
-                  <h3>Equipamento Mais Alugado</h3>
-                </div>
-                <div class="card-body">
-                  <p id="equipamentoMaisAlugado">Carregando...</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- 4. Receita Total por Mês -->
-            <div class="col-md-6 mb-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-header text-center">
-                  <h3>Receita Total por Mês</h3>
-                </div>
-                <div class="card-body">
-                  <table class="table table-striped" id="receitaPorMes">
-                    <thead>
-                      <tr>
-                        <th>Mês</th>
-                        <th>Receita</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <!-- Linhas serão inseridas via JavaScript -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <!-- 5. Clientes com Pagamentos Atrasados -->
-            <div class="col-md-6 mb-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-header text-center">
-                  <h3>Clientes com Pagamentos Atrasados</h3>
-                </div>
-                <div class="card-body">
-                  <ul id="clientesAtrasados" class="list-group">
-                    <!-- Itens da lista serão inseridos via JavaScript -->
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <!-- 6. Equipamentos com Estoque Abaixo da Média -->
-            <div class="col-md-6 mb-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-header text-center">
-                  <h3>Equipamentos com Estoque Abaixo da Média</h3>
-                </div>
-                <div class="card-body">
-                  <ul id="estoqueAbaixoMedia" class="list-group">
-                    <!-- Itens da lista serão inseridos via JavaScript -->
-                  </ul>
-                </div>
-              </div>
-            </div>
+<!-- Seção de Relatórios -->
+<div id="relatorio" class="col-12 d-flex justify-content-center align-items-center">
+  <div class="w-90 h-100 p-4">
+    <div class="row">
+      <!-- 1. Cliente com Maior Valor em Aluguéis -->
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-header text-center">
+            <h3>Cliente com Maior Valor em Aluguéis</h3>
+          </div>
+          <div class="card-body">
+            <p id="clienteMaiorValor">Carregando...</p>
           </div>
         </div>
       </div>
 
+      <!-- 2. Cliente que Já Alugou Todos os Equipamentos -->
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-header text-center">
+            <h3>Cliente que Já Alugou Todos os Equipamentos</h3>
+          </div>
+          <div class="card-body">
+            <p id="clienteTodosEquipamentos">Carregando...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Equipamento Mais Alugado -->
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-header text-center">
+            <h3>Equipamento Mais Alugado</h3>
+          </div>
+          <div class="card-body">
+            <p id="equipamentoMaisAlugado">Carregando...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Receita Total por Mês -->
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-header text-center">
+            <h3>Receita Total por Mês</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped" id="receitaPorMes">
+              <thead>
+                <tr>
+                  <th>Mês</th>
+                  <th>Receita</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Linhas serão inseridas via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Clientes com Pagamentos Atrasados -->
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-header text-center">
+            <h3>Clientes com Pagamentos Atrasados</h3>
+          </div>
+          <div class="card-body">
+            <ul id="clientesAtrasados" class="list-group">
+              <!-- Itens da lista serão inseridos via JavaScript -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Equipamentos com Estoque Abaixo da Média -->
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-header text-center">
+            <h3>Equipamentos com Estoque Abaixo da Média</h3>
+          </div>
+          <div class="card-body">
+            <ul id="estoqueAbaixoMedia" class="list-group">
+              <!-- Itens da lista serão inseridos via JavaScript -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Clientes e Quantidade de Aluguéis Ativos -->
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-header text-center">
+            <h3>Clientes e Quantidade de Aluguéis Ativos</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped" id="clientesAlugueisAtivos">
+              <thead>
+                <tr>
+                  <th>CPF</th>
+                  <th>Nome</th>
+                  <th>Aluguéis Ativos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- As linhas serão inseridas via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fim da row -->
+  </div><!-- fim do container interno -->
+</div><!-- fim da seção de Relatórios -->
 
 
     </div>

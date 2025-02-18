@@ -24,6 +24,12 @@ class RelatorioService {
   getEquipamentosEstoqueAbaixoMedia(callback) {
     relatorioRepository.getEquipamentosEstoqueAbaixoMedia(callback);
   }
+
+  getClientesAlugueisAtivos(callback) {
+    relatorioRepository.getClientesAlugueisAtivos(callback);
+  }
+  
+  
 }
 
 module.exports = new RelatorioService();

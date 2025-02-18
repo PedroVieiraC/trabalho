@@ -113,6 +113,31 @@ class RelatorioRepository {
       }
     });
   }
+
+  // 7. Clientes e quantidade de aluguéis ativos
+  getClientesAlugueisAtivos(callback) {
+    const sql = `
+    SELECT
+      c.cpf,
+      c.nome,
+      COUNT(DISTINCT CASE WHEN aa.id_aluguel IS NOT NULL THEN a.id END) AS quantidade_alugueis_ativos
+    FROM
+      cliente c
+    LEFT JOIN aluguel a ON c.cpf = a.cpf_cliente
+    LEFT JOIN alugueisativos aa ON a.id = aa.id_aluguel
+    GROUP BY c.cpf, c.nome
+    ORDER BY c.nome;
+  `;
+    db.query(sql, (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        callback(null, result.rows);
+      }
+    });
+  }
+
 }
+
 
 module.exports = new RelatorioRepository();

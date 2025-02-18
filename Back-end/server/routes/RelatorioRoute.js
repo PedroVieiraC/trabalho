@@ -9,5 +9,7 @@ router.get('/equipamentoMaisAlugado', relatorioController.getEquipamentoMaisAlug
 router.get('/receitaPorMes', relatorioController.getReceitaPorMes);
 router.get('/clientesPagamentosAtrasados', relatorioController.getClientesPagamentosAtrasados);
 router.get('/equipamentosEstoqueAbaixoMedia', relatorioController.getEquipamentosEstoqueAbaixoMedia);
+router.get('/clientesAlugueisAtivos', relatorioController.getClientesAlugueisAtivos);
+
 
 module.exports = router;

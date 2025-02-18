@@ -376,7 +376,7 @@ function mudarEstadoCliente(acao) {
 // Envio do formulário de cliente
 document.getElementById("btnAcaoCliente").addEventListener("click", async function (event) {
   event.preventDefault();
-  
+
   if (estadoCliente === 'atualizar') {
     const cpfAntigo = document.getElementById("cpfAntigo").value;
     const cliente = {
@@ -413,7 +413,7 @@ document.getElementById("btnAcaoCliente").addEventListener("click", async functi
     } catch (error) {
       alert("Erro ao conectar com o servidor: " + error.message);
     }
-    
+
   } else if (estadoCliente === 'remover') {
     const cpf = document.getElementById("clienteSelect").value;
     if (!cpf) {
@@ -686,7 +686,7 @@ function carregarAlugueisPagamentos(cpf) {
         const option = document.createElement("option");
         option.value = aluguel.id_aluguel;
         // Armazena a quantidade de parcelas (caso esteja disponível) no dataset
-        option.dataset.qtdeParcelas = aluguel.qtde_parcelas || 3; 
+        option.dataset.qtdeParcelas = aluguel.qtde_parcelas || 3;
         option.textContent = `ID: ${aluguel.id_aluguel} - Valor: R$${aluguel.valor}`;
         select.appendChild(option);
       });
@@ -738,7 +738,7 @@ function carregarAlugueisPagamentos(cpf) {
 }
 
 // Ao selecionar um cliente na seção de pagamentos, carregar seus aluguéis
-document.getElementById("clienteSelectPagamentos").addEventListener("change", function() {
+document.getElementById("clienteSelectPagamentos").addEventListener("change", function () {
   const cpf = this.value;
   if (cpf) {
     carregarAlugueisPagamentos(cpf);
@@ -746,7 +746,7 @@ document.getElementById("clienteSelectPagamentos").addEventListener("change", fu
 });
 
 // Ao selecionar um aluguel, preencher o dropdown de parcelas
-document.getElementById("aluguelSelectPagamentos").addEventListener("change", function() {
+document.getElementById("aluguelSelectPagamentos").addEventListener("change", function () {
   const idAluguel = this.value;
   const parcelaSelect = document.getElementById("parcelaSelectPagamento");
   parcelaSelect.innerHTML = '<option value="">Selecione a parcela...</option>';
@@ -763,17 +763,17 @@ document.getElementById("aluguelSelectPagamentos").addEventListener("change", fu
 });
 
 // Função para atualizar o pagamento
-document.getElementById("btnAtualizarPagamento").addEventListener("click", async function(event) {
+document.getElementById("btnAtualizarPagamento").addEventListener("click", async function (event) {
   event.preventDefault(); // Impede comportamento padrão
   const idAluguel = document.getElementById("aluguelSelectPagamentos").value;
   const parcelaNumero = document.getElementById("parcelaSelectPagamento").value;
   const status = document.getElementById("statusPagamento").value;
-  
+
   if (!idAluguel || !parcelaNumero || !status) {
     alert("Preencha os campos obrigatórios (aluguel, parcela e status).");
     return;
   }
-  
+
   try {
     const url = `http://localhost:3000/api/pagamento/${idAluguel}/${parcelaNumero}`;
     const response = await fetch(url, {
@@ -795,7 +795,7 @@ document.getElementById("btnAtualizarPagamento").addEventListener("click", async
 });
 
 // Inicializa a seção de pagamentos ao carregar a página
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   carregarClientesPagamentos();
 });
 
@@ -875,16 +875,16 @@ function carregarAlugueisAtivos(cpf) {
 document.getElementById("aluguelSelect").addEventListener("change", function () {
   const selectedOption = this.options[this.selectedIndex];
   if (!selectedOption.value) return;
-  
+
   document.getElementById("idAluguel").value = selectedOption.value;
   document.getElementById("valorAluguel").value = selectedOption.dataset.valor;
-  
+
   let dataFim = selectedOption.dataset.dataFim;
   if (dataFim) {
     dataFim = dataFim.split("T")[0];
   }
   document.getElementById("dataFimAtual").value = dataFim;
-  
+
   // Preenche o CPF do cliente a partir do dropdown de clientes
   const cpfCliente = document.getElementById("clienteSelectAlugueis").value;
   document.getElementById("cpfClienteAluguel").value = cpfCliente;
@@ -893,20 +893,20 @@ document.getElementById("aluguelSelect").addEventListener("change", function () 
 // Evento para o envio do formulário de aluguel ativo
 document.getElementById("aluguelForm").addEventListener("submit", async function (event) {
   event.preventDefault();
-  
+
   const idAluguel = document.getElementById("idAluguel").value;
   if (!idAluguel) {
     alert("Selecione um aluguel ativo.");
     return;
   }
-  
+
   if (estadoAluguel === "atualizar") {
     const novaDataFim = document.getElementById("novaDataFim").value;
     if (!novaDataFim) {
       alert("Informe a nova data final.");
       return;
     }
-    
+
     try {
       let url = `http://localhost:3000/api/alugueisAtivos/${idAluguel}`;
       const response = await fetch(url, {
@@ -1052,10 +1052,36 @@ async function carregarRelatorios() {
   } catch (error) {
     console.error("Erro ao carregar os relatórios:", error);
   }
+
+  // 7. Clientes e Quantidade de Aluguéis Ativos
+  const resClientesAlugueisAtivos = await fetch('http://localhost:3000/api/relatorio/clientesAlugueisAtivos');
+  const clientesAlugueisAtivosData = await resClientesAlugueisAtivos.json();
+  const tabelaClientesAlugueisAtivosBody = document.querySelector('#clientesAlugueisAtivos tbody');
+  tabelaClientesAlugueisAtivosBody.innerHTML = "";
+  if (clientesAlugueisAtivosData.length > 0) {
+    clientesAlugueisAtivosData.forEach(cliente => {
+      const tr = document.createElement('tr');
+      // Se o cliente possui algum aluguel ativo, estiliza a linha com fundo verde
+      if (cliente.quantidade_alugueis_ativos > 0) {
+        tr.classList.add('table-success');
+      }
+      tr.innerHTML = `
+      <td>${cliente.cpf}</td>
+      <td>${cliente.nome}</td>
+      <td>${cliente.quantidade_alugueis_ativos}</td>
+    `;
+      tabelaClientesAlugueisAtivosBody.appendChild(tr);
+    });
+  } else {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td colspan="3">Nenhum dado encontrado</td>`;
+    tabelaClientesAlugueisAtivosBody.appendChild(tr);
+  }
+
 }
 
 // Chama a função de carregamento dos relatórios quando a página for carregada
-window.onload = function() {
+window.onload = function () {
   carregarRelatorios();
   // ...outros carregamentos, se necessário
 };
