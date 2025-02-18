@@ -37,33 +37,47 @@ function atualizarCarrinho() {
 
   carrinho.forEach(item => {
     const itemHTML = `
-        <div class="d-flex align-items-center p-3 border-bottom">
-          <img src="${item.imagem}" alt="${item.nome}" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
-          <div class="flex-grow-1">
-            <h5 class="mb-1">${item.nome}</h5>
-            <p class="text-muted mb-0">Diária: R$ ${item.valor_diaria.toFixed(2)}</p>
+      <div class="d-flex align-items-center p-3 border-bottom">
+        <img src="${item.imagem}" alt="${item.nome}" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+        <div class="flex-grow-1">
+          <h5 class="mb-1">${item.nome}</h5>
+          <p class="text-muted mb-0">Diária: R$ ${item.valor_diaria.toFixed(2)}</p>
+        </div>
+        <div class="d-flex align-items-center">
+          <span class="me-2">Quantidade</span>
+          <div class="input-group input-group-sm me-3" style="width: 100px;">
+            <button class="btn btn-outline-secondary" type="button" onclick="alterarQuantidade(${item.id}, -1)">-</button>
+            <input type="text" class="form-control text-center" value="${item.quantidade}" onchange="atualizarQuantidadeManual(${item.id}, this.value)">
+            <button class="btn btn-outline-secondary" type="button" onclick="alterarQuantidade(${item.id}, 1)">+</button>
           </div>
-          <div class="d-flex align-items-center">
-            <span class="me-2">Quantidade</span>
-            <div class="input-group input-group-sm me-3" style="width: 100px;">
-              <button class="btn btn-outline-secondary" type="button" onclick="alterarQuantidade(${item.id}, -1)">-</button>
-              <input type="text" class="form-control text-center" value="${item.quantidade}" readonly>
-              <button class="btn btn-outline-secondary" type="button" onclick="alterarQuantidade(${item.id}, 1)">+</button>
-            </div>
-            <span class="me-2">Diárias</span>
-            <div class="input-group input-group-sm me-3" style="width: 100px;">
-              <button class="btn btn-outline-secondary" type="button" onclick="alterarDiarias(${item.id}, -1)">-</button>
-              <input type="text" class="form-control text-center" value="${item.diarias}" readonly>
-              <button class="btn btn-outline-secondary" type="button" onclick="alterarDiarias(${item.id}, 1)">+</button>
-            </div>
-            <button class="btn btn-outline-danger btn-sm" onclick="removerItem(${item.id})">🗑️</button>
+          <span class="me-2">Diárias</span>
+          <div class="input-group input-group-sm me-3" style="width: 100px;">
+            <button class="btn btn-outline-secondary" type="button" onclick="alterarDiarias(${item.id}, -1)">-</button>
+            <input type="text" class="form-control text-center" value="${item.diarias}" onchange="atualizarDiariasManual(${item.id}, this.value)">
+            <button class="btn btn-outline-secondary" type="button" onclick="alterarDiarias(${item.id}, 1)">+</button>
           </div>
-        </div>`;
+          <button class="btn btn-outline-danger btn-sm" onclick="removerItem(${item.id})">🗑️</button>
+        </div>
+      </div>`;
     carrinhoContainer.innerHTML += itemHTML;
   });
 
   atualizarTotal();
 }
+
+function atualizarDiariasManual(id, novoValor) {
+  const item = carrinho.find(item => String(item.id) === String(id));
+  if (item) {
+    const valorNumerico = parseInt(novoValor);
+    if (!isNaN(valorNumerico) && valorNumerico > 0) {
+      item.diarias = valorNumerico;
+      atualizarCarrinho();
+    } else {
+      alert("Digite um número válido maior que zero.");
+    }
+  }
+}
+
 
 // Função para atualizar o total do carrinho (sem taxa de serviço e seguro)
 function atualizarTotal() {

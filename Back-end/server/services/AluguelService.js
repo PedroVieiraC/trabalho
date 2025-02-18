@@ -1,9 +1,10 @@
 const aluguelRepository = require('../repositories/AluguelRepository');
 
 class AluguelService {
-  async create(cpfCliente, equipamentos, /* total, */ parcelas) {
-    // Cria o registro na tabela ALUGUEL (data_inicio e data_fim serão definidos pelo default)
-    const novoAluguel = await aluguelRepository.create(cpfCliente, parcelas);
+  async create(cpfCliente, equipamentos, parcelas) {
+    // Assume-se que o período do aluguel seja definido pelo campo "diarias" do primeiro equipamento
+    const dias = equipamentos.length > 0 ? equipamentos[0].diarias : 30;
+    const novoAluguel = await aluguelRepository.create(cpfCliente, parcelas, dias);
     
     // Para cada equipamento, registra o item na tabela ALUGUEISATIVOS
     for (let equipamento of equipamentos) {
