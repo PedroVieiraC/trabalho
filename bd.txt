@@ -152,39 +152,47 @@ BEFORE INSERT ON ALUGUEISATIVOS
 FOR EACH ROW
 EXECUTE FUNCTION set_valor_aluguel();
 
--- 5) Cria os pagamentos automaticamente após a inserção de um ALUGUEL
-CREATE OR REPLACE FUNCTION create_pagamentos() RETURNS TRIGGER AS $$
+-- 5) [NOVA] Atualiza os pagamentos automaticamente após a inserção em ALUGUEISATIVOS
+CREATE OR REPLACE FUNCTION atualizar_pagamentos() RETURNS TRIGGER AS $$
 DECLARE
     valor_total NUMERIC := 0;
+    parcelas INT;
     valor_parcela NUMERIC(10,2);
-    i INT := 0;
+    i INT;
 BEGIN
+    -- Recupera a quantidade de parcelas definida no aluguel
+    SELECT QTDE_PARCELAS INTO parcelas FROM ALUGUEL WHERE ID = NEW.ID_ALUGUEL;
+    
+    -- Calcula o valor total do aluguel considerando todos os itens
     SELECT COALESCE(SUM(VALOR), 0) INTO valor_total 
       FROM ALUGUEISATIVOS 
-      WHERE ID_ALUGUEL = NEW.ID;
-    IF (NEW.QTDE_PARCELAS > 0) THEN
-        valor_parcela := valor_total / NEW.QTDE_PARCELAS;
-        WHILE (i < NEW.QTDE_PARCELAS) LOOP
-            INSERT INTO PAGAMENTO 
-              VALUES (NEW.ID, i + 1, valor_parcela, CURRENT_DATE + INTERVAL '30 days' * (i + 1), 'A PAGAR');
-            i := i + 1;
+      WHERE ID_ALUGUEL = NEW.ID_ALUGUEL;
+      
+    IF parcelas > 0 THEN
+        valor_parcela := valor_total / parcelas;
+        -- Remove registros antigos de pagamentos para evitar duplicação
+        DELETE FROM PAGAMENTO WHERE ID_ALUGUEL = NEW.ID_ALUGUEL;
+        -- Cria os pagamentos conforme a quantidade de parcelas
+        FOR i IN 1..parcelas LOOP
+            INSERT INTO PAGAMENTO (ID_ALUGUEL, PARCELA_NUMERO, VALOR_PARCELA, DATA_VENCIMENTO, STATUS)
+            VALUES (NEW.ID_ALUGUEL, i, valor_parcela, CURRENT_DATE + INTERVAL '30 days' * i, 'A PAGAR');
         END LOOP;
     END IF;
+    
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER create_pagamentos_trg
-AFTER INSERT ON ALUGUEL
+CREATE TRIGGER atualizar_pagamentos_trg
+AFTER INSERT ON ALUGUEISATIVOS
 FOR EACH ROW
-EXECUTE FUNCTION create_pagamentos();
+EXECUTE FUNCTION atualizar_pagamentos();
 
 ---------------------------
 -- Atualização dos Seriais --
 ---------------------------
 SELECT setval('equipamento_id_seq', (SELECT MAX(ID) FROM EQUIPAMENTO));
 SELECT setval('aluguel_id_seq', (SELECT MAX(ID) FROM ALUGUEL));
-
 
 ---------------------------
 -- Inserções (POVOAMENTO) --
@@ -226,7 +234,7 @@ INSERT INTO ALUGUEL (CPF_CLIENTE, QTDE_PARCELAS, DATA_INICIO, DATA_FIM) VALUES
 
 -- Inserções na tabela ALUGUEISATIVOS
 INSERT INTO ALUGUEISATIVOS (ID_ALUGUEL, ID_EQUIPAMENTO, QUANTIDADE, VALOR) VALUES
-(1, 1, 2, NULL), -- Betoneira (o valor será calculado pelo trigger)
+(1, 1, 2, NULL), -- Betoneira (valor calculado pelo trigger)
 (1, 2, 5, NULL), -- Kit EPI
 (2, 3, 10, NULL), -- Martelos
 (3, 4, 4, NULL), -- Andaimes
@@ -239,7 +247,6 @@ INSERT INTO REGISTRODEALUGUEIS (ID_ALUGUEL, ID_EQUIPAMENTO, QUANTIDADE, VALOR) V
 (2, 3, 10, 2100.00), -- Martelos (10 unidades * 30 dias * R$7)
 (3, 4, 4, 2400.00), -- Andaimes (4 unidades * 30 dias * R$20)
 (4, 5, 1, 300.00),  -- Lixadeira (1 unidade * 30 dias * R$10)
--- Inserções na tabela REGISTRODEALUGUEIS para o aluguel de Iuri (ID esperado: 6)
 (6, 1, 1, 1860.00),  -- Betoneira: 31 dias * R$60 = 1860.00
 (6, 2, 1, 248.00),   -- Kit EPI: 31 dias * R$8 = 248.00
 (6, 3, 1, 217.00),   -- Martelos: 31 dias * R$7 = 217.00
@@ -252,7 +259,7 @@ INSERT INTO REGISTRODEALUGUEIS (ID_ALUGUEL, ID_EQUIPAMENTO, QUANTIDADE, VALOR) V
 SELECT * FROM EQUIPAMENTO;
 SELECT * FROM FORNECEDOR;
 SELECT * FROM CLIENTE;
-SELECT * FROM ALUGUEL;
+	SELECT * FROM ALUGUEL;
 SELECT * FROM ALUGUEISATIVOS;
 SELECT * FROM PAGAMENTO;
 SELECT * FROM REGISTRODEALUGUEIS;

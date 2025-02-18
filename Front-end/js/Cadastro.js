@@ -51,9 +51,9 @@ document.getElementById('registerForm').addEventListener('submit', async functio
             return;
         }
 
-    // Validação do CEP (8 dígitos)
+    // Validação do telefone (11 dígitos)
     if (cliente.telefone.length !== 11) {
-        alert('CEP deve conter exatamente 11 dígitos.');
+        alert('Telefone deve conter exatamente 11 dígitos.');
         return;
     }
 

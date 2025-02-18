@@ -4,8 +4,16 @@ class AlugueisAtivosRepository {
   // Retorna os aluguéis ativos de um cliente.
   get(cpfCliente, callback) {
     const sql = `
-      SELECT A.ID AS id_aluguel, AA.ID_EQUIPAMENTO, E.NOME, AA.QUANTIDADE, AA.VALOR,
-      A.DATA_INICIO, A.DATA_FIM, E.URL_IMAGEM
+      SELECT 
+        A.ID AS id_aluguel, 
+        AA.ID_EQUIPAMENTO, 
+        E.NOME, 
+        AA.QUANTIDADE, 
+        AA.VALOR,
+        A.DATA_INICIO, 
+        A.DATA_FIM, 
+        E.URL_IMAGEM,
+        A.QTDE_PARCELAS AS qtde_parcelas
       FROM ALUGUEISATIVOS AA
       JOIN ALUGUEL A ON AA.ID_ALUGUEL = A.ID
       JOIN EQUIPAMENTO E ON AA.ID_EQUIPAMENTO = E.ID
